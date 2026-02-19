@@ -1,0 +1,73 @@
+export const SERVER_URL = import.meta.env.VITE_API_SERVER_URL as string
+
+export const API_URL = {
+  root: (url = '') => `${url ? url : ''}`,
+
+  auth: (url = '') => API_URL.root(`/auth${url}`),
+  register: () => API_URL.auth('/register'),
+  login: () => API_URL.auth('/login'),
+  forgotPassword: () => API_URL.auth('/forgot-password'),
+  resetPassword: () => API_URL.auth('/reset-password'),
+  me: () => API_URL.auth('/me'),
+
+  books: (url = '') => API_URL.root(`/books${url}`),
+  getBooks: () => API_URL.books('/'),
+  createBook: () => API_URL.books(),
+  updateBook: (bookId = '') => API_URL.books(`/${bookId}`),
+  deleteBook: (bookId = '') => API_URL.books(`/${bookId}`),
+  restoreBook: (bookId = '') => API_URL.books(`/${bookId}/restore`),
+  getBookById: (bookId = '') => API_URL.books(`/${bookId}`),
+  getBookReviews: (bookId = '') => API_URL.books(`/${bookId}/reviews`),
+  booksReservations: () => API_URL.books(`/reservations`),
+  reserveBook: (bookId = '') => API_URL.books(`/${bookId}/reserve`),
+
+  genres: (url = '') => API_URL.root(`/genres${url}`),
+  getGenres: () => API_URL.genres('/'),
+  createGenre: (genre = '') => API_URL.genres(`/${genre}`),
+  attachGenre: (bookId = '') => API_URL.genres(`/attach/${bookId}`),
+  detachGenre: (bookId = '') => API_URL.genres(`/detach/${bookId}`),
+  deleteGenre: (genreId = '') => API_URL.genres(`/${genreId}`),
+
+  reservations: (url = '') => API_URL.root(`/reservations${url}`),
+  getReservations: () => API_URL.reservations('/'),
+  getReservationById: (reservationId = '') => API_URL.reservations(`/${reservationId}`),
+  cancelReservation: (reservationId = '') => API_URL.reservations(`/${reservationId}/cancel`),
+  issueReservation: (reservationId = '') => API_URL.reservations(`/${reservationId}/issue`),
+  acceptReservation: (reservationId = '') => API_URL.reservations(`/${reservationId}/accept`),
+
+  publishers: (url = '') => API_URL.root(`/publishers${url}`),
+  getPublishers: () => API_URL.publishers('/'),
+  createPublisher: () => API_URL.publishers(),
+  updatePublisher: (publisherId = '') => API_URL.publishers(`/${publisherId}`),
+  deletePublisher: (publisherId = '') => API_URL.publishers(`/${publisherId}`),
+  getPublisherById: (publisherId = '') => API_URL.publishers(`/${publisherId}`),
+
+  categories: (url = '') => API_URL.root(`/categories${url}`),
+  getCategories: () => API_URL.categories('/'),
+  createCategory: () => API_URL.categories(),
+  updateCategory: (categoryId = '') => API_URL.categories(`/${categoryId}`),
+  deleteCategory: (categoryId = '') => API_URL.categories(`/${categoryId}`),
+  getCategoryById: (categoryId = '') => API_URL.categories(`/${categoryId}`),
+
+  authors: (url = '') => API_URL.root(`/authors${url}`),
+  getAuthors: () => API_URL.authors('/'),
+  createAuthor: () => API_URL.authors(),
+  updateAuthor: (authorId = '') => API_URL.authors(`/${authorId}`),
+  deleteAuthor: (authorId = '') => API_URL.authors(`/${authorId}`),
+  getAuthorById: (authorId = '') => API_URL.authors(`/${authorId}`),
+
+  reviews: (url = '') => API_URL.root(`/reviews${url}`),
+  getReviews: () => API_URL.reviews('/'),
+  createReview: (bookId = '') => API_URL.reviews(`/${bookId}`),
+  getReview: (reviewId = '') => API_URL.reviews(`/${reviewId}`),
+
+  admin: (url = '') => API_URL.root(`/admin${url}`),
+  users: (url = '') => API_URL.admin(`/users${url}`),
+  getUsers: () => API_URL.users('/'),
+  createUsers: () => API_URL.users(),
+  getUserById: (userId = '') => API_URL.users(`/${userId}`),
+  updateUser: (userId = '') => API_URL.users(`/${userId}`),
+  updateUserRole: (userId = '') => API_URL.users(`/role/${userId}`),
+  deleteUser: (userId = '') => API_URL.users(`/${userId}`),
+  restoreUser: (userId = '') => API_URL.users(`/${userId}/restore`),
+}
