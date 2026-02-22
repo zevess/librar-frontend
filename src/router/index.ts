@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import { HomePage } from '@/pages/home'
 import { ProfilePage } from '@/pages/profile'
 import { CatalogPage } from '@/pages/catalog'
+import { BookPage } from '@/pages/book'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/catalog',
       name: 'catalog',
       component: CatalogPage,
+    },
+    {
+      path: '/book/:slug',
+      name: 'book',
+      component: BookPage,
     },
     {
       path: '/about',

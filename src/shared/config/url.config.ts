@@ -9,8 +9,8 @@ export const PUBLIC_URL = {
   profile: () => PUBLIC_URL.root(`/me`),
 
   catalog: () => PUBLIC_URL.root(`/catalog`),
-  books: (url = '') => PUBLIC_URL.root(`/books${url}`),
-  book: (bookSlug = '', bookId = '') => PUBLIC_URL.root(`/books/${bookSlug}-${bookId}`),
+  books: (url = '') => PUBLIC_URL.root(`/book${url}`),
+  book: (bookSlug = '', bookId = '') => PUBLIC_URL.root(`/book/${bookSlug}-${bookId}`),
 
   publishers: (url = '') => PUBLIC_URL.root(`/publishers${url}`),
   publisher: (publisherSlug = '') => PUBLIC_URL.root(`/publishers/${publisherSlug}`),

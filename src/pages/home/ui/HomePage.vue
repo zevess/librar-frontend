@@ -15,10 +15,10 @@ import { PageTitle } from '@/shared/ui/page-title'
       obcaecati voluptas mollitia cum ipsa? Sunt eveniet dolore iusto minus magnam sed sequi
       corrupti tempora omnis veritatis!
     </p>
-    <BookList :items="bookData" />
+    <BookList variant="default" :items="bookData" />
 
-    <PrimeCarousel :values="bookData">
-      <!-- <template #item="slot">
+    <!-- <PrimeCarousel :values="bookData"> -->
+    <!-- <template #item="slot">
         <BookCard
           :is-awailable="slot.data.isAwailable"
           :title="slot.data.title"
@@ -26,7 +26,7 @@ import { PageTitle } from '@/shared/ui/page-title'
           :image="slot.data.image"
         />
       </template> -->
-    </PrimeCarousel>
+    <!-- </PrimeCarousel> -->
     <ActionButton class="w-1/4 mx-auto" title="смотреть больше" />
   </div>
 </template>
