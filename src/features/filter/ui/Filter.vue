@@ -49,9 +49,9 @@ const availability = ref('Все')
         <PrimeCheckbox
           v-for="item in publisherData"
           v-model="publishers"
-          :name="item.slug"
+          :name="item?.slug"
           :value="item.name"
-          :input-id="item.slug"
+          :input-id="item?.slug"
         ></PrimeCheckbox>
       </div>
     </PrimeAccordion>

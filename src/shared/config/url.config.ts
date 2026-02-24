@@ -12,8 +12,11 @@ export const PUBLIC_URL = {
   books: (url = '') => PUBLIC_URL.root(`/book${url}`),
   book: (bookSlug = '', bookId = '') => PUBLIC_URL.root(`/book/${bookSlug}-${bookId}`),
 
-  publishers: (url = '') => PUBLIC_URL.root(`/publishers${url}`),
-  publisher: (publisherSlug = '') => PUBLIC_URL.root(`/publishers/${publisherSlug}`),
+  authors: (url = '') => PUBLIC_URL.root(`/author${url}`),
+  author: (authorSlug = '') => PUBLIC_URL.root(`/author${authorSlug}`),
+
+  publishers: (url = '') => PUBLIC_URL.root(`/publisher${url}`),
+  publisher: (publisherSlug = '') => PUBLIC_URL.root(`/publisher/${publisherSlug}`),
 
   admin: (url = '') => PUBLIC_URL.root(`/admin${url}`),
   adminUsers: () => PUBLIC_URL.admin(`/users`),

@@ -11,9 +11,9 @@ const props = defineProps<{
 
 const styles: Record<'default' | 'catalog', string> = {
   default:
-    'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6 justify-items-center p-2 md:p-4',
+    'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 justify-items-center gap-4 sm:gap-6  p-2 md:p-4',
   catalog:
-    'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 justify-items-center p-2 md:p-4',
+    'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 p-2 md:p-4',
 }
 </script>
 

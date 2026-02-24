@@ -4,6 +4,8 @@ import { HomePage } from '@/pages/home'
 import { ProfilePage } from '@/pages/profile'
 import { CatalogPage } from '@/pages/catalog'
 import { BookPage } from '@/pages/book'
+import { AuthorPage } from '@/pages/author'
+import { PublisherPage } from '@/pages/publisher'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +29,16 @@ const router = createRouter({
       path: '/book/:slug',
       name: 'book',
       component: BookPage,
+    },
+    {
+      path: '/author/:slug',
+      name: 'author',
+      component: AuthorPage,
+    },
+    {
+      path: '/publisher/:slug',
+      name: 'publisher',
+      component: PublisherPage,
     },
     {
       path: '/about',
