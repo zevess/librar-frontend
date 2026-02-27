@@ -6,6 +6,7 @@ import { ActionButton } from '@/shared/ui/action-button'
 import { PageSubtitle } from '@/shared/ui/page-subtitle'
 import { PageTitle } from '@/shared/ui/page-title'
 import { PrimeRating } from '@/shared/ui/rating'
+import { SettingButton } from '@/shared/ui/setting-button'
 import { ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 
@@ -30,11 +31,17 @@ watch(
         <PageTitle :title="book?.title" class="text-center md:text-left mb-2" />
         <RouterLink
           :to="PUBLIC_URL.author('/scott-snyder')"
-          class="text-xl hover:underline text-center md:text-left"
+          class="text-xl hover:underline text-center md:text-left w-fit"
           >{{ book?.author }}</RouterLink
         >
       </div>
-      <PageSubtitle title="книга" />
+      <div class="flex items-center gap-6">
+        <RouterLink :to="PUBLIC_URL.adminBookEdit(book?.slug)">
+          <SettingButton />
+        </RouterLink>
+
+        <PageSubtitle title="книга" />
+      </div>
     </div>
 
     <div class="flex flex-col items-center md:flex-row md:items-start gap-6 md:gap-16">
@@ -69,7 +76,6 @@ watch(
           <li class="flex gap-8">
             <span class="text-gray-700 w-30">Издательство:</span>
             <RouterLink :to="PUBLIC_URL.publisher('publisher')">{{ book?.publisher }}</RouterLink>
-            <!-- <span>{{ book?.author }}</span> -->
           </li>
           <li class="flex gap-8">
             <span class="text-gray-700 w-30">Автор:</span>
@@ -79,28 +85,10 @@ watch(
         <div class="mt-24 flex flex-col gap-4">
           <h2 class="text-xl font-semibold">ОТЗЫВЫ</h2>
           <ReviewCard
+            v-for="n in 5"
+            :key="n"
             name="Пользователь"
-            :rating="5"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat."
-          />
-          <ReviewCard
-            name="Пользователь"
-            :rating="2"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat."
-          />
-          <ReviewCard
-            name="Пользователь"
-            :rating="5"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat."
-          />
-          <ReviewCard
-            name="Пользователь"
-            :rating="5"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat."
-          />
-          <ReviewCard
-            name="Пользователь"
-            :rating="5"
+            :rating="n % 2 == 0 ? 2 : 5"
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat."
           />
         </div>

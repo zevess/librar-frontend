@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { bookData } from '@/entities/book/model/book.types'
-import { BookCard } from '@/entities/book/ui/book-card'
-import { BookList } from '@/entities/book/ui/book-list'
+import { BookList } from '@/entities/book'
+
 import { ActionButton } from '@/shared/ui/action-button'
 import { PrimeCarousel } from '@/shared/ui/carousel'
 import { PageTitle } from '@/shared/ui/page-title'
@@ -15,7 +15,7 @@ import { PageTitle } from '@/shared/ui/page-title'
       obcaecati voluptas mollitia cum ipsa? Sunt eveniet dolore iusto minus magnam sed sequi
       corrupti tempora omnis veritatis!
     </p>
-    <BookList variant="default" :items="bookData" />
+    <BookList :is-reservable="true" variant="default" :items="bookData" />
 
     <!-- <PrimeCarousel :values="bookData"> -->
     <!-- <template #item="slot">

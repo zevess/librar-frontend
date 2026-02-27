@@ -8,10 +8,5 @@ export const useHeaderNavigation = (): IHeaderNavItem[] => {
       url: PUBLIC_URL.profile(),
       icon: 'user',
     },
-    // {
-    //   title: 'Уведомления',
-    //   url: PUBLIC_URL.profile(),
-    //   icon: 'inbox',
-    // },
   ]
 }

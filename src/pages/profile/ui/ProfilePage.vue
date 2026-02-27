@@ -4,7 +4,7 @@ import { bookData } from '@/entities/book/model/book.types'
 import { BookCard } from '@/entities/book/ui/book-card'
 import { BookList } from '@/entities/book/ui/book-list'
 import { reservationData } from '@/entities/reservation/model/reservation.types'
-import { ReservationCard } from '@/entities/reservation/ui/reservation-card'
+import { ReservationCard } from '@/entities/reservation'
 import { PageSubtitle } from '@/shared/ui/page-subtitle'
 import { PageTitle } from '@/shared/ui/page-title'
 // defineProps<IAuthor>()
