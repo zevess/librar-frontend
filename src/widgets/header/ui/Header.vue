@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import HeaderItem from './HeaderItem.vue'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import type { IHeaderNavItem } from '../model/types'
+import { useProfile } from '@/entities/user'
 
 defineProps<{
-  items: IHeaderNavItem[]
+  items?: IHeaderNavItem[]
 }>()
 
 const isHeaderVisible = ref(true)

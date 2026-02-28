@@ -1,21 +1,29 @@
 <script setup lang="ts">
 import { authorData, type IAuthor } from '@/entities/author/model/author.types'
 import { bookData } from '@/entities/book/model/book.types'
-import { BookCard } from '@/entities/book/ui/book-card'
-import { BookList } from '@/entities/book/ui/book-list'
+
 import { reservationData } from '@/entities/reservation/model/reservation.types'
 import { ReservationCard } from '@/entities/reservation'
 import { PageSubtitle } from '@/shared/ui/page-subtitle'
 import { PageTitle } from '@/shared/ui/page-title'
-// defineProps<IAuthor>()
+import { useUserStore } from '@/stores/counter'
+import { onMounted } from 'vue'
+import { getAccessToken } from '@/entities/auth/model/auth.token'
+import { useProfile } from '@/entities/user'
 const book = bookData[0]
 const reservation = reservationData
+
+const { profile } = useProfile()
+console.log(profile)
+
+// const { user } = useUserStore()
+// console.log(user)
 </script>
 
 <template>
   <div class="flex flex-col gap-4 w-full">
     <div class="flex flex-col md:flex-row justify-center md:justify-between">
-      <PageTitle title="имя пользователя" class="text-center md:text-left mb-2" />
+      <PageTitle :title="profile?.user.name" class="text-center md:text-left mb-2" />
       <PageSubtitle title="профиль" />
     </div>
     <span class="text-xl">Активные брони:</span>
@@ -32,7 +40,7 @@ const reservation = reservationData
 
     <span class="text-xl">Завершенные брони:</span>
     <div class="flex">
-      <ReservationCard :reservation="reservationData" />
+      <!-- <ReservationCard :reservation="reservationData" /> -->
       <!-- <div class="flex flex-col w-fit relative">
         <span class="text-center font-semibold">Принято</span>
         <BookCard :book="book" />

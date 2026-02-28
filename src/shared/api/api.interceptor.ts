@@ -2,12 +2,12 @@ import type { CreateAxiosDefaults } from 'axios'
 import { SERVER_URL } from '../config/api.config'
 import { errorCatch, getContentType } from './api.helper'
 import axios from 'axios'
-import { getAccessToken } from '@/entities/auth/model/auth.token'
+import { getAccessToken, removeTokenFromStorage } from '@/entities/auth/model/auth.token'
 
 const options: CreateAxiosDefaults = {
   baseURL: SERVER_URL,
   headers: getContentType(),
-  withCredentials: true,
+  // withCredentials: true,
 }
 
 const api = axios.create(options)
@@ -19,6 +19,17 @@ apiPrivate.interceptors.request.use((config) => {
   return config
 })
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response.status === 401) {
+      removeTokenFromStorage()
+      window.location.href = '/auth'
+    }
+  },
+)
+
+export { api, apiPrivate }
 // apiPrivate.interceptors.request.use(
 //   (config) => config,
 //   async (error) => {

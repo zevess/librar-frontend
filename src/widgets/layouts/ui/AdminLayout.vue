@@ -2,7 +2,6 @@
 import { Container } from '@/shared/ui/container'
 import { Logo } from '@/shared/ui/logo'
 import { PageSubtitle } from '@/shared/ui/page-subtitle'
-import { SearchInput } from '@/shared/ui/input'
 import { Footer } from '@/widgets/footer'
 import { Header } from '@/widgets/header'
 import { useAdminHeaderNavigation } from '@/widgets/header/model/useAdminNavigation'

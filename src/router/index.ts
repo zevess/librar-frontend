@@ -18,6 +18,7 @@ import { EditPublisherPage } from '@/pages/edit-publisher'
 import { CreateAuthorPage } from '@/pages/create-author'
 import { EditAuthorPage } from '@/pages/edit-author'
 import { AdminCategoriesPage } from '@/pages/admin-categories'
+import { AuthPage } from '@/pages/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -138,6 +139,12 @@ const router = createRouter({
       name: 'admin/publishers',
       component: AdminCategoriesPage,
       meta: { layout: 'admin' },
+    },
+    {
+      path: '/auth',
+      name: 'auth',
+      component: AuthPage,
+      meta: { layout: 'auth' },
     },
     // {
     //   path: '/about',

@@ -8,6 +8,7 @@ import Aura from '@primeuix/themes/aura'
 import App from './App.vue'
 import router from './router'
 import { definePreset, palette } from '@primeuix/themes'
+import { VueQueryPlugin } from '@tanstack/vue-query'
 
 const app = createApp(App)
 // d1ebe9
@@ -43,6 +44,7 @@ const app = createApp(App)
 //     },
 //   },
 // })
+app.use(VueQueryPlugin)
 app.use(createPinia())
 app.use(router)
 app.use(PrimeVue, {

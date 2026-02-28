@@ -9,7 +9,12 @@ import { Footer } from '@/widgets/footer'
 import { Header } from '@/widgets/header'
 import { useHeaderNavigation } from '@/widgets/header/model/useNavigation'
 import { RouterLink } from 'vue-router'
+import { useProfile } from '@/entities/user'
+import { computed } from 'vue'
 const items = useHeaderNavigation()
+const isAuthentificated = localStorage.getItem('isAuthentificated') === 'true'
+// const { profile } = useProfile()
+// const isAuthentificated = computed(() => !!profile.value?.user)
 </script>
 
 <template>
@@ -18,7 +23,7 @@ const items = useHeaderNavigation()
       <RouterLink to="/">
         <Logo />
       </RouterLink>
-      <RouterLink class="hidden md:block" :to="PUBLIC_URL.catalog()">
+      <RouterLink v-if="isAuthentificated" class="hidden md:block" :to="PUBLIC_URL.catalog()">
         <CatalogButton />
       </RouterLink>
       <div class="hidden md:flex md:w-4/12">
