@@ -13,7 +13,7 @@ export const PUBLIC_URL = {
   book: (bookSlug = '', bookId = '') => PUBLIC_URL.root(`/book/${bookSlug}${bookId}`),
 
   authors: (url = '') => PUBLIC_URL.root(`/author${url}`),
-  author: (authorSlug = '') => PUBLIC_URL.root(`/author${authorSlug}`),
+  author: (authorSlug = '') => PUBLIC_URL.authors(`/${authorSlug}`),
 
   publishers: (url = '') => PUBLIC_URL.root(`/publisher${url}`),
   publisher: (publisherSlug = '') => PUBLIC_URL.root(`/publisher/${publisherSlug}`),

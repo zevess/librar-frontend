@@ -1,8 +1,10 @@
 export interface IUser {
-  user: {
-    id: number
-    name: string
-    email: string
-    role: string
-  }
+  id: number
+  name: string
+  email: string
+  role: string
+}
+
+export interface IUserResponse {
+  user: IUser
 }

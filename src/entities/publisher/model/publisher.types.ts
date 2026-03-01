@@ -1,10 +1,16 @@
+import type { IBook } from '@/entities/book'
+
 export interface IPublisher {
+  id: number
   name: string
   slug?: string
   description?: string
+  books: {
+    data: IBook[]
+  }
 }
 
-export const publisherData: IPublisher[] = [
+export const publisherData = [
   {
     name: 'Азбука',
     description:

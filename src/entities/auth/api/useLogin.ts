@@ -5,7 +5,7 @@ import { useUserStore } from '@/stores/counter'
 import axios from 'axios'
 
 export const useLogin = () => {
-  const { setUser } = useUserStore()
+  const { setUser, setToken } = useUserStore()
   const {
     mutate: login,
     isPending: isLoginLoading,
@@ -16,7 +16,8 @@ export const useLogin = () => {
     mutationKey: ['login user'],
     mutationFn: (data: ILogin) => authService.login(data),
     onSuccess(data) {
-      setUser(data.data)
+      setUser(data.data.user)
+      setToken(data.data.token)
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

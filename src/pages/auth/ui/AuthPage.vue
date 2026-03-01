@@ -25,7 +25,11 @@ const handleSubmit = () => {
     <PageTitle :title="isRegister ? 'Регистрация' : 'Вход'"></PageTitle>
     <form @submit.prevent="handleSubmit" v-if="!isRegister" class="flex flex-col gap-4">
       <Input v-model="form.email" placeholder="email" />
-      <Input v-model="form.password" placeholder="пароль" />
+      <div class="flex flex-col">
+        <Input v-model="form.password" placeholder="пароль" type="password" />
+        <span class="hover:underline cursor-pointer mt-2 w-fit">Забыли пароль?</span>
+      </div>
+
       <ActionButton title="Войти" type="submit" :disabled="isLoginLoading" />
     </form>
     <!-- <form action="" v-if="isRegister" class="flex flex-col gap-4">

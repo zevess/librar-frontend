@@ -4,6 +4,7 @@ import { Container } from './shared/ui/container'
 import { AdminLayout, AuthLayout, Layout } from './widgets/layouts'
 import { computed } from 'vue'
 import { useProfile } from './entities/user'
+import { useUserStore } from './stores/counter'
 
 const route = useRoute()
 const layouts = {
@@ -17,6 +18,7 @@ const CurrentLayout = computed(() => {
   return layouts[layoutName] || Layout
 })
 useProfile()
+useUserStore().initFromCookies()
 </script>
 
 <template>

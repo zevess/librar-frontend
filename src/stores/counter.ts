@@ -3,7 +3,8 @@
 // import { type IUser } from '@/entities/user'
 
 import type { IAuthResponse } from '@/entities/auth'
-import type { IUser } from '@/entities/user'
+import { getAccessToken } from '@/entities/auth/model/auth.token'
+import { useProfile, type IUser } from '@/entities/user'
 import { defineStore } from 'pinia'
 
 // export const useCounterStore = defineStore('counter', () => {
@@ -18,18 +19,35 @@ import { defineStore } from 'pinia'
 // })
 
 interface UserState {
-  user: IAuthResponse | null
+  user: IUser | null
+  token: string | null
+  isAuthentificated: boolean
 }
 
 export const useUserStore = defineStore('user', {
   state: (): UserState => {
     return {
       user: null,
+      token: null,
+      isAuthentificated: false,
     }
   },
+  // getters: {
+  //   isAuthentificated: (state) => !!state.user?.user,
+  // },
   actions: {
-    setUser(user: IAuthResponse) {
+    setUser(user: IUser) {
       this.user = user
+    },
+    setToken(token: string) {
+      this.token = token
+    },
+    initFromCookies() {
+      const token = getAccessToken()
+      if (token) {
+        this.token = token
+        this.isAuthentificated = true
+      }
     },
   },
 })

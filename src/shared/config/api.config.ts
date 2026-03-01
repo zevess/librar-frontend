@@ -17,6 +17,8 @@ export const API_URL = {
   deleteBook: (bookId = '') => API_URL.books(`/${bookId}`),
   restoreBook: (bookId = '') => API_URL.books(`/${bookId}/restore`),
   getBookById: (bookId = '') => API_URL.books(`/${bookId}`),
+  getBookBySlug: (bookSlug = '') => API_URL.books(`/${bookSlug}`),
+  getBookBySlugAndId: (bookSlug = '', bookId = '') => API_URL.books(`/${bookSlug}-${bookId}`),
   getBookReviews: (bookId = '') => API_URL.books(`/${bookId}/reviews`),
   booksReservations: () => API_URL.books(`/reservations`),
   reserveBook: (bookId = '') => API_URL.books(`/${bookId}/reserve`),
@@ -41,6 +43,7 @@ export const API_URL = {
   updatePublisher: (publisherId = '') => API_URL.publishers(`/${publisherId}`),
   deletePublisher: (publisherId = '') => API_URL.publishers(`/${publisherId}`),
   getPublisherById: (publisherId = '') => API_URL.publishers(`/${publisherId}`),
+  getPublisherBySlugAndId: (publisherSlug = '') => API_URL.publishers(`/${publisherSlug}`),
 
   categories: (url = '') => API_URL.root(`/categories${url}`),
   getCategories: () => API_URL.categories('/'),
@@ -50,6 +53,7 @@ export const API_URL = {
   getCategoryById: (categoryId = '') => API_URL.categories(`/${categoryId}`),
 
   authors: (url = '') => API_URL.root(`/authors${url}`),
+  getAuthorBySlug: (slug = '') => API_URL.authors(`/${slug}`),
   getAuthors: () => API_URL.authors('/'),
   createAuthor: () => API_URL.authors(),
   updateAuthor: (authorId = '') => API_URL.authors(`/${authorId}`),

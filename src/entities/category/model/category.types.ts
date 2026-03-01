@@ -1,7 +1,8 @@
-export interface ICaregory {
-  id?: number
+export interface ICategory {
+  id: number
   name: string
-  slug?: string
+  slug: string
+  description?: string
 }
 
 export const categoryData = [

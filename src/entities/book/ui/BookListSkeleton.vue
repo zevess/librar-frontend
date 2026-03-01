@@ -3,12 +3,10 @@ import { RouterLink } from 'vue-router'
 
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import type { IBook } from '../model/book.types'
-import { BookCard } from '..'
+import { BookCard, BookCardSkeleton } from '..'
 
 const props = defineProps<{
-  items: IBook[]
   variant: 'default' | 'catalog'
-  isReservable: boolean
 }>()
 
 const styles: Record<'default' | 'catalog', string> = {
@@ -21,14 +19,6 @@ const styles: Record<'default' | 'catalog', string> = {
 
 <template>
   <div :class="styles[variant]">
-    <BookCard
-      v-for="item in items"
-      :book="item"
-      :is-reservable="isReservable"
-      :is-editable="false"
-    />
+    <BookCardSkeleton v-for="n in 6" :key="n" />
   </div>
-  <h2 v-if="!items" class="text-3xl mx-auto">
-    Ошибка при получении данных. Повторите попытку позже
-  </h2>
 </template>

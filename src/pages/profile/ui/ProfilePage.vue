@@ -14,17 +14,17 @@ const book = bookData[0]
 const reservation = reservationData
 
 const { profile } = useProfile()
-console.log(profile)
+console.log(profile.value?.user)
 
-// const { user } = useUserStore()
-// console.log(user)
+const { user, token } = useUserStore()
+console.log(token)
 </script>
 
 <template>
   <div class="flex flex-col gap-4 w-full">
     <div class="flex flex-col md:flex-row justify-center md:justify-between">
       <PageTitle :title="profile?.user.name" class="text-center md:text-left mb-2" />
-      <PageSubtitle title="профиль" />
+      <PageSubtitle v-if="token" title="профиль" />
     </div>
     <span class="text-xl">Активные брони:</span>
     <!-- <div class="flex">

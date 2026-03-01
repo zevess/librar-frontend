@@ -11,10 +11,10 @@ import { useHeaderNavigation } from '@/widgets/header/model/useNavigation'
 import { RouterLink } from 'vue-router'
 import { useProfile } from '@/entities/user'
 import { computed } from 'vue'
-const items = useHeaderNavigation()
-const isAuthentificated = localStorage.getItem('isAuthentificated') === 'true'
-// const { profile } = useProfile()
-// const isAuthentificated = computed(() => !!profile.value?.user)
+import { useUserStore } from '@/stores/counter'
+
+const { isAuthentificated } = useUserStore()
+const items = useHeaderNavigation(isAuthentificated)
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const isAuthentificated = localStorage.getItem('isAuthentificated') === 'true'
       <RouterLink to="/">
         <Logo />
       </RouterLink>
-      <RouterLink v-if="isAuthentificated" class="hidden md:block" :to="PUBLIC_URL.catalog()">
+      <RouterLink class="hidden md:block" :to="PUBLIC_URL.catalog()">
         <CatalogButton />
       </RouterLink>
       <div class="hidden md:flex md:w-4/12">

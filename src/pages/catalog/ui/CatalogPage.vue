@@ -5,11 +5,13 @@ import { PrimeDrawer } from '@/shared/ui/drawer'
 import { PageTitle } from '@/shared/ui/page-title'
 import { ref } from 'vue'
 import { CatalogFilter } from '@/features/catalog-filter'
+import { useGetBooks } from '@/entities/book/api/useGetBooks'
 
 // const genres = ref()
 // const category = ref()
 // const publishers = ref()
 // const availability = ref('Все')
+const { books, isLoading } = useGetBooks()
 </script>
 
 <template>
@@ -28,7 +30,13 @@ import { CatalogFilter } from '@/features/catalog-filter'
         <CatalogFilter />
       </div>
 
-      <BookList :is-reservable="true" variant="catalog" :items="bookData" class="" />
+      <BookList
+        v-if="!isLoading"
+        :is-reservable="true"
+        variant="catalog"
+        :items="books?.data ?? []"
+      />
+      <BookListSkeleton variant="catalog" v-if="isLoading" />
     </div>
   </div>
 </template>

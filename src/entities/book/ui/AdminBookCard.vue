@@ -5,6 +5,6 @@ import { bookData } from '../model/book.types'
 
 <template>
   <div class="">
-    <BookCard :book="bookData[0]" />
+    <!-- <BookCard :book="bookData[0]" /> -->
   </div>
 </template>
