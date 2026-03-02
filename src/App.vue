@@ -23,6 +23,10 @@ useUserStore().initFromCookies()
 
 <template>
   <component :is="CurrentLayout">
-    <RouterView />
+    <RouterView v-slot="{ Component }">
+      <Transition name="page" mode="out-in">
+        <component :is="Component" />
+      </Transition>
+    </RouterView>
   </component>
 </template>

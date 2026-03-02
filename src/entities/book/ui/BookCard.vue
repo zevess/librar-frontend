@@ -3,12 +3,24 @@ import { ActionButton } from '@/shared/ui/action-button'
 import { RouterLink } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { bookData, type IBook } from '../model/book.types'
+import { useQueryClient } from '@tanstack/vue-query'
+import { bookService } from '../model/book.service'
 
-defineProps<{
+const props = defineProps<{
   book: IBook
   isEditable: boolean
   isReservable: boolean
 }>()
+
+const slug = `${props.book.slug}-${props.book.id}`
+
+const queryClient = useQueryClient()
+const prefetchBook = async () => {
+  await queryClient.prefetchQuery({
+    queryKey: ['get book', slug],
+    queryFn: () => bookService.getBookBySlug(slug),
+  })
+}
 </script>
 
 <template>

@@ -4,35 +4,13 @@ import HeaderItem from './HeaderItem.vue'
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import type { IHeaderNavItem } from '../model/types'
 import { useProfile } from '@/entities/user'
+import { useHeaderStatus } from '@/shared/lib'
 
 defineProps<{
   items?: IHeaderNavItem[]
 }>()
 
-const isHeaderVisible = ref(true)
-let lastScrollY = ref(0)
-
-const handleScroll = () => {
-  const currentScrollY = window.scrollY
-
-  if (currentScrollY > lastScrollY.value && currentScrollY > 200) {
-    isHeaderVisible.value = false
-  } else {
-    isHeaderVisible.value = true
-  }
-
-  lastScrollY.value = currentScrollY
-}
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
-
-// const items = useHeaderNavigation()
+const { isHeaderVisible } = useHeaderStatus()
 </script>
 
 <template>

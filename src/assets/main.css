@@ -15,6 +15,16 @@ body {
   font-weight: normal;
 }
 
+.page-enter-active,
+.page-leave-active {
+  transition: 400ms ease all;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
 /* a:hover {
   color: #bededc;
 } */

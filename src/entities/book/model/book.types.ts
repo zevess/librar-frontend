@@ -1,5 +1,6 @@
 import type { IAuthor } from '@/entities/author'
 import type { ICategory } from '@/entities/category'
+import type { IGenre } from '@/entities/genre'
 import type { IPublisher } from '@/entities/publisher'
 
 export interface IBook {
@@ -11,6 +12,9 @@ export interface IBook {
   author: IAuthor
   publisher: IPublisher
   category: ICategory
+  genres: {
+    data: IGenre[]
+  }
   isAvailable: boolean
 }
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useGetBook } from '@/entities/book'
 import { bookData, type IBook } from '@/entities/book/model/book.types'
-import { ReviewCard } from '@/entities/review/ui/review-card'
+import { ReviewCard, useGetBookReviews } from '@/entities/review'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { useGetParams } from '@/shared/lib'
 import { ActionButton } from '@/shared/ui/action-button'
@@ -9,44 +9,33 @@ import { PageSubtitle } from '@/shared/ui/page-subtitle'
 import { PageTitle } from '@/shared/ui/page-title'
 import { PrimeRating } from '@/shared/ui/rating'
 import { SettingButton } from '@/shared/ui/setting-button'
-import { ref, watch } from 'vue'
+import { Skeleton } from 'primevue'
+import { provide, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import BookCharacteristics from './BookCharacteristics.vue'
+import BookHeader from './BookHeader.vue'
 
-const { slug } = useGetParams()
-const { book } = useGetBook(slug)
+const rating = ref<number>()
 
-// const book = bookData[0]
-// const rating = ref(4.8)
-// console.log(rating.value)
-// watch(
-//   rating,
-//   () => {
-//     console.log(rating.value)
-//   },
-//   {
-//     deep: true,
-//   },
-// )
+const { slug, id } = useGetParams()
+const { book, isFetching, isSuccess } = useGetBook(slug)
+
+const { reviews } = useGetBookReviews(id)
+watch(reviews, () => {
+  rating.value = reviews.value?.average
+})
+
+provide('isFetching', isFetching)
 </script>
 
 <template>
   <div class="flex flex-col gap-4 w-full">
     <div class="flex items-center flex-col md:flex-row justify-center md:justify-between">
-      <div class="flex flex-col gap-3 md:gap-0">
-        <PageTitle :title="book?.data.title" class="text-center md:text-left mb-2" />
-        <RouterLink
-          :to="PUBLIC_URL.author(`${book?.data.author.slug}-${book?.data.author.id}`)"
-          class="text-xl hover:underline text-center md:text-left w-fit"
-          >{{ book?.data.author.name }}</RouterLink
-        >
+      <div v-if="isFetching" class="flex flex-col items-center md:items-start gap-6 mt-4">
+        <Skeleton height="32px" width="260px"></Skeleton>
+        <Skeleton height="24px" width="120px"></Skeleton>
       </div>
-      <div class="flex items-center gap-6">
-        <RouterLink :to="PUBLIC_URL.adminBookEdit(slug)">
-          <SettingButton />
-        </RouterLink>
-
-        <PageSubtitle title="книга" />
-      </div>
+      <BookHeader v-if="book?.data" :book="book?.data" />
     </div>
 
     <div class="flex flex-col items-center md:flex-row md:items-start gap-6 md:gap-16">
@@ -56,6 +45,7 @@ const { book } = useGetBook(slug)
           class="w-full h-full object-contain rounded"
           alt=""
         />
+        <Skeleton v-if="isFetching" width="100%" height="100%" class="aspect-2/3"></Skeleton>
 
         <div class="flex flex-col mt-4 gap-1">
           <span class="text-gray-500">Доступно</span>
@@ -65,46 +55,33 @@ const { book } = useGetBook(slug)
             title="Забронировать"
           ></ActionButton>
         </div>
-        <!-- <div class="mt-6 flex items-center gap-4">
+        <div class="mt-6 flex items-center gap-4">
           <span class="text-4xl">{{ rating }}</span>
           <PrimeRating v-model="rating" readonly font-size="x-large" />
-          <span>5 оценок</span>
-        </div> -->
+          <span>{{ reviews?.data.length }}</span>
+        </div>
       </div>
 
       <div class="flex flex-col gap-4 w-full md:max-w-2/3">
         <p>
           {{ book?.data.description }}
         </p>
+        <div v-if="isFetching" class="flex flex-col gap-2">
+          <Skeleton v-for="n in 3" :key="n" width="100%"></Skeleton>
+        </div>
+
         <div class="border border-[#bededc]"></div>
-        <ul class="w-full gap-4 grid grid-cols-1 lg:grid-cols-2 justify-between">
-          <li class="flex gap-8">
-            <span class="text-gray-700 w-30">Автор:</span>
-            <span>{{ book?.data.author.name }}</span>
+        <ul v-if="isFetching" class="w-full gap-4 grid grid-cols-1 lg:grid-cols-2 justify-between">
+          <li class="flex gap-8" v-for="n in 4" :key="n">
+            <Skeleton width="120px"></Skeleton>
+            <Skeleton width="200px"></Skeleton>
           </li>
-          <li class="flex gap-8">
-            <span class="text-gray-700 w-30">Издательство:</span>
-            <RouterLink
-              :to="
-                PUBLIC_URL.publisher(`${book?.data.publisher?.slug}-${book?.data.publisher?.id}`)
-              "
-              >{{ book?.data.publisher.name }}</RouterLink
-            >
-          </li>
-          <!-- <li class="flex gap-8">
-            <span class="text-gray-700 w-30">Автор:</span>
-            <span>{{ book?.author }}</span>
-          </li> -->
         </ul>
+        <BookCharacteristics v-if="book?.data" :book="book?.data" />
+
         <div class="mt-24 flex flex-col gap-4">
           <h2 class="text-xl font-semibold">ОТЗЫВЫ</h2>
-          <ReviewCard
-            v-for="n in 5"
-            :key="n"
-            name="Пользователь"
-            :rating="n % 2 == 0 ? 2 : 5"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat."
-          />
+          <ReviewCard v-for="review in reviews?.data" :key="review.id" :review="review" />
         </div>
       </div>
     </div>
