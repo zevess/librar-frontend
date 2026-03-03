@@ -1,2 +1,5 @@
 export type { IAuthResponse } from './model/auth.types'
 export { useLogin } from './api/useLogin'
+export type { LoginSchema } from './model/auth.schema'
+export { loginSchema } from './model/auth.schema'
+export { removeTokenFromStorage, saveTokenToStorage, getAccessToken } from './model/auth.token'

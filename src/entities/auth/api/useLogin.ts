@@ -1,15 +1,20 @@
 import { useMutation } from '@tanstack/vue-query'
 import type { ILogin } from '../model/auth.types'
 import { authService } from '../model/auth.service'
-import { useUserStore } from '@/stores/counter'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/entities/user'
+import { computed } from 'vue'
 
 export const useLogin = () => {
-  const { setUser, setToken } = useUserStore()
+  const { setUser, setToken, initFromCookies } = useUserStore()
+  const router = useRouter()
+
   const {
     mutate: login,
-    isPending: isLoginLoading,
-    error: isLoginError,
+    isPending,
+    error,
+    isError,
     isSuccess,
     data: user,
   } = useMutation({
@@ -18,12 +23,16 @@ export const useLogin = () => {
     onSuccess(data) {
       setUser(data.data.user)
       setToken(data.data.token)
+      initFromCookies()
+      router.push('/')
     },
+
     onError(error) {
       if (axios.isAxiosError(error)) {
-        console.log(error)
+        console.error(error.response?.data.message)
       }
     },
   })
-  return { login, isLoginError, isSuccess, user, isLoginLoading }
+
+  return { login, error, isError, isSuccess, user, isPending }
 }

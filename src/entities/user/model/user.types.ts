@@ -8,3 +8,9 @@ export interface IUser {
 export interface IUserResponse {
   user: IUser
 }
+
+export interface UserState {
+  user: IUser | null
+  token: string | null
+  isAuthentificated: boolean
+}

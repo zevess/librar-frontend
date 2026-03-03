@@ -7,8 +7,8 @@ import { Skeleton } from 'primevue'
 const props = defineProps<{
   review: IReview
 }>()
-const rating = ref(props.review.rating)
 
+const rating = ref(props.review.rating)
 const isFetching = inject('isFetching')
 </script>
 
@@ -21,7 +21,7 @@ const isFetching = inject('isFetching')
     ]"
   >
     <div class="flex justify-between">
-      <span>{{ review.user.name }}</span>
+      <span class="font-semibold">{{ review.user.name }}</span>
       <span>{{ new Date(review.created_at).toLocaleDateString('ru-RU') }}</span>
     </div>
     <PrimeRating v-model="rating" readonly />

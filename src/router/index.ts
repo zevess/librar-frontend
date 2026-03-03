@@ -19,6 +19,7 @@ import { CreateAuthorPage } from '@/pages/create-author'
 import { EditAuthorPage } from '@/pages/edit-author'
 import { AdminCategoriesPage } from '@/pages/admin-categories'
 import { AuthPage } from '@/pages/auth'
+import { useUserStore } from '@/entities/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,7 +34,7 @@ const router = createRouter({
       path: '/me',
       name: 'profile',
       component: ProfilePage,
-      meta: { layout: 'default' },
+      meta: { layout: 'default', auth: true },
     },
     {
       path: '/catalog',
@@ -144,7 +145,7 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       component: AuthPage,
-      meta: { layout: 'auth' },
+      meta: { layout: 'auth', guest: true },
     },
     // {
     //   path: '/about',
@@ -155,6 +156,25 @@ const router = createRouter({
     //   component: () => import('../views/AboutView.vue'),
     // },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore()
+  userStore.initFromCookies()
+  const isAuthentificated = userStore.isAuthentificated
+  if (to.meta.guest && isAuthentificated) {
+    return next({
+      name: 'home',
+      replace: true,
+    })
+  }
+  if (to.meta.auth && !isAuthentificated) {
+    return next({
+      name: 'auth',
+      replace: true,
+    })
+  }
+  next()
 })
 
 export default router

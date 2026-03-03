@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import type { IBook } from '@/entities/book'
 import { PUBLIC_URL } from '@/shared/config'
-import { Skeleton } from 'primevue'
-import { inject } from 'vue'
 
 defineProps<{
   book: IBook
 }>()
-const isFetching = inject('isFetching')
 </script>
 
 <template>
-  <!-- <span v-if="!book">Нет информации</span> -->
   <ul class="w-full gap-4 grid grid-cols-1 lg:grid-cols-2 justify-between">
     <li v-if="book" class="flex gap-8">
       <span class="text-gray-700 w-30">Автор:</span>

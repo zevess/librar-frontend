@@ -1,14 +1,22 @@
-import { useUserStore } from '@/stores/counter'
 import { useQuery } from '@tanstack/vue-query'
 import { userService } from '../model/user.service'
+import { useUserStore } from '../model/user.store'
+import axios from 'axios'
+import { watch } from 'vue'
 
 export const useProfile = () => {
-  // const { setUser } = useUserStore()
-  const { data: profile } = useQuery({
-    queryKey: ['profile'],
+  const {
+    data: profile,
+    isFetching,
+    isError,
+    error,
+    isFetched,
+    isSuccess,
+  } = useQuery({
+    queryKey: ['get profile'],
     queryFn: () => userService.me(),
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
   })
-  return { profile }
+
+  return { profile, isFetched, isFetching, isSuccess }
 }

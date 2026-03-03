@@ -19,7 +19,7 @@ export const saveTokenToStorage = (accessToken: string) => {
 }
 
 export const removeTokenFromStorage = () => {
-  Cookies.remove(EnumTokens.ACCESS_TOKEN, {
+  Cookies.remove(EnumTokens.TOKEN, {
     domain: import.meta.env.VITE_APP_DOMAIN,
     sameSite: 'strict',
   })

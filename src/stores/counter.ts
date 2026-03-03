@@ -17,37 +17,3 @@ import { defineStore } from 'pinia'
 
 //   return { count, doubleCount, increment }
 // })
-
-interface UserState {
-  user: IUser | null
-  token: string | null
-  isAuthentificated: boolean
-}
-
-export const useUserStore = defineStore('user', {
-  state: (): UserState => {
-    return {
-      user: null,
-      token: null,
-      isAuthentificated: false,
-    }
-  },
-  // getters: {
-  //   isAuthentificated: (state) => !!state.user?.user,
-  // },
-  actions: {
-    setUser(user: IUser) {
-      this.user = user
-    },
-    setToken(token: string) {
-      this.token = token
-    },
-    initFromCookies() {
-      const token = getAccessToken()
-      if (token) {
-        this.token = token
-        this.isAuthentificated = true
-      }
-    },
-  },
-})

@@ -9,9 +9,7 @@ import { Footer } from '@/widgets/footer'
 import { Header } from '@/widgets/header'
 import { useHeaderNavigation } from '@/widgets/header/model/useNavigation'
 import { RouterLink } from 'vue-router'
-import { useProfile } from '@/entities/user'
-import { computed } from 'vue'
-import { useUserStore } from '@/stores/counter'
+import { useUserStore } from '@/entities/user'
 
 const { isAuthentificated } = useUserStore()
 const items = useHeaderNavigation(isAuthentificated)

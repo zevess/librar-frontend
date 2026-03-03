@@ -3,8 +3,7 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 import { Container } from './shared/ui/container'
 import { AdminLayout, AuthLayout, Layout } from './widgets/layouts'
 import { computed } from 'vue'
-import { useProfile } from './entities/user'
-import { useUserStore } from './stores/counter'
+import { useProfile, useUserStore } from './entities/user'
 
 const route = useRoute()
 const layouts = {
@@ -23,9 +22,11 @@ useUserStore().initFromCookies()
 
 <template>
   <component :is="CurrentLayout">
-    <RouterView v-slot="{ Component }">
+    <RouterView v-slot="{ Component, route }">
       <Transition name="page" mode="out-in">
-        <component :is="Component" />
+        <div :key="route.name">
+          <component :is="Component" />
+        </div>
       </Transition>
     </RouterView>
   </component>

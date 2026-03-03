@@ -1,14 +1,18 @@
 import type { CreateAxiosDefaults } from 'axios'
-import { SERVER_URL } from '../config/api.config'
 import { errorCatch, getContentType } from './api.helper'
 import axios from 'axios'
-import { getAccessToken, removeTokenFromStorage } from '@/entities/auth/model/auth.token'
+import { getAccessToken, removeTokenFromStorage } from '@/entities/auth'
+import { PUBLIC_URL, SERVER_URL } from '../config'
+import { useUserStore } from '@/entities/user'
+import { useRouter } from 'vue-router'
 
 const options: CreateAxiosDefaults = {
   baseURL: SERVER_URL,
   headers: getContentType(),
-  // withCredentials: true,
 }
+
+// const router = useRouter()
+// const store = useUserStore()
 
 const api = axios.create(options)
 const apiPrivate = axios.create(options)
@@ -19,33 +23,13 @@ apiPrivate.interceptors.request.use((config) => {
   return config
 })
 
-api.interceptors.response.use(
+apiPrivate.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response.status === 401) {
       removeTokenFromStorage()
-      window.location.href = '/auth'
     }
   },
 )
 
 export { api, apiPrivate }
-// apiPrivate.interceptors.request.use(
-//   (config) => config,
-//   async (error) => {
-//     const originalRequest = error.config
-//     if (
-//       error?.response?.status === 401 ||
-//       errorCatch(error) === 'jwt expired' ||
-//       (errorCatch(error) === 'jwt must be provided' && error.config && !error.config._isRetry)
-//     ) {
-//       originalRequest._isRetry = true
-//       try {
-//         await authService.refresh()
-//         return apiWithAuth.request(originalRequest)
-//       } catch (error) {
-//         if (errorCatch(error) === 'jwt expired') removeFromStorage()
-//       }
-//     }
-//   },
-// )

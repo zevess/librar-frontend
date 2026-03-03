@@ -9,6 +9,7 @@ export const API_URL = {
   forgotPassword: () => API_URL.auth('/forgot-password'),
   resetPassword: () => API_URL.auth('/reset-password'),
   me: () => API_URL.auth('/me'),
+  logout: () => API_URL.auth('/logout'),
 
   books: (url = '') => API_URL.root(`/books${url}`),
   getBooks: () => API_URL.books('/'),
