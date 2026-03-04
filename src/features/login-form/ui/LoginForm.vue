@@ -3,20 +3,20 @@ import { type LoginSchema, loginSchema, useLogin } from '@/entities/auth'
 import { ActionButton } from '@/shared/ui/action-button'
 import { Input } from '@/shared/ui/input'
 import { toTypedSchema } from '@vee-validate/zod'
-import { isAxiosError } from 'axios'
 import { useForm } from 'vee-validate'
-import { ref, watch } from 'vue'
 
-const { login, isPending, isSuccess, error, user, isError } = useLogin()
-const { handleSubmit, values, errors, defineField } = useForm<LoginSchema>({
+const { login, isPending, isError, errorMessage } = useLogin()
+const { handleSubmit, errors, defineField, meta, resetForm } = useForm<LoginSchema>({
   validationSchema: toTypedSchema(loginSchema),
 })
-
 const [email, emailAttrs] = defineField('email')
 const [password, passwordAttrs] = defineField('password')
 
 const onSubmit = handleSubmit((formValues) => {
   login(formValues)
+  resetForm({
+    values: formValues,
+  })
 })
 </script>
 
@@ -34,14 +34,8 @@ const onSubmit = handleSubmit((formValues) => {
       <span class="hover:underline cursor-pointer mt-2 w-fit">Забыли пароль?</span>
     </div>
 
-    <span v-if="isError" class="text-red-500">{{ error.response.data.message }}</span>
+    <span v-if="isError && !meta.dirty" class="text-red-500">{{ errorMessage }}</span>
 
-    <ActionButton
-      title="Войти"
-      type="submit"
-      :disabled="
-        Boolean(errors.email) || Boolean(errors.password) || !email || !password || isPending
-      "
-    />
+    <ActionButton title="Войти" type="submit" :disabled="!meta.valid || isPending" />
   </form>
 </template>

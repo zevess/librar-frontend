@@ -1,10 +1,11 @@
 import type { CreateAxiosDefaults } from 'axios'
 import { errorCatch, getContentType } from './api.helper'
 import axios from 'axios'
-import { getAccessToken, removeTokenFromStorage } from '@/entities/auth'
+
 import { PUBLIC_URL, SERVER_URL } from '../config'
 import { useUserStore } from '@/entities/user'
 import { useRouter } from 'vue-router'
+import { getAccessToken, removeAccessToken } from '@/entities/auth'
 
 const options: CreateAxiosDefaults = {
   baseURL: SERVER_URL,
@@ -27,7 +28,7 @@ apiPrivate.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response.status === 401) {
-      removeTokenFromStorage()
+      removeAccessToken()
     }
   },
 )

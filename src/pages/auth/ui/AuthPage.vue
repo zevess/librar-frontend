@@ -1,45 +1,21 @@
 <script setup lang="ts">
 import { useLogin } from '@/entities/auth'
 import { LoginForm } from '@/features/login-form'
+import { RegisterForm } from '@/features/register-form'
 import { ActionButton } from '@/shared/ui/action-button'
 import { Input } from '@/shared/ui/input'
 import { PageTitle } from '@/shared/ui/page-title'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-// const router = useRouter()
 const isRegister = ref<boolean>(false)
-// const form = ref({
-//   email: '',
-//   password: '',
-// })
-
-// const { login, isLoginError, isLoginLoading, isSuccess } = useLogin()
-
-// const handleSubmit = () => {
-//   login(form.value)
-// }
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
     <PageTitle :title="isRegister ? 'Регистрация' : 'Вход'"></PageTitle>
     <LoginForm v-if="!isRegister" />
-    <!-- <form @submit.prevent="handleSubmit" v-if="!isRegister" class="flex flex-col gap-4">
-      <Input v-model="form.email" placeholder="email" />
-      <div class="flex flex-col">
-        <Input v-model="form.password" placeholder="пароль" type="password" />
-        <span class="hover:underline cursor-pointer mt-2 w-fit">Забыли пароль?</span>
-      </div>
-
-      <ActionButton title="Войти" type="submit" :disabled="isLoginLoading" />
-    </form> -->
-    <!-- <form action="" v-if="isRegister" class="flex flex-col gap-4">
-      <Input placeholder="email" />
-      <Input placeholder="пароль" />
-      <Input placeholder="подтвердите пароль" />
-      <ActionButton title="Зарегистрироваться" />
-    </form> -->
+    <RegisterForm v-if="isRegister" />
     <span @click="isRegister = !isRegister" class="hover:underline cursor-pointer mt-2 w-fit">
       {{ isRegister ? 'Есть аккаунт? Войти' : 'Нет аккаунта? Создать аккаунт' }}</span
     >

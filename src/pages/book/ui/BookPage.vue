@@ -7,9 +7,11 @@ import BookCharacteristics from './BookCharacteristics.vue'
 import BookHeader from './BookHeader.vue'
 import BookCover from './BookCover.vue'
 import BookSkeleton from './BookSkeleton.vue'
+import { NotFound } from '@/shared/ui/not-found'
+import { PageSkeleton } from '@/shared/ui/page-skeleton'
 
 const { slug, id } = useGetParams()
-const { book, isFetching, isSuccess } = useGetBook(slug)
+const { book, isFetching, isSuccess, isFetched } = useGetBook(slug)
 const { reviews } = useGetBookReviews(id)
 const rating = ref<number>()
 
@@ -22,7 +24,8 @@ provide('rating', rating)
 </script>
 
 <template>
-  <BookSkeleton v-if="isFetching" />
+  <PageSkeleton variant="book" v-if="isFetching" />
+  <NotFound v-if="!book?.success && isFetched"> Книга на найдена </NotFound>
   <div v-if="book?.data" class="flex flex-col gap-4 w-full">
     <BookHeader :book="book?.data" />
 
@@ -38,6 +41,7 @@ provide('rating', rating)
 
         <div class="mt-24 flex flex-col gap-4">
           <h2 class="text-xl font-semibold">ОТЗЫВЫ</h2>
+          <h3 class="text-xl" v-if="reviews?.data.length === 0">Отзывов нет</h3>
           <ReviewCard v-for="review in reviews?.data" :key="review.id" :review="review" />
         </div>
       </div>

@@ -19,7 +19,9 @@ import { CreateAuthorPage } from '@/pages/create-author'
 import { EditAuthorPage } from '@/pages/edit-author'
 import { AdminCategoriesPage } from '@/pages/admin-categories'
 import { AuthPage } from '@/pages/auth'
-import { useUserStore } from '@/entities/user'
+import { useProfile, userService, useUserStore } from '@/entities/user'
+import { computed } from 'vue'
+import { AdminGenresPage } from '@/pages/admin-genres'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -67,94 +69,114 @@ const router = createRouter({
       redirect: {
         name: 'admin/reservations',
       },
-      meta: { layout: 'admin' },
+      meta: { layout: 'admin', admin: true },
+      children: [
+        {
+          path: 'users',
+          name: 'users',
+          component: AdminUsersPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'authors',
+          name: 'authors',
+          component: AdminAuthorsPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'authors/create',
+          name: 'authors/create',
+          component: CreateAuthorPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'authors/:authorSlug/edit',
+          name: 'authors/edit',
+          component: EditAuthorPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'reservations',
+          name: 'admin/reservations',
+          component: AdminReservationsPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'books',
+          name: 'books',
+          component: AdminBooksPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'books/create',
+          name: 'books/create',
+          component: CreateBookPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'books/:bookSlug/edit',
+          name: 'books/edit',
+          component: EditBookPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'publishers',
+          name: 'publishers',
+          component: AdminPublishersPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'publishers/create',
+          name: 'publishers/create',
+          component: CreatePublisherPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'publishers/:publisherSlug/edit',
+          name: 'publishers/edit',
+          component: EditPublisherPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'categories',
+          name: 'categories',
+          component: AdminCategoriesPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'genres',
+          name: 'genres',
+          component: AdminGenresPage,
+          meta: { layout: 'admin', admin: true },
+        },
+      ],
+      beforeEnter: async (to, from) => {
+        const userStore = useUserStore()
+        userStore.initFromCookies()
+
+        if (userStore.token && !userStore.user) {
+          try {
+            const profile = await userService.me()
+            userStore.setUser(profile.user)
+          } catch {
+            userStore.clear()
+          }
+        }
+
+        if (userStore.user?.role !== 'admin' && userStore.user?.role !== 'librarian') {
+          return {
+            name: 'home',
+          }
+        }
+      },
     },
-    {
-      path: '/admin/users',
-      name: 'admin/users',
-      component: AdminUsersPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/authors',
-      name: 'admin/authors',
-      component: AdminAuthorsPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/authors/create',
-      name: 'admin/authors/create',
-      component: CreateAuthorPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/authors/:authorSlug/edit',
-      name: 'admin/authors/edit',
-      component: EditAuthorPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/reservations',
-      name: 'admin/reservations',
-      component: AdminReservationsPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/books',
-      name: 'admin/books',
-      component: AdminBooksPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/books/create',
-      name: 'admin/books/create',
-      component: CreateBookPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/books/:bookSlug/edit',
-      name: 'admin/books/edit',
-      component: EditBookPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/publishers',
-      name: 'admin/publishers',
-      component: AdminPublishersPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/publishers/create',
-      name: 'admin/publishers/create',
-      component: CreatePublisherPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/publishers/:publisherSlug/edit',
-      name: 'admin/publishers/edit',
-      component: EditPublisherPage,
-      meta: { layout: 'admin' },
-    },
-    {
-      path: '/admin/categories',
-      name: 'admin/publishers',
-      component: AdminCategoriesPage,
-      meta: { layout: 'admin' },
-    },
+
     {
       path: '/auth',
       name: 'auth',
       component: AuthPage,
       meta: { layout: 'auth', guest: true },
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue'),
-    // },
   ],
 })
 

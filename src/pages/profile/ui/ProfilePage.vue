@@ -10,6 +10,8 @@ import { Skeleton } from 'primevue'
 import ProfilePageSkeleton from './ProfileSkeleton.vue'
 import { ActionButton } from '@/shared/ui/action-button'
 import { useRouter } from 'vue-router'
+import { watch } from 'vue'
+import { PageSkeleton } from '@/shared/ui/page-skeleton'
 
 const book = bookData[0]
 const reservation = reservationData
@@ -22,18 +24,16 @@ const handleLogoutClick = () => {
   logout()
   router.replace('/')
 }
-
-const { user, token } = useUserStore()
 </script>
 
 <template>
-  <ProfilePageSkeleton v-if="!profile?.user" />
+  <PageSkeleton v-if="isFetching" variant="profile" />
   <div v-if="isFetched" class="flex flex-col gap-4 w-full">
     <div class="flex flex-col md:flex-row justify-center md:justify-between">
       <PageTitle
         v-if="profile?.user"
         :title="profile?.user.name"
-        class="text-center md:text-left mb-2"
+        class="text-center md:text-left"
       />
       <PageSubtitle title="профиль" />
     </div>

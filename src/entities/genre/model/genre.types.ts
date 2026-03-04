@@ -1,6 +1,7 @@
 export interface IGenre {
+  id: number
   name: string
-  slug?: string
+  slug: string
 }
 
 export const genreData = [

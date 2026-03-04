@@ -11,9 +11,7 @@ import { VueQueryPlugin } from '@tanstack/vue-query'
 
 const app = createApp(App)
 const pinia = createPinia()
-app.use(VueQueryPlugin)
 app.use(pinia)
-app.use(router)
 app.use(PrimeVue, {
   theme: {
     preset: Aura,
@@ -24,7 +22,6 @@ app.use(PrimeVue, {
     },
   },
 })
-
-// const authStore = useUserStore(pinia)
-
+app.use(VueQueryPlugin)
+app.use(router)
 app.mount('#app')

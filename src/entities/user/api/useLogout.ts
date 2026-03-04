@@ -6,16 +6,11 @@ import { useRouter } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
 
 export const useLogout = () => {
-  //   const queryClient = useQueryClient()
   const { mutate: logout } = useMutation({
     mutationKey: ['logout'],
     mutationFn: () => userService.logout(),
     onSuccess: () => {
       useUserStore().clear()
-      //   queryClient.invalidateQueries({
-      //     queryKey: ['get profile'],
-      //   })
-      //   useRouter().replace('/')
     },
   })
 

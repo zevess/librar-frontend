@@ -1,7 +1,7 @@
 import { apiPrivate } from '@/shared/api/api.interceptor'
 import { API_URL } from '@/shared/config/api.config'
 import type { IUser, IUserResponse } from './user.types'
-import { removeTokenFromStorage } from '@/entities/auth'
+import { removeAccessToken } from '@/entities/auth'
 
 class UserService {
   async me() {
@@ -17,7 +17,7 @@ class UserService {
       url: API_URL.logout(),
       method: 'POST',
     })
-    removeTokenFromStorage()
+    removeAccessToken()
     return response
   }
 }

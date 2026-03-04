@@ -13,4 +13,5 @@ export interface UserState {
   user: IUser | null
   token: string | null
   isAuthentificated: boolean
+  isInitialized: boolean
 }

@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import type { IUser, UserState } from './user.types'
-import { getAccessToken, removeTokenFromStorage } from '@/entities/auth'
+import { getAccessToken, removeAccessToken } from '@/entities/auth'
+import { useProfile } from '../api/useProfile'
+import { userService } from './user.service'
 
 export const useUserStore = defineStore('user', {
   state: (): UserState => {
@@ -8,6 +10,7 @@ export const useUserStore = defineStore('user', {
       user: null,
       token: null,
       isAuthentificated: false,
+      isInitialized: false,
     }
   },
   actions: {
@@ -21,7 +24,7 @@ export const useUserStore = defineStore('user', {
       this.isAuthentificated = status
     },
     clear() {
-      removeTokenFromStorage()
+      removeAccessToken()
       this.$patch({
         token: null,
         user: null,
@@ -31,11 +34,23 @@ export const useUserStore = defineStore('user', {
     initFromCookies() {
       const token = getAccessToken()
       if (token) {
-        this.token = token
         this.isAuthentificated = true
+        this.token = token
       } else {
         this.clear()
       }
+    },
+    async initialize() {
+      this.initFromCookies()
+      if (this.token) {
+        try {
+          const profile = await userService.me()
+          this.user = profile.user
+        } catch (error) {
+          this.clear()
+        }
+      }
+      this.isInitialized = true
     },
   },
 })

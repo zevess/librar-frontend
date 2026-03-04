@@ -8,26 +8,22 @@ import { PUBLIC_URL } from '@/shared/config/url.config'
 import { SettingButton } from '@/shared/ui/setting-button'
 import { useGetParams } from '@/shared/lib'
 import { useGetPublisher } from '@/entities/publisher'
+import { NotFound } from '@/shared/ui/not-found'
+import PublisherHeader from './PublisherHeader.vue'
+import PublisherSkeleton from './PublisherSkeleton.vue'
+import { PageSkeleton } from '@/shared/ui/page-skeleton'
 
 // const publisher = publisherData[0]
 const { slug } = useGetParams()
-const { publisher } = useGetPublisher(slug)
+const { publisher, isFetched, isFetching } = useGetPublisher(slug)
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 w-full">
-    <div class="flex flex-col md:flex-row justify-center md:justify-between">
-      <PageTitle :title="publisher?.data.name" class="text-center md:text-left mb-2" />
-      <div class="flex items-center gap-6">
-        <RouterLink
-          :to="PUBLIC_URL.adminPublisherEdit(`${publisher?.data.slug}-${publisher?.data.id}`)"
-        >
-          <SettingButton />
-        </RouterLink>
-
-        <PageSubtitle title="издательство" />
-      </div>
-    </div>
+  <PageSkeleton variant="publisher" v-if="isFetching" />
+  <NotFound v-if="!publisher?.success && isFetched"> Издательство на найдено </NotFound>
+  <!-- <PublisherSkeleton v-if="isFetching" /> -->
+  <div v-if="publisher?.success" class="flex flex-col gap-4 w-full">
+    <PublisherHeader :publisher="publisher.data" />
     <p>{{ publisher?.data.description }}</p>
     <BookList :is-reservable="true" :items="publisher?.data.books.data ?? []" variant="default" />
   </div>

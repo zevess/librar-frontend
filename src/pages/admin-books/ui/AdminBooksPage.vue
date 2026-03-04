@@ -18,6 +18,6 @@ import { RouterLink } from 'vue-router'
         <ActionButton title="Создать книгу" class="p-4 w-full" />
       </RouterLink>
     </div>
-    <BookList :is-reservable="false" :items="bookData" variant="default" />
+    <!-- <BookList :is-reservable="false" :items="bookData" variant="default" /> -->
   </div>
 </template>

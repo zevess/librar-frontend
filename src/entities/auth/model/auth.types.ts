@@ -5,6 +5,13 @@ export interface ILogin {
   password: string
 }
 
+export interface IRegister {
+  name: string
+  email: string
+  password: string
+  password_confirmation: string
+}
+
 export interface IAuthResponse {
   user: IUser
   token: string

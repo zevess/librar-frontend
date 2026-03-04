@@ -14,7 +14,7 @@ const layouts = {
 
 const CurrentLayout = computed(() => {
   const layoutName = route.meta.layout as keyof typeof layouts
-  return layouts[layoutName] || Layout
+  return layouts[layoutName]
 })
 useProfile()
 useUserStore().initFromCookies()
