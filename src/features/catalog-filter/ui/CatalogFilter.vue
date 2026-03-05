@@ -1,22 +1,26 @@
 <script setup lang="ts">
+import { useGetBooks } from '@/entities/book'
 import { useGetCategories } from '@/entities/category'
 import { categoryData } from '@/entities/category/model/category.types'
 import { useGetGenres } from '@/entities/genre'
 import { genreData } from '@/entities/genre/model/genre.types'
+import { useGetPublishers } from '@/entities/publisher'
 import { publisherData } from '@/entities/publisher/model/publisher.types'
+import { convertArrayQuery, getArrayKey } from '@/shared/lib'
 import { PrimeAccordion } from '@/shared/ui/accordion'
+import { ActionButton } from '@/shared/ui/action-button'
 import { PrimeCheckbox } from '@/shared/ui/checkbox'
 import { PrimeRadioButton } from '@/shared/ui/radio-button'
 import { Accordion } from 'primevue'
-import { ref, watch } from 'vue'
-
-const selectedGenres = ref()
-const selectedCategory = ref()
-const selectedPublishers = ref()
-const selectedAvailability = ref('Все')
 
 const { categories } = useGetCategories()
 const { genres } = useGetGenres()
+const { publishers } = useGetPublishers()
+
+const categoryFilter = defineModel<number[]>('categoryFilter')
+const genreFilter = defineModel<number[]>('genreFilter')
+const publisherFilter = defineModel<number[]>('publisherFilter')
+// const emit = defineEmits(['apply'])
 </script>
 
 <template>
@@ -25,10 +29,11 @@ const { genres } = useGetGenres()
       <div class="flex flex-col gap-2">
         <PrimeRadioButton
           v-for="item in categories?.data"
-          v-model="selectedCategory"
+          v-model="categoryFilter"
           :name="item.name"
-          :value="item.name"
+          :value="item.id"
           :input-id="item.slug"
+          :label="item.name"
         ></PrimeRadioButton>
       </div>
     </PrimeAccordion>
@@ -36,9 +41,10 @@ const { genres } = useGetGenres()
       <div class="flex flex-col gap-2">
         <PrimeCheckbox
           v-for="item in genres?.data"
-          v-model="selectedGenres"
+          v-model="genreFilter"
           :name="item.slug"
-          :value="item.name"
+          :label="item.name"
+          :value="item.id"
           :input-id="item.slug"
         ></PrimeCheckbox>
       </div>
@@ -46,15 +52,16 @@ const { genres } = useGetGenres()
     <PrimeAccordion header="издательства" :value="2">
       <div class="flex flex-col gap-2">
         <PrimeCheckbox
-          v-for="item in publisherData"
-          v-model="selectedPublishers"
+          v-for="item in publishers"
+          v-model="publisherFilter"
           :name="item?.slug"
-          :value="item.name"
+          :value="item.id"
           :input-id="item?.slug"
+          :label="item.name"
         ></PrimeCheckbox>
       </div>
     </PrimeAccordion>
-    <PrimeAccordion header="наличие" :value="3">
+    <!-- <PrimeAccordion header="наличие" :value="3">
       <div class="flex flex-col gap-2">
         <PrimeRadioButton
           v-model="selectedAvailability"
@@ -75,6 +82,7 @@ const { genres } = useGetGenres()
           input-id="false"
         ></PrimeRadioButton>
       </div>
-    </PrimeAccordion>
+    </PrimeAccordion> -->
   </Accordion>
+  <!-- <ActionButton @click="emit('apply')" title="Применить" /> -->
 </template>

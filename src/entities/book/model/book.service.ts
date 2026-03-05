@@ -1,12 +1,13 @@
 import { api, type IPaginatedResponse, type IResponse } from '@/shared/api'
 import { API_URL } from '@/shared/config'
-import { type IBook } from './book.types'
+import { type IBook, type IBooksParams } from './book.types'
 
 class BookService {
-  async getBooks() {
+  async getBooks(params?: IBooksParams) {
     const { data } = await api<IPaginatedResponse<IBook>>({
       url: API_URL.books(),
       method: 'GET',
+      params: params,
     })
     return data
   }

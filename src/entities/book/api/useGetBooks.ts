@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/vue-query'
 import { bookService } from '../model/book.service'
-import type { IBook } from '../model/book.types'
+import type { IBook, IBooksParams } from '../model/book.types'
 import { computed } from 'vue'
 
-export const useGetBooks = () => {
+export const useGetBooks = (params?: IBooksParams) => {
   const { data: books, isLoading } = useQuery({
-    queryKey: ['get books'],
-    queryFn: () => bookService.getBooks(),
+    queryKey: ['get books', params],
+    queryFn: () => bookService.getBooks(params),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   })

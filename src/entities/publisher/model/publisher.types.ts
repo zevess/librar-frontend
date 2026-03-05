@@ -3,7 +3,7 @@ import type { IBook } from '@/entities/book'
 export interface IPublisher {
   id: number
   name: string
-  slug?: string
+  slug: string
   description?: string
   books: {
     data: IBook[]

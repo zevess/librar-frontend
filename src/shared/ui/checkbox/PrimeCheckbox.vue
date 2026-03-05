@@ -3,14 +3,13 @@ import { Checkbox } from 'primevue'
 defineProps<{
   inputId: string
   name: string
-  value: string
+  value: string | number
   size?: 'small' | 'large'
+  label: string
 }>()
 
 const model = defineModel()
 </script>
-<!-- // d1ebe9 -->
-<!-- // bededc -->
 <template>
   <div class="flex items-center gap-2">
     <Checkbox
@@ -28,6 +27,6 @@ const model = defineModel()
         }),
       }"
     />
-    <label :for="inputId" class="cursor-pointer">{{ value }}</label>
+    <label :for="inputId" class="cursor-pointer">{{ label }}</label>
   </div>
 </template>

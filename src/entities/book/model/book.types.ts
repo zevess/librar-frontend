@@ -24,6 +24,13 @@ export interface IBookResponse {
   meta: {}
 }
 
+export interface IBooksParams {
+  q: string | null
+  category: number[] | null
+  genres: number[] | null
+  publishers: number[] | null
+}
+
 export const bookData = [
   {
     title: 'Абсолютный Бэтмен. том 1',
