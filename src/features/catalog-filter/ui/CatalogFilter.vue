@@ -17,10 +17,10 @@ const { categories } = useGetCategories()
 const { genres } = useGetGenres()
 const { publishers } = useGetPublishers()
 
-const categoryFilter = defineModel<number[]>('categoryFilter')
+const categoryFilter = defineModel<number | null>('categoryFilter')
 const genreFilter = defineModel<number[]>('genreFilter')
 const publisherFilter = defineModel<number[]>('publisherFilter')
-// const emit = defineEmits(['apply'])
+const emit = defineEmits(['apply'])
 </script>
 
 <template>

@@ -3,6 +3,7 @@ import type { IBook } from '@/entities/book'
 import { bookData } from '@/entities/book/model/book.types'
 import { ActionButton } from '@/shared/ui/action-button'
 import { PrimeRating } from '@/shared/ui/rating'
+import { StoredImage } from '@/shared/ui/stored-image'
 import { inject } from 'vue'
 
 defineProps<{
@@ -14,11 +15,12 @@ const rating = inject('rating')
 
 <template>
   <div class="flex flex-col w-full max-w-80 md:sticky md:top-2">
-    <img
+    <StoredImage :url="book.image" />
+    <!-- <img
       :src="book?.image ?? bookData[0]?.image"
       class="w-full h-full object-contain rounded"
       alt=""
-    />
+    /> -->
 
     <div class="flex flex-col mt-4 gap-1">
       <span class="text-gray-500">Доступно</span>

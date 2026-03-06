@@ -12,14 +12,14 @@ import { useGetCategories } from '@/entities/category'
 import { useGetGenres } from '@/entities/genre'
 import { useGetPublishers } from '@/entities/publisher'
 import { useQueryClient } from '@tanstack/vue-query'
+import { NotFound } from '@/shared/ui/not-found'
 
 const route = useRoute()
 const router = useRouter()
-const queryClient = useQueryClient()
 
 const filters = ref({
   q: route.query.q ? String(route.query.q) : '',
-  category: convertArrayQuery(route.query.category) ?? [],
+  category: route.query.category ? Number(route.query.category) : null,
   genres: convertArrayQuery(route.query.genres) ?? [],
   publishers: convertArrayQuery(route.query.publishers) ?? null,
 })
@@ -31,13 +31,22 @@ const handleSetFilters = () => {
 }
 
 watch(
-  () => route.query.q,
+  [filters.value, () => route.query.q],
   () => {
     filters.value.q = route.query.q ? String(route.query.q) : ''
+
+    router.push({
+      query: filters.value,
+    })
+    console.log(filters.value)
   },
+  // () => route.query.q,
+  // () => {
+  //   filters.value.q = route.query.q ? String(route.query.q) : ''
+  // },
 )
 
-const { books, isLoading } = useGetBooks(filters.value)
+// const { books, isLoading } = useGetBooks(filters.value)
 </script>
 
 <template>
@@ -66,13 +75,14 @@ const { books, isLoading } = useGetBooks(filters.value)
         />
       </div>
 
+      <!-- <NotFound v-if="books?.data.length === 0"> Ничего не найдено. Попробуйте позже </NotFound>
       <BookList
         v-if="!isLoading"
         :is-reservable="true"
         variant="catalog"
         :items="books?.data ?? []"
       />
-      <BookListSkeleton variant="catalog" v-if="isLoading" />
+      <BookListSkeleton variant="catalog" v-if="isLoading" /> -->
     </div>
   </div>
 </template>

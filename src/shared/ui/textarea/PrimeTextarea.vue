@@ -1,12 +1,12 @@
 <script setup lang="ts">
-// import { ref } from 'vue'
-// const value = ref('')
 defineProps<{
   placeholder: string
 }>()
+const model = defineModel<string>()
 </script>
 <template>
-  <Textarea
+  <textarea
+    v-model="model"
     :placeholder="placeholder"
     class="border-2 w-full h-12 border-[#d1ebe9] rounded-md p-2 bg-gray-50 focus:border-[#a4c8c6] focus:outline-0 focus:border-r-2"
   />

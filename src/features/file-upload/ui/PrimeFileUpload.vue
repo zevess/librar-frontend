@@ -3,11 +3,15 @@ import { FileUpload, type FileUploadSelectEvent } from 'primevue'
 import { ref, watch } from 'vue'
 
 const src = ref<string | null>(null)
-const image = ref<File | null>(null)
+const image = defineModel<File | null>('image')
+// const image = ref<File | null>(null)
 function onFileSelect(event: FileUploadSelectEvent) {
   const file = event.files[0]
+  if (file) {
+    image.value = file
+  }
 
-  image.value = file
+  // image.value = file
   const reader = new FileReader()
 
   reader.onload = async (e: ProgressEvent<FileReader>) => {
@@ -21,10 +25,6 @@ function clearImage() {
   src.value = null
   image.value = null
 }
-
-watch(image, () => {
-  console.log(image)
-})
 </script>
 
 <template>

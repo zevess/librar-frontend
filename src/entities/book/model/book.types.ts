@@ -8,7 +8,7 @@ export interface IBook {
   title: string
   slug: string
   description: string
-  image?: string
+  image: string
   author: IAuthor
   publisher: IPublisher
   category: ICategory
@@ -29,6 +29,15 @@ export interface IBooksParams {
   category: number[] | null
   genres: number[] | null
   publishers: number[] | null
+}
+
+export interface IBookCreate {
+  title: string
+  description: string
+  author_id: number
+  category_id: number
+  publisher_id: number
+  image: string
 }
 
 export const bookData = [

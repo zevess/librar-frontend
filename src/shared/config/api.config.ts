@@ -1,4 +1,5 @@
 export const SERVER_URL = import.meta.env.VITE_API_SERVER_URL as string
+export const BASE_SERVER_URL = import.meta.env.VITE_SERVER_URL as string
 
 export const API_URL = {
   root: (url = '') => `${url ? url : ''}`,
@@ -75,4 +76,6 @@ export const API_URL = {
   updateUserRole: (userId = '') => API_URL.users(`/role/${userId}`),
   deleteUser: (userId = '') => API_URL.users(`/${userId}`),
   restoreUser: (userId = '') => API_URL.users(`/${userId}/restore`),
+
+  uploadImage: () => API_URL.root('/upload-image'),
 }

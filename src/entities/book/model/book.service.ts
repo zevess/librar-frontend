@@ -1,6 +1,6 @@
-import { api, type IPaginatedResponse, type IResponse } from '@/shared/api'
+import { api, apiPrivate, type IPaginatedResponse, type IResponse } from '@/shared/api'
 import { API_URL } from '@/shared/config'
-import { type IBook, type IBooksParams } from './book.types'
+import { type IBook, type IBookCreate, type IBooksParams } from './book.types'
 
 class BookService {
   async getBooks(params?: IBooksParams) {
@@ -24,6 +24,14 @@ class BookService {
       method: 'GET',
     })
     return data
+  }
+  async createBook(data: IBookCreate) {
+    const response = await apiPrivate<IResponse<IBook>>({
+      url: API_URL.createBook(),
+      method: 'POST',
+      data,
+    })
+    return response
   }
 }
 export const bookService = new BookService()
