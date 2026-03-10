@@ -13,15 +13,14 @@ import PublisherHeader from './PublisherHeader.vue'
 import PublisherSkeleton from './PublisherSkeleton.vue'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
 
-// const publisher = publisherData[0]
 const { slug } = useGetParams()
 const { publisher, isFetched, isFetching } = useGetPublisher(slug)
 </script>
 
 <template>
-  <PageSkeleton variant="publisher" v-if="isFetching" />
+  <PageSkeleton variant="publisher" v-if="isFetching && !publisher?.data" />
   <NotFound v-if="!publisher?.success && isFetched"> Издательство на найдено </NotFound>
-  <!-- <PublisherSkeleton v-if="isFetching" /> -->
+
   <div v-if="publisher?.success" class="flex flex-col gap-4 w-full">
     <PublisherHeader :publisher="publisher.data" />
     <p>{{ publisher?.data.description }}</p>

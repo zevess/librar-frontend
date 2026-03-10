@@ -9,6 +9,7 @@ export const useGetPublisher = (slug: string) => {
   } = useQuery({
     queryKey: ['get publisher'],
     queryFn: () => publisherService.getPublisherBySlug(slug),
+    refetchOnWindowFocus: false,
   })
   return { publisher, isFetching, isFetched }
 }

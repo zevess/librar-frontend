@@ -1,2 +1,8 @@
 export { type IGenre } from './model/genre.types'
 export { useGetGenres } from './api/useGetGenres'
+export { useAttachGenres } from './api/useAttachGenres'
+export { useCreateGenre } from './api/useCreateGenre'
+export { useDetachGenres } from './api/useDetachGenres'
+export { genreSchema } from './model/genre.schema'
+export type { GenreSchema } from './model/genre.schema'
+export { default as GenresTable } from './ui/GenresTable.vue'

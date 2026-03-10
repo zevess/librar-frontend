@@ -27,7 +27,7 @@ const handleLogoutClick = () => {
 </script>
 
 <template>
-  <PageSkeleton v-if="isFetching" variant="profile" />
+  <PageSkeleton v-if="isFetching && !profile" variant="profile" />
   <div v-if="isFetched" class="flex flex-col gap-4 w-full">
     <div class="flex flex-col md:flex-row justify-center md:justify-between">
       <PageTitle
@@ -38,31 +38,10 @@ const handleLogoutClick = () => {
       <PageSubtitle title="профиль" />
     </div>
     <span class="text-xl">Активные брони:</span>
-    <!-- <div class="flex">
-      <div class="flex flex-col w-fit relative">
-        <span class="text-center font-semibold">Забрать до 01.03.2026</span>
-        <BookCard :book="book" />
-      </div>
-      <div class="flex flex-col w-fit relative">
-        <span class="text-center font-semibold">Выдано</span>
-        <BookCard :book="book" />
-      </div>
-    </div> -->
 
     <span class="text-xl">Завершенные брони:</span>
-    <div class="flex">
-      <!-- <ReservationCard :reservation="reservationData" /> -->
-      <!-- <div class="flex flex-col w-fit relative">
-        <span class="text-center font-semibold">Принято</span>
-        <BookCard :book="book" />
-      </div>
-      <div class="flex flex-col w-fit relative">
-        <span class="text-center font-semibold">Принято</span>
-        <BookCard :book="book" />
-      </div> -->
-    </div>
+    <div class="flex"></div>
 
-    <!-- <BookList :items="bookData" variant="default" /> -->
     <span class="text-xl">Уведомления:</span>
     <ActionButton
       @click="handleLogoutClick"

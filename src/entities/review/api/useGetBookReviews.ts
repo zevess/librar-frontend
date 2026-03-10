@@ -9,6 +9,7 @@ export const useGetBookReviews = (id: string) => {
   } = useQuery({
     queryKey: ['get reviews', id],
     queryFn: () => reviewService.getBookReviews(id),
+    refetchOnWindowFocus: false,
   })
   return { reviews, isFetching, isSuccess }
 }

@@ -5,7 +5,7 @@ export const useGetCategories = () => {
   const { data: categories } = useQuery({
     queryKey: ['get categories'],
     queryFn: () => categoryService.getCategories(),
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   })
   return { categories }

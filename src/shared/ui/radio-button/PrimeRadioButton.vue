@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { RadioButton } from 'primevue'
 defineProps<{
-  inputId: string
-  name: string
+  inputId?: string
+  name?: string
   value: string | number
   size?: 'small' | 'large'
   label: string

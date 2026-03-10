@@ -2,7 +2,9 @@ import { useQuery } from '@tanstack/vue-query'
 import { userService } from '../model/user.service'
 import { useUserStore } from '../model/user.store'
 import axios from 'axios'
-import { watch } from 'vue'
+import { effectScope, watch } from 'vue'
+
+// const scope = effectScope()
 
 export const useProfile = () => {
   const {

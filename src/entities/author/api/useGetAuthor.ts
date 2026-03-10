@@ -10,6 +10,7 @@ export const useGetAuthor = (slug: string) => {
     queryKey: ['get author', slug],
     queryFn: () => authorService.getAuthorBySlug(slug),
     refetchOnMount: true,
+    refetchOnWindowFocus: false,
   })
   return { author, isFetching, isFetched }
 }

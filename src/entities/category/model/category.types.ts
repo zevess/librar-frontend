@@ -5,6 +5,11 @@ export interface ICategory {
   description?: string
 }
 
+export interface ICategoryForm {
+  name: string
+  description?: string
+}
+
 export const categoryData = [
   {
     id: 1,

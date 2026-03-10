@@ -28,6 +28,7 @@ export const API_URL = {
   genres: (url = '') => API_URL.root(`/genres${url}`),
   getGenres: () => API_URL.genres('/'),
   createGenre: (genre = '') => API_URL.genres(`/${genre}`),
+  updateGenre: (genreId = '') => API_URL.genres(`/${genreId}`),
   attachGenre: (bookId = '') => API_URL.genres(`/attach/${bookId}`),
   detachGenre: (bookId = '') => API_URL.genres(`/detach/${bookId}`),
   deleteGenre: (genreId = '') => API_URL.genres(`/${genreId}`),

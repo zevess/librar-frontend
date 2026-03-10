@@ -1,53 +1,165 @@
 <script setup lang="ts">
-import { bookSchema, useCreateBook, type BookSchema } from '@/entities/book'
+import {
+  bookSchema,
+  useCreateBook,
+  useDeleteBook,
+  useUpdateBook,
+  type BookSchema,
+  type IBook,
+} from '@/entities/book'
 import { PrimeFileUpload, useFileUpload } from '@/features/file-upload'
-import { api, apiPrivate } from '@/shared/api'
-import { API_URL } from '@/shared/config'
 import { ActionButton } from '@/shared/ui/action-button'
 import { Input } from '@/shared/ui/input'
 import { PrimeTextarea } from '@/shared/ui/textarea'
 import { toTypedSchema } from '@vee-validate/zod'
-import axios from 'axios'
 import { useForm } from 'vee-validate'
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { useBookFormInitialValues } from '../lib/useBookFormInitialValues'
+import { useAttachGenres, useDetachGenres, useGetGenres, type IGenre } from '@/entities/genre'
+import { GenresAutocomplete } from '@/features/genres-autocomplete'
+import { PrimeRadioButton } from '@/shared/ui/radio-button'
+import { CategoryAutocomplete } from '@/features/category-autocomplete'
+import type { ICategory } from '@/entities/category'
 
-const { upload, uploadedFile, isFileUploading, error } = useFileUpload()
-const { createBook, isPending, isSuccess, errorMessage } = useCreateBook()
-const { handleSubmit, errors, defineField, meta, resetForm, values } = useForm<BookSchema>({
+const props = defineProps<{
+  mode: 'create' | 'edit'
+  book?: IBook
+}>()
+
+const { upload, isFileUploading } = useFileUpload()
+const { createBook, isPending, errorMessage } = useCreateBook()
+const { updateBook, isUpdating } = useUpdateBook(String(props.book?.id))
+const { deleteBook } = useDeleteBook()
+const { attachGenre } = useAttachGenres(String(props.book?.id))
+const { detachGenre } = useDetachGenres(String(props.book?.id))
+
+const initialValues = useBookFormInitialValues(props.book)
+const { handleSubmit, errors, defineField, meta } = useForm<BookSchema>({
   validationSchema: toTypedSchema(bookSchema),
+  initialValues: initialValues,
 })
 const [title, titleAttrs] = defineField('title')
 const [description, descriptionAttrs] = defineField('description')
 const [category, categoryAttrs] = defineField('category_id')
 const [author, authorAttrs] = defineField('author_id')
 const [publisher, publisherAttrs] = defineField('publisher_id')
+
+const imageUrl = ref<string | null>(props.book?.image ?? null)
 const image = ref<File | null>(null)
 
-const onSubmit = handleSubmit(async (formValues) => {
-  if (!image.value) return
+const selectedGenres = ref<IGenre[]>(props.book?.genres.data ?? [])
+const genres = computed(() => selectedGenres.value.map((g) => g.id))
+const genresAction = ref<'attach' | 'detach'>('attach')
 
-  const formData = new FormData()
-  formData.append('file', image.value)
-  upload(formData, {
-    onSuccess: (uploadedImage) => {
-      createBook({
-        ...formValues,
-        image: uploadedImage.data.url,
+const onSubmit = handleSubmit(async (formValues) => {
+  if (props.mode === 'create') {
+    if (!image.value) createBook(formValues)
+    if (image.value) {
+      const formData = new FormData()
+      formData.append('file', image.value)
+      upload(formData, {
+        onSuccess: (uploadedImage) => {
+          createBook({
+            ...formValues,
+            image: uploadedImage.data.url,
+          })
+        },
       })
-    },
-  })
+    }
+  }
+  if (props.mode === 'edit') {
+    if (!image.value) {
+      updateBook(
+        {
+          ...formValues,
+          image: imageUrl.value,
+        },
+        {
+          onSuccess: () => {
+            if (genresAction.value === 'attach') {
+              attachGenre({
+                genres: genres.value,
+              })
+            }
+            if (genresAction.value === 'detach') {
+              detachGenre({
+                genres: genres.value,
+              })
+            }
+          },
+        },
+      )
+    }
+
+    if (image.value) {
+      const formData = new FormData()
+      formData.append('file', image.value)
+      upload(formData, {
+        onSuccess: (uploadedImage) => {
+          updateBook({
+            ...formValues,
+            image: uploadedImage.data.url,
+          })
+        },
+      })
+    }
+  }
 })
+// if (image.value) {
+//   const formData = new FormData()
+//   formData.append('file', image.value)
+//   upload(formData, {
+//     onSuccess: (uploadedImage) => {
+//       if (props.mode === 'create')
+//         createBook({
+//           ...formValues,
+//           image: uploadedImage.data.url,
+//         })
+//       if (props.mode === 'edit')
+//         updateBook({
+//           ...formValues,
+//           image: uploadedImage.data.url,
+//         })
+//     },
+//   })
+// } else {
+//   if (props.mode === 'create') createBook(formValues)
+//   if (props.mode === 'edit')
+//     updateBook({
+//       ...formValues,
+//       image: imageUrl.value,
+//     })
+//   if (genresAction.value === 'attach') {
+//     attachGenre({
+//       genres: genres.value,
+//     })
+//   }
+//   if (genresAction.value === 'detach') {
+//     detachGenre({
+//       genres: genres.value,
+//     })
+//   }
+// }
 </script>
 
 <template>
   <form @submit="onSubmit" class="flex flex-col gap-4 w-full">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <Input v-model="title" v-bind="titleAttrs" placeholder="название книги" />
+        <Input
+          type="text"
+          with-label
+          label="название книги"
+          v-model="title"
+          v-bind="titleAttrs"
+          placeholder="название книги"
+        />
         <span v-if="errors.title" class="text-red-500">{{ errors.title }}</span>
       </div>
       <div>
         <PrimeTextarea
+          with-label
+          label="описание книги"
           v-model="description"
           v-bind="descriptionAttrs"
           placeholder="описание книги"
@@ -55,15 +167,31 @@ const onSubmit = handleSubmit(async (formValues) => {
         <span v-if="errors.description" class="text-red-500">{{ errors.description }}</span>
       </div>
       <div>
-        <Input type="number" v-model="category" v-bind="categoryAttrs" placeholder="ID категории" />
+        <Input
+          with-label
+          label="ID категории"
+          type="number"
+          v-model="category"
+          v-bind="categoryAttrs"
+          placeholder="ID категории"
+        />
         <span v-if="errors.category_id" class="text-red-500">{{ errors.category_id }}</span>
       </div>
       <div>
-        <Input type="number" v-model="author" v-bind="authorAttrs" placeholder="ID автора" />
+        <Input
+          with-label
+          label="ID автора"
+          type="number"
+          v-model="author"
+          v-bind="authorAttrs"
+          placeholder="ID автора"
+        />
         <span v-if="errors.author_id" class="text-red-500">{{ errors.author_id }}</span>
       </div>
       <div>
         <Input
+          with-label
+          label="ID издателя"
           type="number"
           v-model="publisher"
           v-bind="publisherAttrs"
@@ -71,18 +199,37 @@ const onSubmit = handleSubmit(async (formValues) => {
         />
         <span v-if="errors.publisher_id" class="text-red-500">{{ errors.publisher_id }}</span>
       </div>
+      <div class="flex flex-col gap-4" v-if="mode === 'edit'">
+        <GenresAutocomplete v-model:selected-genres="selectedGenres" />
+        <div class="flex gap-4">
+          <PrimeRadioButton
+            value="attach"
+            v-model="genresAction"
+            label="Добавить"
+          ></PrimeRadioButton>
+          <PrimeRadioButton value="detach" v-model="genresAction" label="Убрать"></PrimeRadioButton>
+        </div>
+      </div>
     </div>
     <div class="flex flex-col md:flex-row items-center flex-wrap gap-4">
       <span class="font-semibold">Изображение</span>
-      <PrimeFileUpload v-model:image="image" />
+      <PrimeFileUpload v-model:image="image" v-model:src="imageUrl" />
     </div>
     <div class="w-full flex justify-center">
       <ActionButton
-        :disabled="!meta.valid || isPending"
+        :disabled="!meta.valid || isPending || isUpdating || isFileUploading"
         type="submit"
         class="md:max-w-1/3 w-full"
-        title="Создать книгу"
+        :title="props.mode === 'create' ? 'Создать книгу' : 'Изменить книгу'"
       />
     </div>
   </form>
+  <ActionButton
+    v-if="props.mode === 'edit'"
+    title="Удалить книгу"
+    class="bg-red-400 hover:bg-red-500"
+    @click="deleteBook(String(book?.id))"
+  >
+    <span class="pi pi-trash"></span>
+  </ActionButton>
 </template>

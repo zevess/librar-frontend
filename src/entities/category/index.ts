@@ -1,3 +1,8 @@
 export { default as CategoriesTable } from './ui/CategoriesTable.vue'
 export type { ICategory } from './model/category.types'
 export { useGetCategories } from './api/useGetCategories'
+export { useCreateCategory } from './api/useCreateCategory'
+export { useUpdateCategory } from './api/useUpdateCategory'
+export { useGetCategory } from './api/useGetCategory'
+export { categorySchema } from './model/category.schema'
+export type { CategorySchema } from './model/category.schema'

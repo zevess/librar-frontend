@@ -5,7 +5,7 @@ export const useGetGenres = () => {
   const { data: genres } = useQuery({
     queryKey: ['get genres'],
     queryFn: () => genreService.getGenres(),
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   })
   return { genres }

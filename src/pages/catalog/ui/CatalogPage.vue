@@ -46,7 +46,7 @@ watch(
   // },
 )
 
-// const { books, isLoading } = useGetBooks(filters.value)
+const { books, isLoading } = useGetBooks(filters.value)
 </script>
 
 <template>
@@ -75,14 +75,14 @@ watch(
         />
       </div>
 
-      <!-- <NotFound v-if="books?.data.length === 0"> Ничего не найдено. Попробуйте позже </NotFound>
+      <NotFound v-if="books?.data.length === 0"> Ничего не найдено. Попробуйте позже </NotFound>
       <BookList
         v-if="!isLoading"
         :is-reservable="true"
         variant="catalog"
         :items="books?.data ?? []"
       />
-      <BookListSkeleton variant="catalog" v-if="isLoading" /> -->
+      <BookListSkeleton variant="catalog" v-if="isLoading" />
     </div>
   </div>
 </template>

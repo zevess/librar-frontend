@@ -1,3 +1,7 @@
 export { type IPublisher } from './model/publisher.types'
 export { useGetPublisher } from './api/useGetPublisher'
 export { useGetPublishers } from './api/useGetPublishers'
+export { useCreatePublisher } from './api/useCreatePublisher'
+export { useUpdatePublisher } from './api/useUpdatePublisher'
+export { publisherSchema } from './model/publisher.schema'
+export type { PublisherSchema } from './model/publisher.schema'

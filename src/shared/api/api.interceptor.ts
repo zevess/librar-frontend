@@ -30,6 +30,7 @@ apiPrivate.interceptors.response.use(
     if (error.response.status === 401) {
       removeAccessToken()
     }
+    return Promise.reject(error)
   },
 )
 

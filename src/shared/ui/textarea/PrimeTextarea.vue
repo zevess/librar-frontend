@@ -1,10 +1,14 @@
 <script setup lang="ts">
 defineProps<{
   placeholder: string
+  withLabel?: boolean
+  label?: string
 }>()
 const model = defineModel<string>()
 </script>
 <template>
+  <!-- <label class="text-gray-500" v-if="withLabel" :for="String(model)">{{ label }}</label> -->
+
   <textarea
     v-model="model"
     :placeholder="placeholder"

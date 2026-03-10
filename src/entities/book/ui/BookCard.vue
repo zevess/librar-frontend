@@ -5,6 +5,7 @@ import { PUBLIC_URL } from '@/shared/config/url.config'
 import { bookData, type IBook } from '../model/book.types'
 import { useQueryClient } from '@tanstack/vue-query'
 import { bookService } from '../model/book.service'
+import { StoredImage } from '@/shared/ui/stored-image'
 
 const props = defineProps<{
   book: IBook
@@ -29,7 +30,7 @@ const prefetchBook = async () => {
   >
     <RouterLink :to="PUBLIC_URL.book(`${book.slug}-${book.id}`)"
       ><div class="w-full aspect-2/3 overflow-hidden rounded">
-        <img :src="book.image ?? bookData[0]?.image" class="w-full h-full object-contain" alt="" />
+        <StoredImage :url="book.image" />
       </div>
       <div class="flex flex-col gap-1 w-full">
         <span :title="book.title" class="mt-2 text-base/tight line-clamp-2">{{ book.title }}</span>

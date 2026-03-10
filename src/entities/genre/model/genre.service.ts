@@ -1,6 +1,6 @@
-import { api, type IResponse } from '@/shared/api'
+import { api, apiPrivate, type IResponse } from '@/shared/api'
 import { API_URL } from '@/shared/config'
-import type { IGenre } from './genre.types'
+import type { IGenre, IGenreForm, IGenresParasm } from './genre.types'
 
 class GenreService {
   async getGenres() {
@@ -9,6 +9,48 @@ class GenreService {
       method: 'GET',
     })
     return data
+  }
+  async createGenre(data: IGenreForm) {
+    const response = await apiPrivate<IResponse<IGenre>>({
+      url: API_URL.createGenre(),
+      method: 'POST',
+      data,
+    })
+    return response
+  }
+
+  async updateGenre(data: IGenreForm, genreId: string) {
+    const response = await apiPrivate<IResponse<IGenre>>({
+      url: API_URL.updateGenre(genreId),
+      method: 'PUT',
+      data,
+    })
+    return response
+  }
+
+  async attachGenresToBook(bookId: string, params: IGenresParasm) {
+    const response = await apiPrivate({
+      url: API_URL.attachGenre(bookId),
+      method: 'POST',
+      data: params,
+    })
+    return response
+  }
+  async detachGenresFromBook(bookId: string, params: IGenresParasm) {
+    const response = await apiPrivate({
+      url: API_URL.detachGenre(bookId),
+      method: 'DELETE',
+      data: params,
+    })
+    return response
+  }
+  async deleteGenre(genreId: string) {
+    const response = await apiPrivate({
+      url: API_URL.deleteGenre(genreId),
+      method: 'DELETE',
+      data: genreId,
+    })
+    return response
   }
 }
 

@@ -1,2 +1,6 @@
 export { type IAuthor } from './model/author.types'
 export { useGetAuthor } from './api/useGetAuthor'
+export { useCreateAuthor } from './api/useCreateAuthor'
+export { useUpdateAuthor } from './api/useUpdateAuthor'
+export { authorSchema } from './model/author.schema'
+export type { AuthorSchema } from './model/author.schema'

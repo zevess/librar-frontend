@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import type { IBook } from '@/entities/book'
 import { PUBLIC_URL } from '@/shared/config'
+import { computed } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   book: IBook
 }>()
+
+const genres = computed(() => props.book.genres.data)
 </script>
 
 <template>
@@ -28,9 +31,7 @@ defineProps<{
     <li class="flex gap-8">
       <span class="text-gray-700 w-30">Жанры:</span>
       <div class="flex flex-wrap gap-2">
-        <span v-for="genre in book.genres.data" class="bg-[#d1ebe9] p-1 px-2">{{
-          genre.name
-        }}</span>
+        <span v-for="genre in genres" class="bg-[#d1ebe9] p-1 px-2">{{ genre.name }}</span>
       </div>
     </li>
   </ul>

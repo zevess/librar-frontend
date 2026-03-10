@@ -10,6 +10,11 @@ export interface IPublisher {
   }
 }
 
+export interface IPublisherForm {
+  name: string
+  description?: string
+}
+
 export const publisherData = [
   {
     name: 'Азбука',

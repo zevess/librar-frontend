@@ -8,9 +8,11 @@ import App from './App.vue'
 import router from './router'
 import { definePreset, palette } from '@primeuix/themes'
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import { ToastService } from 'primevue'
 
 const app = createApp(App)
 const pinia = createPinia()
+app.use(ToastService)
 app.use(pinia)
 app.use(PrimeVue, {
   theme: {

@@ -26,18 +26,18 @@ export interface IBookResponse {
 
 export interface IBooksParams {
   q: string | null
-  category: number[] | null
+  category: number | null
   genres: number[] | null
   publishers: number[] | null
 }
 
-export interface IBookCreate {
+export interface IBookForm {
   title: string
   description: string
   author_id: number
   category_id: number
   publisher_id: number
-  image: string
+  image?: string | null
 }
 
 export const bookData = [

@@ -22,6 +22,9 @@ import { AuthPage } from '@/pages/auth'
 import { useProfile, userService, useUserStore } from '@/entities/user'
 import { computed } from 'vue'
 import { AdminGenresPage } from '@/pages/admin-genres'
+import { NotFoundPage } from '@/pages/not-found'
+import { CreateCategoryPage } from '@/pages/create-category'
+import { CreateGenrePage } from '@/pages/create-genre'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -144,9 +147,21 @@ const router = createRouter({
           meta: { layout: 'admin', admin: true },
         },
         {
+          path: 'categories/create',
+          name: 'categories/create',
+          component: CreateCategoryPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
           path: 'genres',
           name: 'genres',
           component: AdminGenresPage,
+          meta: { layout: 'admin', admin: true },
+        },
+        {
+          path: 'genres/create',
+          name: 'genres/create',
+          component: CreateGenrePage,
           meta: { layout: 'admin', admin: true },
         },
       ],
@@ -176,6 +191,14 @@ const router = createRouter({
       name: 'auth',
       component: AuthPage,
       meta: { layout: 'auth', guest: true },
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFoundPage,
+      meta: {
+        layout: 'default',
+      },
     },
   ],
 })

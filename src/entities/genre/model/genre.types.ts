@@ -4,6 +4,14 @@ export interface IGenre {
   slug: string
 }
 
+export interface IGenreForm {
+  name: string
+}
+
+export interface IGenresParasm {
+  genres: number[] | null
+}
+
 export const genreData = [
   {
     name: 'Фантастика',
