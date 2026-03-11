@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useGetBook } from '@/entities/book'
 import { ReviewCard, useGetBookReviews } from '@/entities/review'
-import { useGetParams } from '@/shared/lib'
-import { provide, ref, watch } from 'vue'
+import { useGetParams, usePreviousRoute } from '@/shared/lib'
+import { onMounted, provide, ref, watch } from 'vue'
 import BookCharacteristics from './BookCharacteristics.vue'
 import BookHeader from './BookHeader.vue'
 import BookCover from './BookCover.vue'
@@ -11,9 +11,14 @@ import { NotFound } from '@/shared/ui/not-found'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
 
 const { slug, id } = useGetParams()
-const { book, isFetching, isSuccess, isFetched } = useGetBook(slug)
+const { previousRoute } = usePreviousRoute()
+const { book, isFetching, isSuccess, isFetched, refetch } = useGetBook(slug)
 const { reviews } = useGetBookReviews(id)
 const rating = ref<number>()
+
+onMounted(() => {
+  if (previousRoute.value?.name === 'books/edit') refetch()
+})
 
 watch(reviews, () => {
   rating.value = reviews.value?.average

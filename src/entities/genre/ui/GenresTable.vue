@@ -4,6 +4,7 @@ import { ref, onMounted, watch } from 'vue'
 import {
   Column,
   DataTable,
+  useConfirm,
   type DataTableRowClickEvent,
   type DataTableRowEditSaveEvent,
 } from 'primevue'
@@ -17,6 +18,7 @@ defineProps<{
   genres: IGenre[]
 }>()
 
+const confirm = useConfirm()
 const { deleteGenre } = useDeleteGenre()
 const { updateGenre } = useUpdateGenre()
 
@@ -26,8 +28,24 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
   updateGenre({ data: row, genreId: row.id })
 }
 const onRowDelete = (data: IGenre) => {
-  const row = data
-  deleteGenre(String(row.id))
+  confirm.require({
+    message: 'Вы уверены? Это действие необратимо.',
+    header: 'Удалить жанр',
+    icon: 'pi pi-trash',
+    rejectLabel: 'Отмена',
+    rejectProps: {
+      label: 'Отмена',
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: 'Удалить',
+      severity: 'danger',
+    },
+    accept: () => {
+      deleteGenre(String(data.id))
+    },
+  })
 }
 </script>
 <template>

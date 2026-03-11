@@ -7,15 +7,15 @@ import axios from 'axios'
 import { ref } from 'vue'
 import { useToast } from 'primevue'
 
-export const useUpdateAuthor = (authorId: string) => {
+export const useDeleteAuthor = () => {
   const router = useRouter()
   const errorMessage = ref()
   const toast = useToast()
-  const { mutate: updateAuthor, isPending: isAuthorUpdating } = useMutation({
-    mutationKey: ['update author'],
-    mutationFn: (data: IAuthorForm) => authorService.updateAuthor(data, authorId),
+  const { mutate: deleteAuthor, isPending: isAuthorDeleting } = useMutation({
+    mutationKey: ['delete author'],
+    mutationFn: (authorId: string) => authorService.deleteAuthor(authorId),
     onSuccess(data) {
-      router.push(PUBLIC_URL.author(`${data.data.data.slug}-${data.data.data.id}`))
+      router.push(PUBLIC_URL.adminAuthors())
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
@@ -29,5 +29,5 @@ export const useUpdateAuthor = (authorId: string) => {
       }
     },
   })
-  return { updateAuthor, isAuthorUpdating, errorMessage }
+  return { deleteAuthor, isAuthorDeleting, errorMessage }
 }

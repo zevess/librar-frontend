@@ -18,14 +18,16 @@ import { useBookFormInitialValues } from '../lib/useBookFormInitialValues'
 import { useAttachGenres, useDetachGenres, useGetGenres, type IGenre } from '@/entities/genre'
 import { GenresAutocomplete } from '@/features/genres-autocomplete'
 import { PrimeRadioButton } from '@/shared/ui/radio-button'
-import { CategoryAutocomplete } from '@/features/category-autocomplete'
-import type { ICategory } from '@/entities/category'
+import { useConfirm, useToast } from 'primevue'
+import { DeleteButton } from '@/shared/ui/delete-button'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
   book?: IBook
 }>()
 
+const confirm = useConfirm()
+const toast = useToast()
 const { upload, isFileUploading } = useFileUpload()
 const { createBook, isPending, errorMessage } = useCreateBook()
 const { updateBook, isUpdating } = useUpdateBook(String(props.book?.id))
@@ -86,6 +88,12 @@ const onSubmit = handleSubmit(async (formValues) => {
                 genres: genres.value,
               })
             }
+            toast.add({
+              severity: 'success',
+              summary: 'Статус',
+              detail: 'Книга успешно обновлена',
+              life: 3000,
+            })
           },
         },
       )
@@ -100,46 +108,38 @@ const onSubmit = handleSubmit(async (formValues) => {
             ...formValues,
             image: uploadedImage.data.url,
           })
+          toast.add({
+            severity: 'success',
+            summary: 'Статус',
+            detail: 'Книга успешно обновлена',
+            life: 3000,
+          })
         },
       })
     }
   }
 })
-// if (image.value) {
-//   const formData = new FormData()
-//   formData.append('file', image.value)
-//   upload(formData, {
-//     onSuccess: (uploadedImage) => {
-//       if (props.mode === 'create')
-//         createBook({
-//           ...formValues,
-//           image: uploadedImage.data.url,
-//         })
-//       if (props.mode === 'edit')
-//         updateBook({
-//           ...formValues,
-//           image: uploadedImage.data.url,
-//         })
-//     },
-//   })
-// } else {
-//   if (props.mode === 'create') createBook(formValues)
-//   if (props.mode === 'edit')
-//     updateBook({
-//       ...formValues,
-//       image: imageUrl.value,
-//     })
-//   if (genresAction.value === 'attach') {
-//     attachGenre({
-//       genres: genres.value,
-//     })
-//   }
-//   if (genresAction.value === 'detach') {
-//     detachGenre({
-//       genres: genres.value,
-//     })
-//   }
-// }
+
+const deleteConfirm = () => {
+  confirm.require({
+    message: 'Вы уверены? Это действие необратимо.',
+    header: 'Удалить книгу',
+    icon: 'pi pi-trash',
+    rejectLabel: 'Отмена',
+    rejectProps: {
+      label: 'Отмена',
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: 'Удалить',
+      severity: 'danger',
+    },
+    accept: () => {
+      deleteBook(String(props.book?.id))
+    },
+  })
+}
 </script>
 
 <template>
@@ -215,7 +215,7 @@ const onSubmit = handleSubmit(async (formValues) => {
       <span class="font-semibold">Изображение</span>
       <PrimeFileUpload v-model:image="image" v-model:src="imageUrl" />
     </div>
-    <div class="w-full flex justify-center">
+    <div class="w-full flex flex-col items-center">
       <ActionButton
         :disabled="!meta.valid || isPending || isUpdating || isFileUploading"
         type="submit"
@@ -224,12 +224,7 @@ const onSubmit = handleSubmit(async (formValues) => {
       />
     </div>
   </form>
-  <ActionButton
-    v-if="props.mode === 'edit'"
-    title="Удалить книгу"
-    class="bg-red-400 hover:bg-red-500"
-    @click="deleteBook(String(book?.id))"
-  >
-    <span class="pi pi-trash"></span>
-  </ActionButton>
+  <div class="w-full flex md:justify-start justify-center mt-4">
+    <DeleteButton v-if="mode === 'edit'" title="Удалить книгу" v-on:delete="deleteConfirm()" />
+  </div>
 </template>

@@ -5,10 +5,12 @@ import { useRouter } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
 import axios from 'axios'
 import { ref } from 'vue'
+import { useToast } from 'primevue'
 
 export const useCreateAuthor = () => {
   const router = useRouter()
   const errorMessage = ref()
+  const toast = useToast()
   const { mutate: createAuthor, isPending: isAuthorCreating } = useMutation({
     mutationKey: ['create author'],
     mutationFn: (data: IAuthorForm) => authorService.createAuthor(data),
@@ -19,6 +21,11 @@ export const useCreateAuthor = () => {
       if (axios.isAxiosError(error)) {
         console.error(error.response?.data.message)
         errorMessage.value = error.response?.data.message
+        toast.add({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: error.response?.data.message,
+        })
       }
     },
   })

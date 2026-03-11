@@ -15,11 +15,6 @@ export const useDetachGenres = (bookId: string) => {
   const { mutate: detachGenre, isPending: isGenreDetaching } = useMutation({
     mutationKey: ['detach genre'],
     mutationFn: (params: IGenresParasm) => genreService.detachGenresFromBook(bookId, params),
-    onSuccess() {
-      queryClient.invalidateQueries({
-        queryKey: ['get genres'],
-      })
-    },
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.error(error.response?.data.message)

@@ -30,21 +30,12 @@ const handleSetFilters = () => {
   })
 }
 
-watch(
-  [filters.value, () => route.query.q],
-  () => {
-    filters.value.q = route.query.q ? String(route.query.q) : ''
-
-    router.push({
-      query: filters.value,
-    })
-    console.log(filters.value)
-  },
-  // () => route.query.q,
-  // () => {
-  //   filters.value.q = route.query.q ? String(route.query.q) : ''
-  // },
-)
+watch([filters.value, () => route.query.q], () => {
+  filters.value.q = route.query.q ? String(route.query.q) : ''
+  router.push({
+    query: filters.value,
+  })
+})
 
 const { books, isLoading } = useGetBooks(filters.value)
 </script>
@@ -77,10 +68,10 @@ const { books, isLoading } = useGetBooks(filters.value)
 
       <NotFound v-if="books?.data.length === 0"> Ничего не найдено. Попробуйте позже </NotFound>
       <BookList
-        v-if="!isLoading"
+        v-if="!isLoading && books?.data"
         :is-reservable="true"
         variant="catalog"
-        :items="books?.data ?? []"
+        :items="books?.data"
       />
       <BookListSkeleton variant="catalog" v-if="isLoading" />
     </div>

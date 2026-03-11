@@ -7,7 +7,9 @@ const props = defineProps<{
   book: IBook
 }>()
 
-const genres = computed(() => props.book.genres.data)
+const genres = computed(() => {
+  return props.book.genres.data
+})
 </script>
 
 <template>

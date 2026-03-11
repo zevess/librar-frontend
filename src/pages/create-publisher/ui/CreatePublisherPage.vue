@@ -5,5 +5,6 @@ import { PageTitle } from '@/shared/ui/page-title'
 
 <template>
   <PageTitle title="добавить издательство" />
+  <Toast />
   <PublisherForm mode="create" />
 </template>

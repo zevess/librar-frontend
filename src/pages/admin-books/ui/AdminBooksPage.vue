@@ -20,6 +20,5 @@ const { books } = useGetBooks()
       <LinkButton :to="PUBLIC_URL.adminBookCreate()" text="Добавить книгу" />
     </div>
     <BookTable v-if="books?.data" :books="books?.data" />
-    <!-- <BookList :is-reservable="false" :items="bookData" variant="default" /> -->
   </div>
 </template>

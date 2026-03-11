@@ -15,6 +15,11 @@ export interface IAuthorForm {
   description?: string
 }
 
+export interface IAuthorParams {
+  id: string | null
+  q: string | null
+}
+
 export const authorData = {
   name: 'Скотт Снайдер',
   description:

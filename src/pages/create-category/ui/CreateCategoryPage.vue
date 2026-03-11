@@ -7,5 +7,6 @@ import { Toast } from 'primevue'
 
 <template>
   <PageTitle title="добавить категорию" />
+  <Toast />
   <CategoryForm mode="create" />
 </template>

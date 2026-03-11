@@ -31,6 +31,11 @@ export const useCreateCategory = () => {
       if (axios.isAxiosError(error)) {
         console.error(error.response?.data.message)
         errorMessage.value = error.response?.data.message
+        toast.add({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: error.response?.data.message,
+        })
       }
     },
   })

@@ -7,11 +7,12 @@ export const useGetBook = (slug: string) => {
     isFetching,
     isFetched,
     isSuccess,
+    refetch,
   } = useQuery({
     queryKey: ['get book', slug],
     queryFn: () => bookService.getBookBySlug(slug),
     refetchOnWindowFocus: false,
     refetchOnMount: true,
   })
-  return { book, isFetching, isFetched, isSuccess }
+  return { book, isFetching, isFetched, isSuccess, refetch }
 }

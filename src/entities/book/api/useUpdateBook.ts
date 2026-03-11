@@ -10,7 +10,6 @@ import { useToast } from 'primevue'
 export const useUpdateBook = (bookId: string) => {
   const router = useRouter()
   const errorMessage = ref()
-  const queryClient = useQueryClient()
   const toast = useToast()
   const {
     mutate: updateBook,
@@ -20,16 +19,13 @@ export const useUpdateBook = (bookId: string) => {
     mutationKey: ['update book'],
     mutationFn: (data: IBookForm) => bookService.updateBook(data, bookId),
     onSuccess(data) {
+      router.push(PUBLIC_URL.book(`${data.data.data.slug}-${data.data.data.id}`))
       toast.add({
         severity: 'success',
         summary: 'Статус',
         detail: 'Книга успешно обновлена',
         life: 3000,
       })
-      router.push(PUBLIC_URL.book(`${data.data.data.slug}-${data.data.data.id}`))
-      // queryClient.invalidateQueries({
-      //   queryKey: ['get book', `${data.data.data.slug}-${data.data.data.id}`],
-      // })
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
@@ -39,7 +35,6 @@ export const useUpdateBook = (bookId: string) => {
           severity: 'error',
           summary: 'Ошибка',
           detail: error.response?.data.message,
-          life: 3000,
         })
       }
     },

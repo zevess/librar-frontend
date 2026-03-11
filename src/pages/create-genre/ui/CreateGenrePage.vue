@@ -5,5 +5,6 @@ import { PageTitle } from '@/shared/ui/page-title'
 
 <template>
   <PageTitle title="добавить жанр" />
+  <Toast />
   <GenreForm mode="create" />
 </template>

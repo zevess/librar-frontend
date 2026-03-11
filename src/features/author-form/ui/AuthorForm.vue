@@ -8,20 +8,26 @@ import { useForm } from 'vee-validate'
 import {
   authorSchema,
   useCreateAuthor,
+  useDeleteAuthor,
   useUpdateAuthor,
   type AuthorSchema,
   type IAuthor,
 } from '@/entities/author'
 import { useAuthorFormInitialValues } from '../lib/useAuthorFormInitialValues'
+import { useConfirm, useToast } from 'primevue'
+import { DeleteButton } from '@/shared/ui/delete-button'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
   author?: IAuthor
 }>()
 
+const confirm = useConfirm()
+const toast = useToast()
 const initialValues = useAuthorFormInitialValues(props.author)
 const { createAuthor, isAuthorCreating, errorMessage } = useCreateAuthor()
 const { updateAuthor, isAuthorUpdating } = useUpdateAuthor(String(props.author?.id))
+const { deleteAuthor } = useDeleteAuthor()
 const { handleSubmit, errors, defineField, meta, resetForm, values } = useForm<AuthorSchema>({
   validationSchema: toTypedSchema(authorSchema),
   initialValues: initialValues,
@@ -31,8 +37,31 @@ const [description, descriptionAttrs] = defineField('description')
 
 const onSubmit = handleSubmit(async (formValues) => {
   if (props.mode === 'create') createAuthor(formValues)
-  else updateAuthor(formValues)
+  else {
+    updateAuthor(formValues)
+  }
 })
+
+const deleteConfirm = () => {
+  confirm.require({
+    message: 'Вы уверены? Это действие необратимо.',
+    header: 'Удалить автора',
+    icon: 'pi pi-trash',
+    rejectLabel: 'Отмена',
+    rejectProps: {
+      label: 'Отмена',
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: 'Удалить',
+      severity: 'danger',
+    },
+    accept: () => {
+      deleteAuthor(String(props.author?.id))
+    },
+  })
+}
 </script>
 
 <template>
@@ -60,5 +89,6 @@ const onSubmit = handleSubmit(async (formValues) => {
         :title="props.mode === 'create' ? 'Добавить автора' : 'Изменить автора'"
       />
     </div>
+    <DeleteButton v-if="mode === 'edit'" title="Удалить автора" v-on:delete="deleteConfirm()" />
   </form>
 </template>

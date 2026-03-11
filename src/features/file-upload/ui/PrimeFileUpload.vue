@@ -38,11 +38,13 @@ function clearImage() {
     />
     <span v-if="!image && !src">Изображение не выбрано</span>
     <div v-if="src" class="relative">
-      <img v-if="image" :src="src" alt="" class="max-h-52" />
-      <StoredImage v-if="!image" :url="src" alt="Image" class="max-h-52" />
+      <img v-if="image" :src="src" alt="Обложка" class="max-h-52" />
+
+      <StoredImage v-if="!image" :url="src" alt="Image" styles="max-h-52" />
+
       <span
         @click="clearImage()"
-        class="pi pi-times absolute top-0 right-0 bg-red-500 p-2 cursor-pointer"
+        class="pi pi-times absolute top-0 right-0 bg-red-400 p-2 cursor-pointer"
       ></span>
     </div>
   </div>

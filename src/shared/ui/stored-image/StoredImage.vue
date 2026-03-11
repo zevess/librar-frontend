@@ -5,6 +5,7 @@ import { computed } from 'vue'
 
 const props = defineProps<{
   url?: string
+  styles?: string
 }>()
 
 const imageUrl = computed(() => {
@@ -13,11 +14,18 @@ const imageUrl = computed(() => {
 </script>
 
 <template>
-  <img v-if="url !== null" :src="imageUrl" class="w-full h-full object-contain" alt="" />
-  <div
-    v-if="url === null"
-    class="w-full h-full rounded bg-gray-300 flex items-center justify-center text-center text-sm p-4"
-  >
-    Изображение не найдено
+  <div class="w-full h-full rounded">
+    <img
+      v-if="url !== null"
+      :src="imageUrl"
+      :class="['w-full h-full object-contain', styles]"
+      alt="Обложка"
+    />
+    <div
+      v-if="url === null"
+      class="bg-gray-300 h-full flex items-center justify-center text-center text-sm p-4"
+    >
+      Изображение не найдено
+    </div>
   </div>
 </template>

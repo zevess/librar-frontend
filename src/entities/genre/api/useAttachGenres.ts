@@ -15,11 +15,6 @@ export const useAttachGenres = (bookId: string) => {
   const { mutate: attachGenre, isPending: isGenreAttaching } = useMutation({
     mutationKey: ['attach genre'],
     mutationFn: (params: IGenresParasm) => genreService.attachGenresToBook(bookId, params),
-    onSuccess() {
-      queryClient.invalidateQueries({
-        queryKey: ['get genres'],
-      })
-    },
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.error(error.response?.data.message)
