@@ -1,26 +1,34 @@
 <script setup lang="ts">
 import { reservationStatus } from '@/entities/reservation/model/reservation.types'
+import { ActionButton } from '@/shared/ui/action-button'
 import { Input } from '@/shared/ui/input'
 
 import { PrimeSelect } from '@/shared/ui/select'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 const selectedCity = ref()
 const cities = ref(reservationStatus)
+
+const bookIdFilter = defineModel<string | null>('bookIdFilter')
+const queryFilter = defineModel<string | null>('queryFilter')
+
+// const genreFilter = defineModel<number[]>('genreFilter')
+// const publisherFilter = defineModel<number[]>('publisherFilter')
+const emit = defineEmits(['apply'])
 </script>
 
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-start">
     <div class="flex flex-col gap-1">
       <label class="text-sm font-medium text-gray-700">id книги:</label>
-      <Input placeholder="id" class="w-full" />
+      <Input v-model="bookIdFilter" placeholder="id" class="w-full" />
     </div>
 
     <div class="flex flex-col gap-1">
       <label class="text-sm font-medium text-gray-700">название книги или имя автора:</label>
-      <Input placeholder="id" class="w-full" />
+      <Input v-model="queryFilter" placeholder="id" class="w-full" />
     </div>
 
-    <div class="flex flex-col gap-1">
+    <!-- <div class="flex flex-col gap-1">
       <label class="text-sm font-medium text-gray-700">id автора:</label>
       <Input placeholder="id" class="w-full" />
     </div>
@@ -44,6 +52,7 @@ const cities = ref(reservationStatus)
         :options="cities"
         placeholder="тип"
       />
-    </div>
+    </div> -->
+    <ActionButton @click="emit('apply')" title="Применить"></ActionButton>
   </div>
 </template>

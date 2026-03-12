@@ -9,23 +9,20 @@ import BookCover from './BookCover.vue'
 import BookSkeleton from './BookSkeleton.vue'
 import { NotFound } from '@/shared/ui/not-found'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
+import { ReviewForm } from '@/features/review-form'
+import { useUserStore } from '@/entities/user'
 
 const { slug, id } = useGetParams()
 const { previousRoute } = usePreviousRoute()
 const { book, isFetching, isSuccess, isFetched, refetch } = useGetBook(slug)
-const { reviews } = useGetBookReviews(id)
-const rating = ref<number>()
+const { reviews, isReviewsFetched } = useGetBookReviews(id)
+const { isAuthentificated } = useUserStore()
 
 onMounted(() => {
   if (previousRoute.value?.name === 'books/edit') refetch()
 })
 
-watch(reviews, () => {
-  rating.value = reviews.value?.average
-})
-
 provide('isFetching', isFetching)
-provide('rating', rating)
 </script>
 
 <template>
@@ -35,7 +32,11 @@ provide('rating', rating)
     <BookHeader :book="book?.data" />
 
     <div class="flex flex-col items-center md:flex-row md:items-start gap-6 md:gap-16">
-      <BookCover :book="book?.data" :reviews-count="Number(reviews?.data.length)" />
+      <BookCover
+        :average="reviews?.average"
+        :book="book?.data"
+        :reviews-count="Number(reviews?.data.length)"
+      />
 
       <div class="flex flex-col gap-4 w-full md:max-w-2/3">
         <p>{{ book?.data.description }}</p>
@@ -46,8 +47,19 @@ provide('rating', rating)
 
         <div class="mt-24 flex flex-col gap-4">
           <h2 class="text-xl font-semibold">ОТЗЫВЫ</h2>
-          <h3 class="text-xl" v-if="reviews?.data.length === 0">Отзывов нет</h3>
-          <ReviewCard v-for="review in reviews?.data" :key="review.id" :review="review" />
+          <div v-if="isReviewsFetched">
+            <h3 class="text-xl" v-if="reviews?.data.length === 0">Отзывов нет</h3>
+            <ReviewForm
+              :book-id="book.data.id"
+              v-if="!reviews?.hasUserReviewed && isAuthentificated"
+            />
+            <ReviewCard
+              v-if="reviews?.data"
+              v-for="review in reviews?.data"
+              :key="review.id"
+              :review="review"
+            />
+          </div>
         </div>
       </div>
     </div>

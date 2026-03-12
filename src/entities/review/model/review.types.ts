@@ -10,4 +10,10 @@ export interface IReview {
 export interface IReviewsResponse {
   data: IReview[]
   average: number
+  hasUserReviewed: boolean
+}
+
+export interface IReviewForm {
+  text: string
+  rating: number
 }

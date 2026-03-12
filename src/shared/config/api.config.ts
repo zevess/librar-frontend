@@ -65,7 +65,7 @@ export const API_URL = {
 
   reviews: (url = '') => API_URL.root(`/reviews${url}`),
   getReviews: () => API_URL.reviews('/'),
-  createReview: (bookId = '') => API_URL.reviews(`/${bookId}`),
+  createReview: (bookId = '') => API_URL.books(`/${bookId}/reviews`),
   getReview: (reviewId = '') => API_URL.reviews(`/${reviewId}`),
 
   admin: (url = '') => API_URL.root(`/admin${url}`),

@@ -16,7 +16,7 @@ const isFetching = inject('isFetching')
   <Skeleton v-if="isFetching" width="100%" height="200px" class="rounded"></Skeleton>
   <div
     :class="[
-      `w-full p-6 flex flex-col gap-5 rounded`,
+      `w-full p-6 flex flex-col gap-5 rounded my-4`,
       rating > 3 ? 'bg-green-100/60' : 'bg-red-100/50',
     ]"
   >

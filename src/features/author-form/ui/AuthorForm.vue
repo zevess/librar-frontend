@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ActionButton } from '@/shared/ui/action-button'
 import { Input } from '@/shared/ui/input'
-import { PrimeTextarea } from '@/shared/ui/textarea'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 
@@ -16,6 +15,7 @@ import {
 import { useAuthorFormInitialValues } from '../lib/useAuthorFormInitialValues'
 import { useConfirm, useToast } from 'primevue'
 import { DeleteButton } from '@/shared/ui/delete-button'
+import { Textarea } from '@/shared/ui/textarea'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
@@ -72,11 +72,7 @@ const deleteConfirm = () => {
         <span v-if="errors.name" class="text-red-500">{{ errors.name }}</span>
       </div>
       <div>
-        <PrimeTextarea
-          v-model="description"
-          v-bind="descriptionAttrs"
-          placeholder="описание автора"
-        />
+        <Textarea v-model="description" v-bind="descriptionAttrs" placeholder="описание автора" />
         <span v-if="errors.description" class="text-red-500">{{ errors.description }}</span>
       </div>
     </div>

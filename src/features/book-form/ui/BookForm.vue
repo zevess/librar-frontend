@@ -10,7 +10,6 @@ import {
 import { PrimeFileUpload, useFileUpload } from '@/features/file-upload'
 import { ActionButton } from '@/shared/ui/action-button'
 import { Input } from '@/shared/ui/input'
-import { PrimeTextarea } from '@/shared/ui/textarea'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { computed, ref, watch } from 'vue'
@@ -20,6 +19,7 @@ import { GenresAutocomplete } from '@/features/genres-autocomplete'
 import { PrimeRadioButton } from '@/shared/ui/radio-button'
 import { useConfirm, useToast } from 'primevue'
 import { DeleteButton } from '@/shared/ui/delete-button'
+import { Textarea } from '@/shared/ui/textarea'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
@@ -157,7 +157,7 @@ const deleteConfirm = () => {
         <span v-if="errors.title" class="text-red-500">{{ errors.title }}</span>
       </div>
       <div>
-        <PrimeTextarea
+        <Textarea
           with-label
           label="описание книги"
           v-model="description"

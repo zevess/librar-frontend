@@ -3,13 +3,16 @@ import type { IBook } from '@/entities/book'
 import { ActionButton } from '@/shared/ui/action-button'
 import { PrimeRating } from '@/shared/ui/rating'
 import { StoredImage } from '@/shared/ui/stored-image'
-import { inject } from 'vue'
+import { computed, inject, ref } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   book: IBook
   reviewsCount: number
+  average?: number
 }>()
-const rating = inject('rating')
+const rating = computed(() => props.average)
+
+console.log(rating.value)
 </script>
 
 <template>
@@ -24,7 +27,7 @@ const rating = inject('rating')
       ></ActionButton>
     </div>
     <div class="mt-6 flex items-center gap-4">
-      <span class="text-4xl">{{ rating }}</span>
+      <span v-if="rating" class="text-4xl">{{ rating }}</span>
       <PrimeRating v-model="rating" readonly font-size="x-large" />
       <span>{{ reviewsCount }}</span>
     </div>

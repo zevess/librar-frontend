@@ -1,17 +1,8 @@
 <script setup lang="ts">
 import { ActionButton } from '@/shared/ui/action-button'
 import { Input } from '@/shared/ui/input'
-import { PrimeTextarea } from '@/shared/ui/textarea'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-
-import {
-  authorSchema,
-  useCreateAuthor,
-  useUpdateAuthor,
-  type AuthorSchema,
-  type IAuthor,
-} from '@/entities/author'
 import {
   publisherSchema,
   useCreatePublisher,
@@ -20,6 +11,7 @@ import {
   type PublisherSchema,
 } from '@/entities/publisher'
 import { usePublisherFormInitialValues } from '../lib/usePublisherFormInitialValues'
+import { Textarea } from '@/shared/ui/textarea'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
@@ -51,7 +43,7 @@ const onSubmit = handleSubmit(async (formValues) => {
         <span v-if="errors.name" class="text-red-500">{{ errors.name }}</span>
       </div>
       <div>
-        <PrimeTextarea
+        <Textarea
           v-model="description"
           v-bind="descriptionAttrs"
           placeholder="описание издательства"

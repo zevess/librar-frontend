@@ -3,25 +3,24 @@ import { bookData } from '@/entities/book/model/book.types'
 import { BookList, BookListSkeleton } from '@/entities/book'
 import { PrimeDrawer } from '@/shared/ui/drawer'
 import { PageTitle } from '@/shared/ui/page-title'
-import { provide, ref, watch } from 'vue'
+import { computed, provide, ref, watch } from 'vue'
 import { CatalogFilter } from '@/features/catalog-filter'
 import { useGetBooks } from '@/entities/book/api/useGetBooks'
 import { convertArrayQuery } from '@/shared/lib'
 import { useRoute, useRouter } from 'vue-router'
-import { useGetCategories } from '@/entities/category'
-import { useGetGenres } from '@/entities/genre'
-import { useGetPublishers } from '@/entities/publisher'
-import { useQueryClient } from '@tanstack/vue-query'
 import { NotFound } from '@/shared/ui/not-found'
+import { Paginator } from 'primevue'
 
 const route = useRoute()
 const router = useRouter()
+const page = ref(0)
 
 const filters = ref({
   q: route.query.q ? String(route.query.q) : '',
   category: route.query.category ? Number(route.query.category) : null,
   genres: convertArrayQuery(route.query.genres) ?? [],
   publishers: convertArrayQuery(route.query.publishers) ?? null,
+  page: route.query.page ? Number(route.query.page) : 1,
 })
 
 const handleSetFilters = () => {
@@ -35,6 +34,15 @@ watch([filters.value, () => route.query.q], () => {
   router.push({
     query: filters.value,
   })
+})
+
+const paginatorFirst = computed({
+  get: () => {
+    return filters.value.page - 1
+  },
+  set: (first: number) => {
+    filters.value.page = Math.floor(first / Number(books.value?.meta.per_page)) + 1
+  },
 })
 
 const { books, isLoading } = useGetBooks(filters.value)
@@ -75,5 +83,10 @@ const { books, isLoading } = useGetBooks(filters.value)
       />
       <BookListSkeleton variant="catalog" v-if="isLoading" />
     </div>
+    <Paginator
+      v-model:first="paginatorFirst"
+      :rows="books?.meta.per_page"
+      :total-records="books?.meta.total"
+    ></Paginator>
   </div>
 </template>

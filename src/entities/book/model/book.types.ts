@@ -26,9 +26,9 @@ export interface IBookResponse {
 
 export interface IBooksParams {
   q: string | null
-  category: number | null
-  genres: number[] | null
-  publishers: number[] | null
+  category?: number | null
+  genres?: number[] | null
+  publishers?: number[] | null
 }
 
 export interface IBookForm {
