@@ -3,12 +3,17 @@ import { bookService } from '../model/book.service'
 import type { IBook, IBooksParams } from '../model/book.types'
 import { computed } from 'vue'
 
-export const useGetBooks = (params?: IBooksParams) => {
-  const { data: books, isLoading } = useQuery({
+export const useGetBooks = (params?: IBooksParams, enabled?: boolean) => {
+  const {
+    data: books,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ['get books', params],
     queryFn: () => bookService.getBooks(params),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+    enabled: enabled,
   })
-  return { books, isLoading }
+  return { books, isLoading, refetch }
 }

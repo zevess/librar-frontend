@@ -10,9 +10,6 @@ const cities = ref(reservationStatus)
 
 const bookIdFilter = defineModel<string | null>('bookIdFilter')
 const queryFilter = defineModel<string | null>('queryFilter')
-
-// const genreFilter = defineModel<number[]>('genreFilter')
-// const publisherFilter = defineModel<number[]>('publisherFilter')
 const emit = defineEmits(['apply'])
 </script>
 

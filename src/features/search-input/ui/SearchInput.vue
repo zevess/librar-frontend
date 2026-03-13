@@ -15,6 +15,7 @@ const handleSetQuery = () => {
     query: {
       ...route.query,
       q: searchQuery.value,
+      page: 1,
     },
   })
 }

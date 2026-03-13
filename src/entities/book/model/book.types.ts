@@ -29,6 +29,7 @@ export interface IBooksParams {
   category?: number | null
   genres?: number[] | null
   publishers?: number[] | null
+  page?: number
 }
 
 export interface IBookForm {

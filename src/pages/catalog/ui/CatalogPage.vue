@@ -3,17 +3,17 @@ import { bookData } from '@/entities/book/model/book.types'
 import { BookList, BookListSkeleton } from '@/entities/book'
 import { PrimeDrawer } from '@/shared/ui/drawer'
 import { PageTitle } from '@/shared/ui/page-title'
-import { computed, provide, ref, watch } from 'vue'
+import { computed, nextTick, provide, ref, watch } from 'vue'
 import { CatalogFilter } from '@/features/catalog-filter'
 import { useGetBooks } from '@/entities/book/api/useGetBooks'
 import { convertArrayQuery } from '@/shared/lib'
 import { useRoute, useRouter } from 'vue-router'
 import { NotFound } from '@/shared/ui/not-found'
 import { Paginator } from 'primevue'
+import { Pagination } from '@/features/pagination'
 
 const route = useRoute()
 const router = useRouter()
-const page = ref(0)
 
 const filters = ref({
   q: route.query.q ? String(route.query.q) : '',
@@ -23,27 +23,27 @@ const filters = ref({
   page: route.query.page ? Number(route.query.page) : 1,
 })
 
-const handleSetFilters = () => {
-  router.push({
-    query: filters.value,
-  })
-}
-
-watch([filters.value, () => route.query.q], () => {
-  filters.value.q = route.query.q ? String(route.query.q) : ''
-  router.push({
-    query: filters.value,
-  })
-})
-
-const paginatorFirst = computed({
-  get: () => {
-    return filters.value.page - 1
+watch(
+  () => ({
+    q: filters.value.q,
+    category: filters.value.category,
+    genres: filters.value.genres,
+    publishers: filters.value.publishers,
+  }),
+  () => {
+    const newFilters = { ...filters.value }
+    newFilters.page = 1
+    router.push({ query: newFilters })
   },
-  set: (first: number) => {
-    filters.value.page = Math.floor(first / Number(books.value?.meta.per_page)) + 1
+)
+
+watch(
+  () => route.query,
+  () => {
+    filters.value.q = String(route.query.q)
+    filters.value.page = Number(route.query.page)
   },
-})
+)
 
 const { books, isLoading } = useGetBooks(filters.value)
 </script>
@@ -58,7 +58,6 @@ const { books, isLoading } = useGetBooks(filters.value)
             v-model:category-filter="filters.category"
             v-model:genre-filter="filters.genres"
             v-model:publisher-filter="filters.publishers"
-            @apply="handleSetFilters"
           />
         </PrimeDrawer>
       </div>
@@ -70,7 +69,6 @@ const { books, isLoading } = useGetBooks(filters.value)
           v-model:category-filter="filters.category"
           v-model:genre-filter="filters.genres"
           v-model:publisher-filter="filters.publishers"
-          @apply="handleSetFilters"
         />
       </div>
 
@@ -83,10 +81,7 @@ const { books, isLoading } = useGetBooks(filters.value)
       />
       <BookListSkeleton variant="catalog" v-if="isLoading" />
     </div>
-    <Paginator
-      v-model:first="paginatorFirst"
-      :rows="books?.meta.per_page"
-      :total-records="books?.meta.total"
-    ></Paginator>
+
+    <Pagination v-if="books?.links || books?.meta" :meta="books?.meta" :links="books?.links" />
   </div>
 </template>

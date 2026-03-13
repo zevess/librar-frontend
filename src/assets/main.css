@@ -25,6 +25,10 @@ body {
   opacity: 0;
 }
 
+.pagination-button {
+  @apply size-12 flex items-center justify-center rounded-full cursor-pointer transition hover:bg-[#d1ebe9];
+}
+
 /* a:hover {
   color: #bededc;
 } */

@@ -1,2 +1,8 @@
 export { api, apiPrivate } from './api.interceptor'
-export { type IPaginatedResponse, type IResponse } from './api.types'
+export type {
+  IPaginatedResponse,
+  IResponse,
+  IPaginationMeta,
+  IPaginationLinks,
+  IPaginationMetaLinks,
+} from './api.types'
