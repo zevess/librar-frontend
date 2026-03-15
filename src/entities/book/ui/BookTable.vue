@@ -12,7 +12,6 @@ defineProps<{
 const router = useRouter()
 
 const onRowClick = (event: DataTableRowClickEvent) => {
-  console.log(event.data)
   router.push(PUBLIC_URL.book(`${event.data.slug}-${event.data.id}`))
 }
 const rowClass = () => {

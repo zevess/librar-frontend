@@ -9,19 +9,13 @@ import { useGetBooks } from '@/entities/book/api/useGetBooks'
 import { convertArrayQuery } from '@/shared/lib'
 import { useRoute, useRouter } from 'vue-router'
 import { NotFound } from '@/shared/ui/not-found'
-import { Paginator } from 'primevue'
 import { Pagination } from '@/features/pagination'
+import { useCatalogFilter } from '../lib/useCatalogFilter'
 
 const route = useRoute()
 const router = useRouter()
 
-const filters = ref({
-  q: route.query.q ? String(route.query.q) : '',
-  category: route.query.category ? Number(route.query.category) : null,
-  genres: convertArrayQuery(route.query.genres) ?? [],
-  publishers: convertArrayQuery(route.query.publishers) ?? null,
-  page: route.query.page ? Number(route.query.page) : 1,
-})
+const { filters } = useCatalogFilter()
 
 watch(
   () => ({
@@ -40,7 +34,7 @@ watch(
 watch(
   () => route.query,
   () => {
-    filters.value.q = String(route.query.q)
+    filters.value.q = route.query.q ? String(route.query.q) : ''
     filters.value.page = Number(route.query.page)
   },
 )

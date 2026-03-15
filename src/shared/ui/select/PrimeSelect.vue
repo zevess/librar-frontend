@@ -11,11 +11,11 @@ defineProps<{
 </template>
 <style scoped>
 .custom-select {
-  --p-select-background: #f9fafb; /* bg-gray-50 */
-  --p-select-color: #000000; /* text-black */
+  --p-select-background: #f9fafb;
+  --p-select-color: #000000;
   --p-select-border-color: #d1ebe9;
-  --p-select-border-radius: 0.375rem; /* rounded-md */
-  --p-select-height: 3rem; /* h-12 */
+  --p-select-border-radius: 0.375rem;
+  --p-select-height: 3rem;
   --p-select-focus-border-color: #a4c8c6;
 
   border-width: 2px;

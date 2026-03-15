@@ -1,54 +1,46 @@
 <script setup lang="ts">
 import { BookList, BookTable, useGetBooks } from '@/entities/book'
+import type { IGenre } from '@/entities/genre'
 import { BookFilter } from '@/features/book-filter'
+import { Pagination } from '@/features/pagination'
 import { PUBLIC_URL } from '@/shared/config/url.config'
+import { convertArrayQuery } from '@/shared/lib'
 import { ActionButton } from '@/shared/ui/action-button'
 import { LinkButton } from '@/shared/ui/link-button'
+import { NotFound } from '@/shared/ui/not-found'
 import { PageTitle } from '@/shared/ui/page-title'
 import { Paginator } from 'primevue'
 import { computed, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { useParams } from './lib/useParams'
+import { useBookFilter } from './lib/useBookFilter'
 
 const route = useRoute()
 const router = useRouter()
 
-const bookFilter = ref({
-  q: route.query.q ? String(route.query.q) : '',
-  bookId: route.query.category ? String(route.query.bookId) : null,
-  page: route.query.page ? Number(route.query.page) : 1,
-})
+const { bookFilter } = useBookFilter()
 
-const params = ref({
-  q: route.query.q ? String(route.query.q) : '',
-  bookId: route.query.category ? String(route.query.bookId) : null,
-  page: route.query.page ? Number(route.query.page) : 1,
-})
+const { params } = useParams()
 
 const apply = () => {
-  router.push({
-    query: {
-      ...bookFilter.value,
-      page: 1,
-    },
-  })
+  const newFilters = { ...bookFilter.value }
+  newFilters.page = 1
+  router.push({ query: newFilters })
 }
 
-watch([params.value, () => route.query], () => {
-  params.value.q = route.query.q ? String(route.query.q) : ''
-  router.push({
-    query: { ...params.value },
-  })
-  // params.value.page = route.query.page ? Number(route.query.page) : 1
-})
-
-const paginatorFirst = computed({
-  get: () => {
-    return params.value.page - 1
+watch(
+  () => route.query,
+  () => {
+    params.value.q = route.query.q ? String(route.query.q) : ''
+    params.value.bookId = route.query.bookId ? String(route.query.bookId) : ''
+    params.value.page = Number(route.query.page)
+    params.value.category = route.query.category ? Number(route.query.category) : null
+    params.value.genres = route.query.genres ? convertArrayQuery(route.query.genres) : []
+    params.value.publishers = route.query.publishers
+      ? convertArrayQuery(route.query.publishers)
+      : []
   },
-  set: (first: number) => {
-    params.value.page = Math.floor(first / Number(books.value?.meta.per_page)) + 1
-  },
-})
+)
 
 const { books } = useGetBooks(params.value)
 </script>
@@ -60,15 +52,20 @@ const { books } = useGetBooks(params.value)
       @apply="apply"
       v-model:book-id-filter="bookFilter.bookId"
       v-model:query-filter="bookFilter.q"
+      v-model:genres-filter="bookFilter.genres"
+      v-model:category-filter="bookFilter.category"
+      v-model:publishers-filter="bookFilter.publishers"
     />
-    <div class="flex justify-center md:justify-end">
+    <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
+      <ActionButton @click="apply" class="p-4" title="Применить"></ActionButton>
+
       <LinkButton :to="PUBLIC_URL.adminBookCreate()" text="Добавить книгу" />
     </div>
+
     <BookTable v-if="books?.data" :books="books?.data" />
-    <Paginator
-      v-model:first="paginatorFirst"
-      :rows="books?.meta.per_page"
-      :total-records="books?.meta.total"
-    ></Paginator>
+    <NotFound v-if="books?.data.length === 0"
+      >Ничего не найдено. Попробуйте позже или измените запрос</NotFound
+    >
+    <Pagination v-if="books" :meta="books?.meta" :links="books?.links" />
   </div>
 </template>

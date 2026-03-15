@@ -25,11 +25,12 @@ export interface IBookResponse {
 }
 
 export interface IBooksParams {
-  q: string | null
+  q?: string | ''
   category?: number | null
   genres?: number[] | null
   publishers?: number[] | null
   page?: number
+  bookId?: string | ''
 }
 
 export interface IBookForm {
