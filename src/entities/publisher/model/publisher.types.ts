@@ -15,6 +15,12 @@ export interface IPublisherForm {
   description?: string
 }
 
+export interface IPublisherParams {
+  q?: string | ''
+  id?: string | ''
+  page?: number
+}
+
 export const publisherData = [
   {
     name: 'Азбука',

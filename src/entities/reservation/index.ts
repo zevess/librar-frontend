@@ -1,3 +1,7 @@
 export { default as ReservationCard } from './ui/ReservationCard.vue'
 export { default as AdminReservationCard } from './ui/AdminReservationCard.vue'
 export { default as ReservationsTable } from './ui/ReservationsTable.vue'
+export { useGetReservations } from './api/useGetReservations'
+export { useCreateReservation } from './api/useCreateReservation'
+export type { IReservationParams, IReservationStatus } from './model/reservation.types'
+export { statusArray } from './model/reservation.types'

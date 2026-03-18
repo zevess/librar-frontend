@@ -1,36 +1,39 @@
 <script setup lang="ts">
-import { reservationStatus } from '@/entities/reservation/model/reservation.types'
+import { statusArray } from '@/entities/reservation'
 import { Input } from '@/shared/ui/input'
 import { PrimeSelect } from '@/shared/ui/select'
-import { ref } from 'vue'
-const selectedCity = ref()
-const cities = ref(reservationStatus)
+
+const reservationIdFilter = defineModel<string | null>('reservationIdFilter')
+const userFilter = defineModel<string | null>('userFilter')
+const bookIdFilter = defineModel<string | null>('bookIdFilter')
+const statusFilter = defineModel<string | null>('statusFilter')
 </script>
 
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-start">
     <div class="flex flex-col gap-1">
       <label class="text-sm font-medium text-gray-700">id:</label>
-      <Input placeholder="найти..." class="w-full" />
+      <Input v-model="reservationIdFilter" placeholder="найти..." class="w-full" />
     </div>
 
     <div class="flex flex-col gap-1">
-      <label class="text-sm font-medium text-gray-700">id пользователя:</label>
-      <Input placeholder="найти..." class="w-full" />
+      <label class="text-sm font-medium text-gray-700">email пользователя:</label>
+      <Input v-model="userFilter" placeholder="найти..." class="w-full" />
     </div>
 
     <div class="flex flex-col gap-1">
       <label class="text-sm font-medium text-gray-700">id книги:</label>
-      <Input placeholder="найти..." class="w-full" />
+      <Input v-model="bookIdFilter" placeholder="найти..." class="w-full" />
     </div>
 
     <div class="flex flex-col gap-1">
       <label class="text-sm font-medium text-gray-700">статус:</label>
       <PrimeSelect
         class="w-full"
-        option-label="name"
-        v-model="selectedCity"
-        :options="cities"
+        option-label="label"
+        option-value="value"
+        v-model="statusFilter"
+        :options="statusArray"
         placeholder="статус"
       />
     </div>

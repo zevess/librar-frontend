@@ -7,7 +7,7 @@ class AuthorService {
     const { data } = await api<IPaginatedResponse<IAuthor>>({
       url: API_URL.getAuthors(),
       method: 'GET',
-      data: params,
+      params,
     })
     return data
   }

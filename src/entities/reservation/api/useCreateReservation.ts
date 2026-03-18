@@ -1,0 +1,23 @@
+import { useMutation } from '@tanstack/vue-query'
+import { reservationService } from '../model/reservation.service'
+import { useToast } from 'primevue'
+import axios from 'axios'
+
+export const useCreateReservation = () => {
+  const toast = useToast()
+  const { mutate: reserve, isPending } = useMutation({
+    mutationKey: ['create reservation'],
+    mutationFn: (bookId: string) => reservationService.createReservation(bookId),
+    onError(error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response)
+        toast.add({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: String(error.response?.data.message),
+        })
+      }
+    },
+  })
+  return { reserve, isPending }
+}

@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/vue-query'
 import { publisherService } from '../model/publisher.service'
-import type { IPublisherParams } from '../model/publisher.types'
 
-export const useGetPublishers = (params?: IPublisherParams) => {
+export const useGetAllPublishers = () => {
   const {
     data: publishers,
     isFetching,
     isFetched,
   } = useQuery({
-    queryKey: ['get publishers', params],
-    queryFn: () => publisherService.getPublishers(params),
+    queryKey: ['get all publishers'],
+    queryFn: () => publisherService.getAllPublishers(),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   })

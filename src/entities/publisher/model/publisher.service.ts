@@ -1,15 +1,25 @@
-import { api, apiPrivate, type IResponse } from '@/shared/api'
+import { api, apiPrivate, type IPaginatedResponse, type IResponse } from '@/shared/api'
 import { API_URL } from '@/shared/config'
-import type { IPublisher, IPublisherForm } from './publisher.types'
+import type { IPublisher, IPublisherForm, IPublisherParams } from './publisher.types'
 
 class PublisherService {
-  async getPublishers() {
-    const { data } = await api<IPublisher[]>({
-      url: API_URL.publishers(),
+  async getAllPublishers() {
+    const { data } = await api<IResponse<IPublisher[]>>({
+      url: API_URL.publishers('/get'),
       method: 'GET',
     })
     return data
   }
+
+  async getPublishers(params?: IPublisherParams) {
+    const { data } = await api<IPaginatedResponse<IPublisher>>({
+      url: API_URL.publishers(),
+      method: 'GET',
+      params,
+    })
+    return data
+  }
+
   async getPublisherBySlug(slug: string) {
     const { data } = await api<IResponse<IPublisher>>({
       url: API_URL.getPublisherBySlugAndId(slug),

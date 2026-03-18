@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useGetCategories } from '@/entities/category'
 import { useGetGenres, type IGenre } from '@/entities/genre'
-import { useGetPublishers } from '@/entities/publisher'
+import { useGetAllPublishers, useGetPublishers } from '@/entities/publisher'
 import { Input } from '@/shared/ui/input'
 import { PrimeMultiSelect } from '@/shared/ui/multi-select'
 import { PrimeSelect } from '@/shared/ui/select'
 
-const { publishers } = useGetPublishers()
+const { publishers } = useGetAllPublishers()
 const { genres } = useGetGenres()
 const { categories } = useGetCategories()
 
@@ -22,12 +22,12 @@ const publishersFilter = defineModel<number[] | null>('publishersFilter')
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-center">
       <div class="flex flex-col gap-1">
         <label class="text-sm font-medium text-gray-700">id книги:</label>
-        <Input v-model="bookIdFilter" placeholder="id" class="w-full" />
+        <Input v-model="bookIdFilter" placeholder="найти..." class="w-full" />
       </div>
 
       <div class="flex flex-col gap-1">
         <label class="text-sm font-medium text-gray-700">название книги или имя автора:</label>
-        <Input v-model="queryFilter" placeholder="id" class="w-full" />
+        <Input v-model="queryFilter" placeholder="найти..." class="w-full" />
       </div>
       <div class="flex flex-col gap-1">
         <label class="text-sm font-medium text-gray-700">категория:</label>
@@ -36,7 +36,7 @@ const publishersFilter = defineModel<number[] | null>('publishersFilter')
           :options="categories?.data"
           option-label="name"
           option-value="id"
-          placeholder="Категории"
+          placeholder="категории"
         />
       </div>
 
@@ -44,10 +44,10 @@ const publishersFilter = defineModel<number[] | null>('publishersFilter')
         <label class="text-sm font-medium text-gray-700">издательства:</label>
         <PrimeMultiSelect
           v-model="publishersFilter"
-          :options="publishers"
+          :options="publishers?.data"
           optionLabel="name"
           option-value="id"
-          placeholder="Издательства"
+          placeholder="издательства"
         />
       </div>
       <div class="flex flex-col gap-1">

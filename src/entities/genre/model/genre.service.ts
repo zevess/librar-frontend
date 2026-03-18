@@ -32,7 +32,7 @@ class GenreService {
     const response = await apiPrivate({
       url: API_URL.attachGenre(bookId),
       method: 'POST',
-      data: params,
+      params,
     })
     return response
   }
@@ -40,7 +40,7 @@ class GenreService {
     const response = await apiPrivate({
       url: API_URL.detachGenre(bookId),
       method: 'DELETE',
-      data: params,
+      params,
     })
     return response
   }

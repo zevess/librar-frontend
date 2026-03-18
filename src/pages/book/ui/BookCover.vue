@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IBook } from '@/entities/book'
+import { useCreateReservation } from '@/entities/reservation'
 import { ActionButton } from '@/shared/ui/action-button'
 import { PrimeRating } from '@/shared/ui/rating'
 import { StoredImage } from '@/shared/ui/stored-image'
@@ -11,8 +12,13 @@ const props = defineProps<{
   average?: number
 }>()
 const rating = computed(() => props.average)
+const isAvailable = ref(props.book.isAvailable)
+const { reserve } = useCreateReservation()
 
-console.log(rating.value)
+const reserveBook = () => {
+  reserve(String(props.book.id))
+  isAvailable.value = false
+}
 </script>
 
 <template>
@@ -21,9 +27,10 @@ console.log(rating.value)
     <div class="flex flex-col mt-4 gap-1">
       <span class="text-gray-500">Доступно</span>
       <ActionButton
+        @click="reserveBook"
         class="w-full h-12"
-        :disabled="!book?.isAvailable"
-        title="Забронировать"
+        :disabled="!isAvailable"
+        :title="isAvailable ? 'Забронировать' : 'Забронировано'"
       ></ActionButton>
     </div>
     <div class="mt-6 flex items-center gap-4">

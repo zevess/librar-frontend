@@ -4,7 +4,7 @@ import { useGetCategories } from '@/entities/category'
 import { categoryData } from '@/entities/category/model/category.types'
 import { useGetGenres } from '@/entities/genre'
 import { genreData } from '@/entities/genre/model/genre.types'
-import { useGetPublishers } from '@/entities/publisher'
+import { useGetAllPublishers, useGetPublishers } from '@/entities/publisher'
 import { publisherData } from '@/entities/publisher/model/publisher.types'
 import { convertArrayQuery, getArrayKey } from '@/shared/lib'
 import { PrimeAccordion } from '@/shared/ui/accordion'
@@ -15,7 +15,7 @@ import { Accordion } from 'primevue'
 
 const { categories } = useGetCategories()
 const { genres } = useGetGenres()
-const { publishers } = useGetPublishers()
+const { publishers } = useGetAllPublishers()
 
 const categoryFilter = defineModel<number | null>('categoryFilter')
 const genreFilter = defineModel<number[]>('genreFilter')
@@ -52,7 +52,7 @@ const emit = defineEmits(['apply'])
     <PrimeAccordion header="издательства" :value="2">
       <div class="flex flex-col gap-2">
         <PrimeCheckbox
-          v-for="item in publishers"
+          v-for="item in publishers?.data"
           v-model="publisherFilter"
           :name="item?.slug"
           :value="item.id"

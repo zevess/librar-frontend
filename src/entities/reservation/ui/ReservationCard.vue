@@ -16,7 +16,7 @@ const book = bookData[0]
     class="flex flex-col gap-2 w-36 sm:w-48 p-2 rounded-md border-4 border-transparent hover:border-[#bededc] cursor-pointer transition hover:-translate-y-2"
   >
     <span class="text-center font-semibold">Забрать до...</span>
-    <RouterLink :to="PUBLIC_URL.book(book?.slug)"
+    <!-- <RouterLink :to="PUBLIC_URL.book(book?.slug)"
       ><div class="w-full aspect-2/3 overflow-hidden rounded">
         <img :src="book?.image" class="w-full h-full object-contain" alt="" />
       </div>
@@ -26,12 +26,12 @@ const book = bookData[0]
         }}</span>
         <span class="text-xs text-gray-500">{{ book?.author }}</span>
       </div>
-    </RouterLink>
+    </RouterLink> -->
 
-    <ActionButton
+    <!-- <ActionButton
       :disabled="reservation.status == IReservationStatus.ISSUED"
       :title="reservation.status == IReservationStatus.RESERVED ? 'Отменить' : 'Выдано'"
       class="w-full text-xs"
-    />
+    /> -->
   </div>
 </template>

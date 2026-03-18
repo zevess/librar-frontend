@@ -28,13 +28,6 @@ const changePage = (page: number) => {
   })
 }
 
-// const emit = defineEmits(['changePage'])
-
-// const toFirstPage = () => emit('changePage', 1)
-// const toLastPage = () => emit('changePage', lastPage.value)
-// const previousPage = () => emit('changePage', currentPage.value - 1)
-// const nextPage = () => emit('changePage', currentPage.value + 1)
-
 const toFirstPage = () => changePage(1)
 const toLastPage = () => changePage(lastPage.value)
 const previousPage = () => changePage(currentPage.value - 1)

@@ -2,6 +2,7 @@
 import { BookList, BookTable, useGetBooks } from '@/entities/book'
 import type { IGenre } from '@/entities/genre'
 import { BookFilter } from '@/features/book-filter'
+import { ApplyButton, applyFilter, ClearButton, useFilter, useParams } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { convertArrayQuery } from '@/shared/lib'
@@ -12,21 +13,11 @@ import { PageTitle } from '@/shared/ui/page-title'
 import { Paginator } from 'primevue'
 import { computed, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
-import { useParams } from './lib/useParams'
-import { useBookFilter } from './lib/useBookFilter'
 
 const route = useRoute()
-const router = useRouter()
 
-const { bookFilter } = useBookFilter()
-
+const { filter } = useFilter()
 const { params } = useParams()
-
-const apply = () => {
-  const newFilters = { ...bookFilter.value }
-  newFilters.page = 1
-  router.push({ query: newFilters })
-}
 
 watch(
   () => route.query,
@@ -49,16 +40,17 @@ const { books } = useGetBooks(params.value)
   <div class="flex flex-col gap-4 w-full">
     <PageTitle title="книги" />
     <BookFilter
-      @apply="apply"
-      v-model:book-id-filter="bookFilter.bookId"
-      v-model:query-filter="bookFilter.q"
-      v-model:genres-filter="bookFilter.genres"
-      v-model:category-filter="bookFilter.category"
-      v-model:publishers-filter="bookFilter.publishers"
+      v-model:book-id-filter="filter.bookId"
+      v-model:query-filter="filter.q"
+      v-model:genres-filter="filter.genres"
+      v-model:category-filter="filter.category"
+      v-model:publishers-filter="filter.publishers"
     />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
-      <ActionButton @click="apply" class="p-4" title="Применить"></ActionButton>
-
+      <div class="flex gap-4">
+        <ApplyButton :filter="filter" />
+        <ClearButton />
+      </div>
       <LinkButton :to="PUBLIC_URL.adminBookCreate()" text="Добавить книгу" />
     </div>
 

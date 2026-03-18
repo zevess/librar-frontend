@@ -6,12 +6,22 @@ import { bookData, type IBook } from '../model/book.types'
 import { useQueryClient } from '@tanstack/vue-query'
 import { bookService } from '../model/book.service'
 import { StoredImage } from '@/shared/ui/stored-image'
+import { useCreateReservation } from '@/entities/reservation'
+import { ref } from 'vue'
 
 const props = defineProps<{
   book: IBook
   isEditable: boolean
   isReservable: boolean
 }>()
+
+const isAvailable = ref(props.book.isAvailable)
+const { reserve } = useCreateReservation()
+
+const reserveBook = () => {
+  reserve(String(props.book.id))
+  isAvailable.value = false
+}
 </script>
 
 <template>
@@ -30,8 +40,9 @@ const props = defineProps<{
 
     <ActionButton
       v-if="isReservable"
-      :disabled="!book.isAvailable"
-      :title="book.isAvailable ? 'Забронировать' : 'Забронировано'"
+      :disabled="!isAvailable"
+      @click="reserveBook"
+      :title="isAvailable ? 'Забронировать' : 'Забронировано'"
       class="w-full text-xs"
     />
   </div>
