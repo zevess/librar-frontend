@@ -3,11 +3,12 @@ import { reservationService } from '../model/reservation.service'
 import { useToast } from 'primevue'
 import axios from 'axios'
 
-export const useCreateReservation = () => {
+export const useCancelReservation = () => {
   const toast = useToast()
-  const { mutate: reserve, isPending } = useMutation({
-    mutationKey: ['create reservation'],
-    mutationFn: (bookId: string) => reservationService.createReservation(bookId),
+
+  const { mutate: cancel, isPending } = useMutation({
+    mutationKey: ['cancel reservation'],
+    mutationFn: (reservationId: string) => reservationService.cancelReservation(reservationId),
     onSuccess(data) {
       toast.add({
         severity: 'success',
@@ -26,5 +27,5 @@ export const useCreateReservation = () => {
       }
     },
   })
-  return { reserve, isPending }
+  return { cancel, isPending }
 }

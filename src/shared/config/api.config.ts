@@ -35,6 +35,7 @@ export const API_URL = {
 
   reservations: (url = '') => API_URL.root(`/reservations${url}`),
   getReservations: () => API_URL.reservations('/'),
+  getUserReservations: (userId = '') => API_URL.reservations(`/user/${userId}`),
   getReservationById: (reservationId = '') => API_URL.reservations(`/${reservationId}`),
   cancelReservation: (reservationId = '') => API_URL.reservations(`/${reservationId}/cancel`),
   issueReservation: (reservationId = '') => API_URL.reservations(`/${reservationId}/issue`),

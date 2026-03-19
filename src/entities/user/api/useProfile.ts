@@ -4,8 +4,6 @@ import { useUserStore } from '../model/user.store'
 import axios from 'axios'
 import { effectScope, watch } from 'vue'
 
-// const scope = effectScope()
-
 export const useProfile = () => {
   const {
     data: profile,

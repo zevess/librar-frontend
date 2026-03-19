@@ -30,7 +30,7 @@ watch(
   },
 )
 
-const { reservations } = useGetReservations(params.value)
+const { reservations } = useGetReservations(params)
 </script>
 
 <template>

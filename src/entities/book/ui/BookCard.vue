@@ -8,6 +8,7 @@ import { bookService } from '../model/book.service'
 import { StoredImage } from '@/shared/ui/stored-image'
 import { useCreateReservation } from '@/entities/reservation'
 import { ref } from 'vue'
+import { Toast } from 'primevue'
 
 const props = defineProps<{
   book: IBook
@@ -28,6 +29,7 @@ const reserveBook = () => {
   <div
     class="flex flex-col gap-2 w-36 sm:w-48 p-2 rounded-md border-4 border-transparent hover:border-[#bededc] cursor-pointer transition hover:-translate-y-2"
   >
+    <Toast />
     <RouterLink :to="PUBLIC_URL.book(`${book.slug}-${book.id}`)"
       ><div class="w-full aspect-2/3 overflow-hidden rounded">
         <StoredImage :url="book.image" />

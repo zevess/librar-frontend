@@ -1,8 +1,8 @@
 <script setup lang="ts">
-defineProps({
-  title: String,
-  disabled: Boolean,
-})
+defineProps<{
+  title?: string
+  disabled?: boolean
+}>()
 </script>
 
 <template>

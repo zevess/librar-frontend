@@ -6,7 +6,7 @@ export interface IReservation {
   book: IBook
   reservedBy: IUser
   expiresAt?: string
-  status: IReservationStatus
+  status: string
 }
 
 export interface IReservationResponse {

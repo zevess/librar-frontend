@@ -4,7 +4,7 @@ import { useCreateReservation } from '@/entities/reservation'
 import { ActionButton } from '@/shared/ui/action-button'
 import { PrimeRating } from '@/shared/ui/rating'
 import { StoredImage } from '@/shared/ui/stored-image'
-import { computed, inject, ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps<{
   book: IBook

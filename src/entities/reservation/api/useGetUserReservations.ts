@@ -1,20 +1,23 @@
 import { useQuery } from '@tanstack/vue-query'
 import type { IReservationParams } from '../model/reservation.types'
 import { reservationService } from '../model/reservation.service'
-import type { Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 
-export const useGetReservations = (params?: Ref<IReservationParams>, enabled?: boolean) => {
+export const useGetUserReservations = (
+  userId: ComputedRef<number | undefined>,
+  enabled?: boolean,
+) => {
   const {
     data: reservations,
     isFetching,
     isFetched,
     refetch,
   } = useQuery({
-    queryKey: ['get reservations', params],
-    queryFn: () => reservationService.getReservations(params?.value),
+    queryKey: ['get user reservations', userId],
+    queryFn: () => reservationService.getUserReservations(String(userId.value)),
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    enabled: enabled,
+    refetchOnMount: true,
+    enabled: () => !!userId.value,
   })
 
   return { reservations, isFetching, isFetched, refetch }

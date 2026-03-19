@@ -4,10 +4,28 @@ import { ref, onMounted } from 'vue'
 import { Column, DataTable, Tag } from 'primevue'
 import { IReservationStatus, type IReservation } from '../model/reservation.types'
 import { StoredImage } from '@/shared/ui/stored-image'
+import { ActionButton } from '@/shared/ui/action-button'
+import { CancelReservationButton } from '@/shared/ui/cancel-reservation-button'
 
 defineProps<{
   reservations: IReservation[]
 }>()
+
+const getSeverity = (status: string) => {
+  switch (status) {
+    case 'reserved':
+      return 'info'
+
+    case 'issued':
+      return 'warn'
+
+    case 'canceled':
+      return 'danger'
+
+    case 'completed':
+      return 'success'
+  }
+}
 </script>
 <template>
   <div class="card">
@@ -49,9 +67,16 @@ defineProps<{
       </Column>
       <Column field="status" header="Статус">
         <template #body="slotprops">
-          <span>{{
-            IReservationStatus[slotprops.data.status as keyof typeof IReservationStatus]
-          }}</span>
+          <div class="flex flex-col gap-4">
+            <Tag
+              :value="IReservationStatus[slotprops.data.status as keyof typeof IReservationStatus]"
+              :severity="getSeverity(slotprops.data.status)"
+            />
+            <CancelReservationButton
+              :reservation-id="slotprops.data.id"
+              v-if="slotprops.data.status === 'reserved'"
+            />
+          </div>
         </template>
       </Column>
     </DataTable>
