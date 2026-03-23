@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
 import {
   type IReservation,
+  ProfileReservationsTable,
   ReservationsTable,
   useGetReservations,
   useGetUserReservations,
@@ -16,12 +17,15 @@ import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { reservationService } from '@/entities/reservation/model/reservation.service'
 import type { IPaginatedResponse } from '@/shared/api'
 import { LogoutButton } from '@/shared/ui/logout-button'
+import { NotFound } from '@/shared/ui/not-found'
+import { SkeletonTable } from '@/shared/ui/skeleton-table'
 
-const { profile, isFetching, isFetched, isSuccess } = useProfile()
+const { profile, isFetching, isFetched } = useProfile()
 
 const userId = computed(() => profile.value?.user?.id)
 
-const { reservations, refetch } = useGetUserReservations(userId)
+const { reservations, isReservationsFetching, isReservationsFetched } =
+  useGetUserReservations(userId)
 </script>
 
 <template>
@@ -34,13 +38,22 @@ const { reservations, refetch } = useGetUserReservations(userId)
           :title="profile?.user.name"
           class="text-center md:text-left"
         />
-        <span>{{ profile?.user.email }}</span>
+        <span class="text-lg">{{ profile?.user.email }}</span>
       </div>
 
       <PageSubtitle title="профиль" />
     </div>
-    <span class="text-xl uppercase font-semibold">Все брони:</span>
-    <ReservationsTable v-if="reservations" :reservations="reservations.data" />
+    <div class="flex flex-col gap-4 mt-8">
+      <span class="text-xl uppercase font-semibold">Все брони:</span>
+      <SkeletonTable v-if="isReservationsFetching && !reservations" />
+      <ProfileReservationsTable
+        v-if="reservations && isReservationsFetched"
+        :reservations="reservations.data"
+      />
+      <NotFound v-if="reservations?.data.length === 0 && isReservationsFetched"
+        >Брони не найдены</NotFound
+      >
+    </div>
 
     <LogoutButton />
   </div>

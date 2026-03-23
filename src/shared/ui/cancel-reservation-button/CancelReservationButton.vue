@@ -3,13 +3,13 @@ import { useCancelReservation } from '@/entities/reservation'
 import { ActionButton } from '../action-button'
 
 const props = defineProps<{
-  reservationId: string
+  reservationId: number
 }>()
 
 const { cancel } = useCancelReservation()
 
 const cancelReservation = () => {
-  cancel(props.reservationId)
+  cancel(String(props.reservationId))
 }
 </script>
 

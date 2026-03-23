@@ -10,6 +10,7 @@ import { ActionButton } from '@/shared/ui/action-button'
 import { LinkButton } from '@/shared/ui/link-button'
 import { NotFound } from '@/shared/ui/not-found'
 import { PageTitle } from '@/shared/ui/page-title'
+import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { Paginator } from 'primevue'
 import { computed, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
@@ -33,7 +34,7 @@ watch(
   },
 )
 
-const { books } = useGetBooks(params.value)
+const { books, isFetched, isFetching } = useGetBooks(params.value)
 </script>
 
 <template>
@@ -53,6 +54,7 @@ const { books } = useGetBooks(params.value)
       </div>
       <LinkButton :to="PUBLIC_URL.adminBookCreate()" text="Добавить книгу" />
     </div>
+    <SkeletonTable :cols="6" v-if="isFetching && !books" />
 
     <BookTable v-if="books?.data" :books="books?.data" />
     <NotFound v-if="books?.data.length === 0"

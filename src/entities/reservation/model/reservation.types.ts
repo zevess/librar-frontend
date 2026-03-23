@@ -11,6 +11,7 @@ export interface IReservation {
 
 export interface IReservationResponse {
   message: string
+  success?: boolean
   reservation: IReservation
 }
 

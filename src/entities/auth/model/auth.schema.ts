@@ -18,5 +18,23 @@ export const registerSchema = z
     path: ['password_confirmation'],
   })
 
+export const forgotPasswordSchema = z.object({
+  email: z.email('Некорректный email'),
+})
+
+export const resetPasswordSchema = z
+  .object({
+    password: z.string('Некорректный пароль').min(8, 'Пароль слишком короткий, минимум 8 символов'),
+    password_confirmation: z
+      .string('Некорректный пароль')
+      .min(8, 'Пароль слишком короткий, минимум 8 символов'),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: 'Пароли не совпадают',
+    path: ['password_confirmation'],
+  })
+
 export type LoginSchema = z.infer<typeof loginSchema>
 export type RegisterSchema = z.infer<typeof registerSchema>
+export type ForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>
+export type ResetPasswordSchema = z.infer<typeof resetPasswordSchema>

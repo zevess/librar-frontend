@@ -8,6 +8,7 @@ import { ActionButton } from '@/shared/ui/action-button'
 import { LinkButton } from '@/shared/ui/link-button'
 import { NotFound } from '@/shared/ui/not-found'
 import { PageTitle } from '@/shared/ui/page-title'
+import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 
@@ -34,7 +35,7 @@ watch(
   },
 )
 
-const { publishers } = useGetPublishers(params.value)
+const { publishers, isFetching } = useGetPublishers(params.value)
 </script>
 
 <template>
@@ -50,6 +51,8 @@ const { publishers } = useGetPublishers(params.value)
 
       <LinkButton :to="PUBLIC_URL.adminPublisherCreate()" text="Добавить издательство" />
     </div>
+    <SkeletonTable :cols="3" v-if="isFetching && !publishers" />
+
     <PublisherTable v-if="publishers" :publishers="publishers.data" />
     <NotFound v-if="publishers?.data.length === 0"
       >Ничего не найдено. Попробуйте позже или измените запрос</NotFound

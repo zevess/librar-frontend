@@ -6,26 +6,14 @@ import { IReservationStatus, type IReservation } from '../model/reservation.type
 import { StoredImage } from '@/shared/ui/stored-image'
 import { ActionButton } from '@/shared/ui/action-button'
 import { CancelReservationButton } from '@/shared/ui/cancel-reservation-button'
+import { IssueReservationButton } from '@/shared/ui/issue-reservation-button'
+import { getSeverity } from '@/shared/lib'
+import { useProfile } from '@/entities/user'
+import { AcceptReservationButton } from '@/shared/ui/accept-reservation-button'
 
 defineProps<{
   reservations: IReservation[]
 }>()
-
-const getSeverity = (status: string) => {
-  switch (status) {
-    case 'reserved':
-      return 'info'
-
-    case 'issued':
-      return 'warn'
-
-    case 'canceled':
-      return 'danger'
-
-    case 'completed':
-      return 'success'
-  }
-}
 </script>
 <template>
   <div class="card">
@@ -51,6 +39,7 @@ const getSeverity = (status: string) => {
       <Column field="expiresAt" header="Истекает в">
         <template #body="{ data }">
           {{ data.expiresAt !== null ? new Date(data.expiresAt).toLocaleDateString('ru-RU') : '-' }}
+          <!-- {{ new Date(data.expiresAt).toLocaleDateString('ru-RU') < new Date().toLocaleDateString('ru-RU') }} -->
         </template>
       </Column>
       <Column field="issuedAt" header="Выдано">
@@ -72,9 +61,17 @@ const getSeverity = (status: string) => {
               :value="IReservationStatus[slotprops.data.status as keyof typeof IReservationStatus]"
               :severity="getSeverity(slotprops.data.status)"
             />
+            <IssueReservationButton
+              :reservation-id="slotprops.data.id"
+              v-if="slotprops.data.status === 'reserved'"
+            />
             <CancelReservationButton
               :reservation-id="slotprops.data.id"
               v-if="slotprops.data.status === 'reserved'"
+            />
+            <AcceptReservationButton
+              :reservation-id="slotprops.data.id"
+              v-if="slotprops.data.status === 'issued'"
             />
           </div>
         </template>

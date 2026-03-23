@@ -16,3 +16,15 @@ export interface IAuthResponse {
   user: IUser
   token: string
 }
+
+export interface IResetLinkSentResponse {
+  message: string
+  success: boolean
+}
+
+export interface IResetPassword {
+  token: string
+  email: string
+  password: string
+  password_confirmation: string
+}

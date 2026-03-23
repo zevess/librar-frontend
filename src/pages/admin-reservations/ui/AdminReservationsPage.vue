@@ -8,9 +8,10 @@ import {
 import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { ReservationFilter } from '@/features/reservation-filter'
-import { ActionButton } from '@/shared/ui/action-button'
+import { CancelExpiredButton } from '@/shared/ui/cancel-expired-button'
 import { NotFound } from '@/shared/ui/not-found'
 import { PageTitle } from '@/shared/ui/page-title'
+import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -30,7 +31,7 @@ watch(
   },
 )
 
-const { reservations } = useGetReservations(params)
+const { reservations, isReservationsFetching, isReservationsFetched } = useGetReservations(params)
 </script>
 
 <template>
@@ -45,7 +46,10 @@ const { reservations } = useGetReservations(params)
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
       <ApplyButton :filter="filter" />
       <ClearButton />
+      <CancelExpiredButton />
     </div>
+    <SkeletonTable v-if="isReservationsFetching && !reservations" />
+
     <ReservationsTable v-if="reservations" :reservations="reservations?.data" />
     <NotFound v-if="reservations?.data.length === 0"
       >Ничего не найдено. Попробуйте позже или измените запрос</NotFound

@@ -7,8 +7,10 @@ import { useQueryClient } from '@tanstack/vue-query'
 import { bookService } from '../model/book.service'
 import { StoredImage } from '@/shared/ui/stored-image'
 import { useCreateReservation } from '@/entities/reservation'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { Toast } from 'primevue'
+import { useProfile, useUserStore } from '@/entities/user'
+import { ReserveButton } from '@/shared/ui/reserve-button'
 
 const props = defineProps<{
   book: IBook
@@ -16,13 +18,7 @@ const props = defineProps<{
   isReservable: boolean
 }>()
 
-const isAvailable = ref(props.book.isAvailable)
-const { reserve } = useCreateReservation()
-
-const reserveBook = () => {
-  reserve(String(props.book.id))
-  isAvailable.value = false
-}
+const isAvailable = computed(() => props.book.isAvailable)
 </script>
 
 <template>
@@ -40,12 +36,6 @@ const reserveBook = () => {
       </div>
     </RouterLink>
 
-    <ActionButton
-      v-if="isReservable"
-      :disabled="!isAvailable"
-      @click="reserveBook"
-      :title="isAvailable ? 'Забронировать' : 'Забронировано'"
-      class="w-full text-xs"
-    />
+    <ReserveButton :book-id="String(book.id)" :is-available="isAvailable" />
   </div>
 </template>

@@ -1,5 +1,11 @@
 import { api } from '@/shared/api/api.interceptor'
-import { type IAuthResponse, type ILogin, type IRegister } from './auth.types'
+import type {
+  IResetLinkSentResponse,
+  IAuthResponse,
+  ILogin,
+  IRegister,
+  IResetPassword,
+} from './auth.types'
 import { API_URL } from '@/shared/config/api.config'
 import { saveAccessToken } from './auth.token'
 
@@ -25,6 +31,26 @@ class AuthService {
     if (response.data.token) {
       saveAccessToken(response.data.token)
     }
+    return response
+  }
+
+  async forgotPassword(email: string) {
+    const response = await api<IResetLinkSentResponse>({
+      url: API_URL.forgotPassword(),
+      method: 'POST',
+      data: {
+        email: email,
+      },
+    })
+    return response
+  }
+
+  async resetPassword(data: IResetPassword) {
+    const response = await api({
+      url: API_URL.resetPassword(),
+      method: 'POST',
+      data,
+    })
     return response
   }
 }

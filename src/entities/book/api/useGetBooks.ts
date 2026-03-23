@@ -6,7 +6,8 @@ import { computed } from 'vue'
 export const useGetBooks = (params?: IBooksParams, enabled?: boolean) => {
   const {
     data: books,
-    isLoading,
+    isFetching,
+    isFetched,
     refetch,
   } = useQuery({
     queryKey: ['get books', params],
@@ -15,5 +16,5 @@ export const useGetBooks = (params?: IBooksParams, enabled?: boolean) => {
     refetchOnMount: false,
     enabled: enabled,
   })
-  return { books, isLoading, refetch }
+  return { books, isFetching, isFetched, refetch }
 }

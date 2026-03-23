@@ -5,7 +5,6 @@ import { CatalogPage } from '@/pages/catalog'
 import { BookPage } from '@/pages/book'
 import { AuthorPage } from '@/pages/author'
 import { PublisherPage } from '@/pages/publisher'
-import { AdminPage } from '@/pages/admin'
 import { AdminUsersPage } from '@/pages/admin-users'
 import { AdminAuthorsPage } from '@/pages/admin-authors'
 import { AdminReservationsPage } from '@/pages/admin-reservations'
@@ -25,6 +24,8 @@ import { AdminGenresPage } from '@/pages/admin-genres'
 import { NotFoundPage } from '@/pages/not-found'
 import { CreateCategoryPage } from '@/pages/create-category'
 import { CreateGenrePage } from '@/pages/create-genre'
+import { ForgotPasswordPage } from '@/pages/forgot-password'
+import { ResetPasswordPage } from '@/pages/reset-password'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -190,6 +191,18 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       component: AuthPage,
+      meta: { layout: 'auth', guest: true },
+    },
+    {
+      path: '/forgot-password',
+      name: 'forgot-password',
+      component: ForgotPasswordPage,
+      meta: { layout: 'auth', guest: true },
+    },
+    {
+      path: '/reset-password/:token',
+      name: 'reset-password',
+      component: ResetPasswordPage,
       meta: { layout: 'auth', guest: true },
     },
     {

@@ -5,7 +5,12 @@ import axios from 'axios'
 
 export const useCreateReservation = () => {
   const toast = useToast()
-  const { mutate: reserve, isPending } = useMutation({
+  const {
+    mutate: reserve,
+    data,
+    isPending,
+    isSuccess,
+  } = useMutation({
     mutationKey: ['create reservation'],
     mutationFn: (bookId: string) => reservationService.createReservation(bookId),
     onSuccess(data) {
@@ -26,5 +31,5 @@ export const useCreateReservation = () => {
       }
     },
   })
-  return { reserve, isPending }
+  return { reserve, isPending, isSuccess, data }
 }

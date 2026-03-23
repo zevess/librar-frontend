@@ -40,6 +40,33 @@ class ReservationService {
     })
     return response
   }
+  async issueReservation(reservationId: string) {
+    const response = await apiPrivate<IReservationResponse>({
+      url: API_URL.issueReservation(reservationId),
+      method: 'POST',
+      data: {
+        id: reservationId,
+      },
+    })
+    return response
+  }
+  async acceptReservation(reservationId: string) {
+    const response = await apiPrivate<IReservationResponse>({
+      url: API_URL.acceptReservation(reservationId),
+      method: 'POST',
+      data: {
+        id: reservationId,
+      },
+    })
+    return response
+  }
+  async cancelExpired() {
+    const response = await apiPrivate({
+      url: API_URL.cancelExpired(),
+      method: 'PUT',
+    })
+    return response
+  }
 }
 
 export const reservationService = new ReservationService()

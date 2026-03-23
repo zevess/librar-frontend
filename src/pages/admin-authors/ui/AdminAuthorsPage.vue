@@ -8,6 +8,7 @@ import { ActionButton } from '@/shared/ui/action-button'
 import { LinkButton } from '@/shared/ui/link-button'
 import { NotFound } from '@/shared/ui/not-found'
 import { PageTitle } from '@/shared/ui/page-title'
+import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 
@@ -25,7 +26,7 @@ watch(
   },
 )
 
-const { authors } = useGetAuthors(params.value)
+const { authors, isFetched, isFetching } = useGetAuthors(params.value)
 </script>
 
 <template>
@@ -39,6 +40,8 @@ const { authors } = useGetAuthors(params.value)
       </div>
       <LinkButton :to="PUBLIC_URL.adminAuthorCreate()" text="Добавить автора" />
     </div>
+    <SkeletonTable :cols="3" v-if="isFetching && !authors" />
+
     <AuthorTable v-if="authors" :authors="authors?.data" />
     <NotFound v-if="authors?.data.length === 0"
       >Ничего не найдено. Попробуйте позже или измените запрос</NotFound

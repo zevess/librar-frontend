@@ -9,8 +9,8 @@ export const useGetUserReservations = (
 ) => {
   const {
     data: reservations,
-    isFetching,
-    isFetched,
+    isFetching: isReservationsFetching,
+    isFetched: isReservationsFetched,
     refetch,
   } = useQuery({
     queryKey: ['get user reservations', userId],
@@ -20,5 +20,5 @@ export const useGetUserReservations = (
     enabled: () => !!userId.value,
   })
 
-  return { reservations, isFetching, isFetched, refetch }
+  return { reservations, isReservationsFetching, isReservationsFetched, refetch }
 }

@@ -15,7 +15,7 @@ defineProps<{
 
     <Skeleton height="20px" width="360px"></Skeleton>
 
-    <BookListSkeleton variant="default" />
+    <BookListSkeleton v-if="variant == 'author' || variant == 'publisher'" variant="default" />
   </div>
   <div v-if="variant == 'book'" class="flex flex-col gap-4 w-full">
     <div class="flex flex-col gap-2">

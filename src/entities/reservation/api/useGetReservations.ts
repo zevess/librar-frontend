@@ -6,8 +6,8 @@ import type { Ref } from 'vue'
 export const useGetReservations = (params?: Ref<IReservationParams>, enabled?: boolean) => {
   const {
     data: reservations,
-    isFetching,
-    isFetched,
+    isFetching: isReservationsFetching,
+    isFetched: isReservationsFetched,
     refetch,
   } = useQuery({
     queryKey: ['get reservations', params],
@@ -17,5 +17,5 @@ export const useGetReservations = (params?: Ref<IReservationParams>, enabled?: b
     enabled: enabled,
   })
 
-  return { reservations, isFetching, isFetched, refetch }
+  return { reservations, isReservationsFetching, isReservationsFetched, refetch }
 }

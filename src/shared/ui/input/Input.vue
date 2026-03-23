@@ -4,7 +4,7 @@ defineProps<{
   placeholder?: string
   withLabel?: boolean
   label?: string
-  type?: 'number' | 'text'
+  type?: 'number' | 'text' | 'password'
 }>()
 const model = defineModel()
 </script>

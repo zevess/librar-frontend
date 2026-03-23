@@ -1,11 +1,13 @@
-import { useMutation } from '@tanstack/vue-query'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { reservationService } from '../model/reservation.service'
 import { useToast } from 'primevue'
 import axios from 'axios'
+import { useParams } from '@/features/filter'
 
 export const useCancelReservation = () => {
   const toast = useToast()
-
+  const queryClient = useQueryClient()
+  const params = useParams()
   const { mutate: cancel, isPending } = useMutation({
     mutationKey: ['cancel reservation'],
     mutationFn: (reservationId: string) => reservationService.cancelReservation(reservationId),
@@ -14,6 +16,9 @@ export const useCancelReservation = () => {
         severity: 'success',
         summary: 'Успех',
         detail: String(data.data.message),
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['get reservations', params],
       })
     },
     onError(error) {
