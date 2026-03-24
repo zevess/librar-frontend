@@ -2,11 +2,10 @@
 import { useGetBook } from '@/entities/book'
 import { ReviewCard, useGetBookReviews } from '@/entities/review'
 import { useGetParams, usePreviousRoute } from '@/shared/lib'
-import { onMounted, provide, ref, watch } from 'vue'
+import { computed, onMounted, provide, ref, watch, watchEffect } from 'vue'
 import BookCharacteristics from './BookCharacteristics.vue'
 import BookHeader from './BookHeader.vue'
 import BookCover from './BookCover.vue'
-import BookSkeleton from './BookSkeleton.vue'
 import { NotFound } from '@/shared/ui/not-found'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
 import { ReviewForm } from '@/features/review-form'
@@ -18,8 +17,13 @@ const { book, isFetching, isSuccess, isFetched, refetch } = useGetBook(slug)
 const { reviews, isReviewsFetched } = useGetBookReviews(id)
 const { isAuthentificated } = useUserStore()
 
-onMounted(() => {
+onMounted(async () => {
   if (previousRoute.value?.name === 'books/edit') refetch()
+})
+
+watchEffect(() => {
+  const title = book.value?.data?.title
+  document.title = title ?? 'Загрузка...'
 })
 
 provide('isFetching', isFetching)

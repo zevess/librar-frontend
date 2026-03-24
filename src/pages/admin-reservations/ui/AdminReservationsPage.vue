@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  AdminReservationCard,
-  ReservationCard,
-  ReservationsTable,
-  useGetReservations,
-} from '@/entities/reservation'
+import { ReservationsTable, useGetReservations } from '@/entities/reservation'
 import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { ReservationFilter } from '@/features/reservation-filter'
@@ -12,8 +7,9 @@ import { CancelExpiredButton } from '@/shared/ui/cancel-expired-button'
 import { NotFound } from '@/shared/ui/not-found'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
+import { Toast } from 'primevue'
 import { watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
@@ -36,6 +32,7 @@ const { reservations, isReservationsFetching, isReservationsFetched } = useGetRe
 
 <template>
   <div class="flex flex-col gap-4">
+    <Toast />
     <PageTitle title="брони" />
     <ReservationFilter
       v-model:book-id-filter="filter.bookId"
@@ -44,8 +41,8 @@ const { reservations, isReservationsFetching, isReservationsFetched } = useGetRe
       v-model:user-filter="filter.user"
     />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
+      <ClearButton :filter="filter" />
       <ApplyButton :filter="filter" />
-      <ClearButton />
       <CancelExpiredButton />
     </div>
     <SkeletonTable v-if="isReservationsFetching && !reservations" />

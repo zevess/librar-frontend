@@ -1,18 +1,11 @@
 <script setup lang="ts">
-// import { bookData } from '@/entities/book/model/book.types'
-import { BookCardSkeleton, BookList, BookListSkeleton, useGetBooks } from '@/entities/book'
-
-import { bookService } from '@/entities/book/model/book.service'
+import { BookList, BookListSkeleton, useGetBooks } from '@/entities/book'
 import { PUBLIC_URL } from '@/shared/config'
-
 import { ActionButton } from '@/shared/ui/action-button'
-import { PrimeCarousel } from '@/shared/ui/carousel'
 import { PageTitle } from '@/shared/ui/page-title'
-import { useQuery } from '@tanstack/vue-query'
-import { onMounted, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 
-const { books, isLoading } = useGetBooks()
+const { books, isFetching } = useGetBooks()
 </script>
 
 <template>
@@ -24,12 +17,12 @@ const { books, isLoading } = useGetBooks()
       corrupti tempora omnis veritatis!
     </p>
     <BookList
-      v-if="!isLoading"
+      v-if="!isFetching"
       :is-reservable="true"
       variant="default"
       :items="books?.data ?? []"
     />
-    <BookListSkeleton variant="default" v-if="isLoading" />
+    <BookListSkeleton variant="default" v-if="isFetching" />
     <RouterLink :to="PUBLIC_URL.catalog()" class="mx-auto flex items-center w-fit">
       <ActionButton class="h-12 px-4" title="смотреть больше" />
     </RouterLink>

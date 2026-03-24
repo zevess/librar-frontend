@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-
 import { Column, DataTable, Tag } from 'primevue'
 import { IReservationStatus, type IReservation } from '../model/reservation.types'
 import { StoredImage } from '@/shared/ui/stored-image'
-import { ActionButton } from '@/shared/ui/action-button'
 import { CancelReservationButton } from '@/shared/ui/cancel-reservation-button'
 import { IssueReservationButton } from '@/shared/ui/issue-reservation-button'
 import { getSeverity } from '@/shared/lib'
-import { useProfile } from '@/entities/user'
 import { AcceptReservationButton } from '@/shared/ui/accept-reservation-button'
 
 defineProps<{
@@ -18,10 +14,10 @@ defineProps<{
 <template>
   <div class="card">
     <DataTable :value="reservations">
-      <Column field="id" header="ID"></Column>
-      <Column field="reservedBy.email" header="Пользователь"></Column>
-      <Column field="book.id" header="ID книги"></Column>
-      <Column field="book.title" header="Название книги">
+      <Column :sortable="true" field="id" header="ID"></Column>
+      <Column :sortable="true" field="reservedBy.email" header="Пользователь"></Column>
+      <Column :sortable="true" field="book.id" header="ID книги"></Column>
+      <Column :sortable="true" field="book.title" header="Название книги">
         <template #body="slotprops">
           <span v-if="slotprops.data.book">{{ slotprops.data.book.title }}</span>
           <span v-else class="lowercase text-gray-500 select-none">Книга удалена</span>
@@ -36,25 +32,24 @@ defineProps<{
           />
         </template>
       </Column>
-      <Column field="expiresAt" header="Истекает в">
+      <Column :sortable="true" field="expiresAt" header="Истекает в">
         <template #body="{ data }">
           {{ data.expiresAt !== null ? new Date(data.expiresAt).toLocaleDateString('ru-RU') : '-' }}
-          <!-- {{ new Date(data.expiresAt).toLocaleDateString('ru-RU') < new Date().toLocaleDateString('ru-RU') }} -->
         </template>
       </Column>
-      <Column field="issuedAt" header="Выдано">
+      <Column :sortable="true" field="issuedAt" header="Выдано">
         <template #body="{ data }">
           {{ data.issuedAt !== null ? new Date(data.issuedAt).toLocaleDateString('ru-RU') : '-' }}
         </template>
       </Column>
-      <Column field="acceptedAt" header="Принято">
+      <Column :sortable="true" field="acceptedAt" header="Принято">
         <template #body="{ data }">
           {{
             data.acceptedAt !== null ? new Date(data.acceptedAt).toLocaleDateString('ru-RU') : '-'
           }}
         </template>
       </Column>
-      <Column field="status" header="Статус">
+      <Column :sortable="true" field="status" header="Статус">
         <template #body="slotprops">
           <div class="flex flex-col gap-4">
             <Tag

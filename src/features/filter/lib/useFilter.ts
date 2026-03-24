@@ -16,7 +16,6 @@ export interface IFilter {
 
 export const useFilter = () => {
   const route = useRoute()
-
   const filter = ref<IFilter>({
     page: route.query.page ? Number(route.query.page) : 1,
     q: route.query.q ? String(route.query.q) : '',
@@ -29,4 +28,16 @@ export const useFilter = () => {
     status: route.query.status ? String(route.query.status) : '',
   })
   return { filter }
+}
+
+export const filterInitialData = {
+  page: 1,
+  q: '',
+  id: '',
+  bookId: '',
+  category: null,
+  genres: [],
+  publishers: [],
+  user: '',
+  status: '',
 }

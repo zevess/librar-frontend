@@ -2,9 +2,9 @@
 import { useCancelExpired } from '@/entities/reservation'
 import { ActionButton } from '../action-button'
 
-const { cancelExpired } = useCancelExpired()
+const { cancelExpired, isPending } = useCancelExpired()
 </script>
 
 <template>
-  <ActionButton @click="cancelExpired" title="Отменить просроченные" />
+  <ActionButton :disabled="isPending" @click="cancelExpired" title="Отменить просроченные" />
 </template>

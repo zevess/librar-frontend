@@ -22,7 +22,7 @@ import { SkeletonTable } from '@/shared/ui/skeleton-table'
 
 const { profile, isFetching, isFetched } = useProfile()
 
-const userId = computed(() => profile.value?.user?.id)
+const userId = computed(() => profile.value?.data.id)
 
 const { reservations, isReservationsFetching, isReservationsFetched } =
   useGetUserReservations(userId)
@@ -34,11 +34,11 @@ const { reservations, isReservationsFetching, isReservationsFetched } =
     <div class="flex flex-col md:flex-row justify-center md:justify-between">
       <div class="flex flex-col text-center">
         <PageTitle
-          v-if="profile?.user"
-          :title="profile?.user.name"
+          v-if="profile?.success"
+          :title="profile?.data.name"
           class="text-center md:text-left"
         />
-        <span class="text-lg">{{ profile?.user.email }}</span>
+        <span class="text-lg">{{ profile?.data.email }}</span>
       </div>
 
       <PageSubtitle title="профиль" />

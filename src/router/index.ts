@@ -34,19 +34,19 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomePage,
-      meta: { layout: 'default' },
+      meta: { layout: 'default', title: 'Главная' },
     },
     {
       path: '/me',
       name: 'profile',
       component: ProfilePage,
-      meta: { layout: 'default', auth: true },
+      meta: { layout: 'default', auth: true, title: 'Профиль' },
     },
     {
       path: '/catalog',
       name: 'catalog',
       component: CatalogPage,
-      meta: { layout: 'default' },
+      meta: { layout: 'default', title: 'Каталог' },
     },
     {
       path: '/book/:slug',
@@ -79,19 +79,19 @@ const router = createRouter({
           path: 'users',
           name: 'users',
           component: AdminUsersPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Пользователи' },
         },
         {
           path: 'authors',
           name: 'authors',
           component: AdminAuthorsPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Авторы' },
         },
         {
           path: 'authors/create',
           name: 'authors/create',
           component: CreateAuthorPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Создать автора' },
         },
         {
           path: 'authors/:authorSlug/edit',
@@ -103,19 +103,19 @@ const router = createRouter({
           path: 'reservations',
           name: 'admin/reservations',
           component: AdminReservationsPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Брони' },
         },
         {
           path: 'books',
           name: 'books',
           component: AdminBooksPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Книги' },
         },
         {
           path: 'books/create',
           name: 'books/create',
           component: CreateBookPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Создать книгу' },
         },
         {
           path: 'books/:bookSlug/edit',
@@ -127,13 +127,13 @@ const router = createRouter({
           path: 'publishers',
           name: 'publishers',
           component: AdminPublishersPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Издательства' },
         },
         {
           path: 'publishers/create',
           name: 'publishers/create',
           component: CreatePublisherPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Создать издательство' },
         },
         {
           path: 'publishers/:publisherSlug/edit',
@@ -145,25 +145,25 @@ const router = createRouter({
           path: 'categories',
           name: 'categories',
           component: AdminCategoriesPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Категории' },
         },
         {
           path: 'categories/create',
           name: 'categories/create',
           component: CreateCategoryPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Создать категорию' },
         },
         {
           path: 'genres',
           name: 'genres',
           component: AdminGenresPage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Жанры' },
         },
         {
           path: 'genres/create',
           name: 'genres/create',
           component: CreateGenrePage,
-          meta: { layout: 'admin', admin: true },
+          meta: { layout: 'admin', admin: true, title: 'Создать жанр' },
         },
       ],
       beforeEnter: async (to, from) => {
@@ -173,7 +173,7 @@ const router = createRouter({
         if (userStore.token && !userStore.user) {
           try {
             const profile = await userService.me()
-            userStore.setUser(profile.user)
+            userStore.setUser(profile.data)
           } catch {
             userStore.clear()
           }
@@ -191,19 +191,19 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       component: AuthPage,
-      meta: { layout: 'auth', guest: true },
+      meta: { layout: 'auth', guest: true, title: 'Авторизация' },
     },
     {
       path: '/forgot-password',
       name: 'forgot-password',
       component: ForgotPasswordPage,
-      meta: { layout: 'auth', guest: true },
+      meta: { layout: 'auth', guest: true, title: 'Сброс пароля' },
     },
     {
       path: '/reset-password/:token',
       name: 'reset-password',
       component: ResetPasswordPage,
-      meta: { layout: 'auth', guest: true },
+      meta: { layout: 'auth', guest: true, title: 'Новый пароль' },
     },
     {
       path: '/:pathMatch(.*)*',
@@ -211,6 +211,7 @@ const router = createRouter({
       component: NotFoundPage,
       meta: {
         layout: 'default',
+        title: 'Не найдено',
       },
     },
   ],
@@ -233,6 +234,12 @@ router.beforeEach((to, from, next) => {
     })
   }
   next()
+})
+
+router.afterEach((to) => {
+  const baseTitle = 'Librar'
+  const metaTitle = to.meta.title as string | undefined
+  document.title = metaTitle ? metaTitle : baseTitle
 })
 
 export default router

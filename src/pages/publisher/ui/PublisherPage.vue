@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import { bookData } from '@/entities/book/model/book.types'
 import { BookList } from '@/entities/book'
-import { publisherData } from '@/entities/publisher/model/publisher.types'
-import { PageSubtitle } from '@/shared/ui/page-subtitle'
-import { PageTitle } from '@/shared/ui/page-title'
-import { PUBLIC_URL } from '@/shared/config/url.config'
-import { SettingButton } from '@/shared/ui/setting-button'
 import { useGetParams } from '@/shared/lib'
 import { useGetPublisher } from '@/entities/publisher'
 import { NotFound } from '@/shared/ui/not-found'
 import PublisherHeader from './PublisherHeader.vue'
-import PublisherSkeleton from './PublisherSkeleton.vue'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
+import { computed, watch, watchEffect } from 'vue'
 
 const { slug } = useGetParams()
 const { publisher, isFetched, isFetching } = useGetPublisher(slug)
+watchEffect(() => {
+  const title = publisher.value?.data?.name
+  document.title = title ?? 'Загрузка...'
+})
 </script>
 
 <template>

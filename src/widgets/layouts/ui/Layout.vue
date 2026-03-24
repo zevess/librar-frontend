@@ -19,7 +19,7 @@ const items = useHeaderNavigation(isAuthentificated)
 
 <template>
   <div class="mx-auto max-w-360 flex flex-col min-h-screen">
-    <Header :items="items">
+    <Header variant="default" :items="items">
       <RouterLink to="/">
         <Logo />
       </RouterLink>

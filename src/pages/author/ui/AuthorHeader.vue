@@ -5,7 +5,6 @@ import { useGetParams } from '@/shared/lib'
 import { PageSubtitle } from '@/shared/ui/page-subtitle'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SettingButton } from '@/shared/ui/setting-button'
-import { RouterLink } from 'vue-router'
 defineProps<{
   author: IAuthor
 }>()

@@ -2,12 +2,12 @@
 import { Button, Drawer } from 'primevue'
 import { ref } from 'vue'
 import { IconButton } from '../icon-button'
-
-const visible = ref(false)
 defineProps<{
   icon: string
   drawerName: string
 }>()
+
+const visible = ref(false)
 </script>
 
 <template>
@@ -16,6 +16,6 @@ defineProps<{
       <slot></slot>
     </Drawer>
 
-    <IconButton @click="visible = true" class="" icon="filter" />
+    <IconButton @click="visible = true" class="" :icon="icon" />
   </div>
 </template>

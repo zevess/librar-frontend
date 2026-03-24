@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useFooterNavigation } from '../model/useNavigation'
+import { useFooterNavigation } from '../model/useFooterNavigation'
 import FooterItem from './FooterItem.vue'
 
 const items = useFooterNavigation()

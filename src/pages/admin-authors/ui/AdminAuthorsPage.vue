@@ -36,7 +36,7 @@ const { authors, isFetched, isFetching } = useGetAuthors(params.value)
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
       <div class="flex gap-4">
         <ApplyButton :filter="filter" />
-        <ClearButton />
+        <ClearButton :filter="filter" />
       </div>
       <LinkButton :to="PUBLIC_URL.adminAuthorCreate()" text="Добавить автора" />
     </div>

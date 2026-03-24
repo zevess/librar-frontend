@@ -7,7 +7,7 @@ defineProps<{
 }>()
 const { profile } = useProfile()
 const isAdmin = computed(
-  () => profile.value?.user.role === 'admin' || profile.value?.user.role === 'librarian',
+  () => profile.value?.data.role === 'admin' || profile.value?.data.role === 'librarian',
 )
 </script>
 

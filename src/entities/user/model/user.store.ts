@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import type { IUser, UserState } from './user.types'
 import { getAccessToken, removeAccessToken } from '@/entities/auth'
-import { useProfile } from '../api/useProfile'
 import { userService } from './user.service'
 
 export const useUserStore = defineStore('user', {
@@ -45,7 +44,7 @@ export const useUserStore = defineStore('user', {
       if (this.token) {
         try {
           const profile = await userService.me()
-          this.user = profile.user
+          this.user = profile.data
         } catch (error) {
           this.clear()
         }

@@ -4,10 +4,15 @@ import { BookForm } from '@/features/book-form'
 import { NotFound } from '@/shared/ui/not-found'
 import { PageTitle } from '@/shared/ui/page-title'
 import { ConfirmDialog, Toast } from 'primevue'
+import { computed, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const { book, isFetched } = useGetBook(String(route.params.bookSlug))
+watchEffect(() => {
+  const title = book.value?.data?.title
+  document.title = title ? 'Изменить ' + title : 'Загрузка...'
+})
 </script>
 
 <template>

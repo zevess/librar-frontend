@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView, useRoute } from 'vue-router'
-import { Container } from './shared/ui/container'
+import { RouterView, useRoute } from 'vue-router'
 import { AdminLayout, AuthLayout, Layout } from './widgets/layouts'
 import { computed } from 'vue'
 import { useProfile, useUserStore } from './entities/user'

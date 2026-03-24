@@ -10,7 +10,14 @@ const props = defineProps<{
 
 const router = useRouter()
 const applyFilter = () => {
-  const newFilters = { ...props.filter }
+  const sortedFilter = Object.fromEntries(
+    Object.entries(props.filter).filter(
+      ([_, value]) => value !== null && value !== undefined && value !== '',
+    ),
+  )
+  console.log(sortedFilter)
+
+  const newFilters = { ...sortedFilter }
   newFilters.page = 1
   router.push({ query: newFilters })
 }

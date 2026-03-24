@@ -6,9 +6,9 @@ import axios from 'axios'
 
 export const useCancelExpired = () => {
   const toast = useToast()
-  //   const queryClient = useQueryClient()
-  //   const { params } = useParams()
-  const { mutate: cancelExpired } = useMutation({
+  const queryClient = useQueryClient()
+  const { params } = useParams()
+  const { mutate: cancelExpired, isPending } = useMutation({
     mutationKey: ['cancel expired'],
     mutationFn: () => reservationService.cancelExpired(),
     onSuccess(data) {
@@ -17,9 +17,9 @@ export const useCancelExpired = () => {
         summary: 'Успех',
         detail: 'Просроченнные бронирования отменены',
       })
-      //   queryClient.invalidateQueries({
-      //     queryKey: ['get reservations', params],
-      //   })
+      queryClient.invalidateQueries({
+        queryKey: ['get reservations', params],
+      })
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
@@ -32,5 +32,5 @@ export const useCancelExpired = () => {
       }
     },
   })
-  return { cancelExpired }
+  return { cancelExpired, isPending }
 }
