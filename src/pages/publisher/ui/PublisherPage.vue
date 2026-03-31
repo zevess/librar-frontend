@@ -22,6 +22,6 @@ watchEffect(() => {
   <div v-if="publisher?.success" class="flex flex-col gap-4 w-full">
     <PublisherHeader :publisher="publisher.data" />
     <p>{{ publisher?.data.description }}</p>
-    <BookList :is-reservable="true" :items="publisher?.data.books.data ?? []" variant="default" />
+    <BookList :items="publisher?.data.books.data ?? []" variant="default" />
   </div>
 </template>

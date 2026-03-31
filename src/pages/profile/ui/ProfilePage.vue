@@ -2,30 +2,29 @@
 import { PageSubtitle } from '@/shared/ui/page-subtitle'
 import { PageTitle } from '@/shared/ui/page-title'
 import { useLogout, useProfile, useUserStore } from '@/entities/user'
-import { ActionButton } from '@/shared/ui/action-button'
-import { useRouter } from 'vue-router'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
-import {
-  type IReservation,
-  ProfileReservationsTable,
-  ReservationsTable,
-  useGetReservations,
-  useGetUserReservations,
-} from '@/entities/reservation'
-import { IReservationStatus } from '@/entities/reservation'
-import { computed, onMounted, ref, watch, watchEffect } from 'vue'
-import { reservationService } from '@/entities/reservation/model/reservation.service'
-import type { IPaginatedResponse } from '@/shared/api'
-import { LogoutButton } from '@/shared/ui/logout-button'
+import { ProfileReservationsTable, useGetUserReservations } from '@/entities/reservation'
+import { computed } from 'vue'
+import { LogoutButton } from '@/features/logout-button'
 import { NotFound } from '@/shared/ui/not-found'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
+import { useGetUserSubscriptions } from '@/entities/subscription'
+import { BookList, BookListSkeleton } from '@/entities/book'
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primevue'
 
 const { profile, isFetching, isFetched } = useProfile()
 
 const userId = computed(() => profile.value?.data.id)
 
+const { subscriptions, isSubscriptionsFetched, isSubscriptionsFetching } =
+  useGetUserSubscriptions(userId)
+
 const { reservations, isReservationsFetching, isReservationsFetched } =
   useGetUserReservations(userId)
+
+const activeReservations = computed(() =>
+  reservations.value?.data.filter((item) => item.status === 'reserved' || item.status === 'issued'),
+)
 </script>
 
 <template>
@@ -43,18 +42,65 @@ const { reservations, isReservationsFetching, isReservationsFetched } =
 
       <PageSubtitle title="профиль" />
     </div>
-    <div class="flex flex-col gap-4 mt-8">
-      <span class="text-xl uppercase font-semibold">Все брони:</span>
-      <SkeletonTable v-if="isReservationsFetching && !reservations" />
-      <ProfileReservationsTable
-        v-if="reservations && isReservationsFetched"
-        :reservations="reservations.data"
-      />
-      <NotFound v-if="reservations?.data.length === 0 && isReservationsFetched"
-        >Брони не найдены</NotFound
-      >
-    </div>
-
+    <Tabs value="0">
+      <TabList>
+        <Tab value="0" class="uppercase">Отслеживаемое</Tab>
+        <Tab value="1" class="uppercase">Активные брони</Tab>
+        <Tab value="2" class="uppercase">Все брони</Tab>
+      </TabList>
+      <TabPanels class="">
+        <TabPanel value="0">
+          <div class="flex flex-col gap-4 mt-8">
+            <span class="text-xl uppercase font-semibold">Отслеживаемое:</span>
+            <BookListSkeleton v-if="isSubscriptionsFetching" variant="default" />
+            <BookList
+              variant="default"
+              v-if="subscriptions?.data && isSubscriptionsFetched"
+              :items="subscriptions?.data"
+            />
+            <NotFound v-if="subscriptions?.data.length === 0 && isSubscriptionsFetched"
+              >Отслеживаемое не найдены</NotFound
+            >
+          </div>
+        </TabPanel>
+        <TabPanel value="1">
+          <div class="flex flex-col gap-4 mt-8">
+            <span class="text-xl uppercase font-semibold">Активные брони:</span>
+            <SkeletonTable v-if="isReservationsFetching && !reservations" />
+            <ProfileReservationsTable
+              v-if="activeReservations && isReservationsFetched"
+              :reservations="activeReservations"
+            />
+            <NotFound v-if="activeReservations?.length === 0 && isReservationsFetched"
+              >Брони не найдены</NotFound
+            >
+          </div>
+        </TabPanel>
+        <TabPanel value="2">
+          <div class="flex flex-col gap-4 mt-8">
+            <span class="text-xl uppercase font-semibold">Все брони:</span>
+            <SkeletonTable v-if="isReservationsFetching && !reservations" />
+            <ProfileReservationsTable
+              v-if="reservations && isReservationsFetched"
+              :reservations="reservations.data"
+            />
+            <NotFound v-if="reservations?.data.length === 0 && isReservationsFetched"
+              >Брони не найдены</NotFound
+            >
+          </div>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
     <LogoutButton />
   </div>
 </template>
+
+<style scoped>
+.p-tab-active {
+  color: black;
+  border-color: black;
+}
+.p-tabpanels {
+  padding: 0;
+}
+</style>

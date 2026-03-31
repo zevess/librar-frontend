@@ -1,5 +1,3 @@
-export { default as ReservationCard } from './ui/ReservationCard.vue'
-export { default as AdminReservationCard } from './ui/AdminReservationCard.vue'
 export { default as ReservationsTable } from './ui/ReservationsTable.vue'
 export { default as ProfileReservationsTable } from './ui/ProfileReservationsTable.vue'
 export { useGetReservations } from './api/useGetReservations'

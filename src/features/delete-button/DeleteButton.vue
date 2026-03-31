@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ActionButton } from '../action-button'
+import { ActionButton } from '@/shared/ui/action-button'
 
 defineProps<{
   title: string

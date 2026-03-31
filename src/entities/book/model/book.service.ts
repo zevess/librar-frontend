@@ -19,7 +19,7 @@ class BookService {
     return data
   }
   async getBookBySlug(slug: string) {
-    const { data } = await api<IResponse<IBook>>({
+    const { data } = await apiPrivate<IResponse<IBook>>({
       url: API_URL.getBookBySlug(slug),
       method: 'GET',
     })

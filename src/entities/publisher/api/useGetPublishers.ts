@@ -11,7 +11,7 @@ export const useGetPublishers = (params?: IPublisherParams) => {
     queryKey: ['get publishers', params],
     queryFn: () => publisherService.getPublishers(params),
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
   })
   return { publishers, isFetching, isFetched }
 }

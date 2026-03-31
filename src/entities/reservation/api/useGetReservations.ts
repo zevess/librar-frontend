@@ -13,7 +13,7 @@ export const useGetReservations = (params?: Ref<IReservationParams>, enabled?: b
     queryKey: ['get reservations', params],
     queryFn: () => reservationService.getReservations(params?.value),
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
     enabled: enabled,
   })
 

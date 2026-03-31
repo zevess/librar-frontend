@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useCreateReservation } from '@/entities/reservation'
-import { ActionButton } from '../action-button'
+
 import { useUserStore } from '@/entities/user'
 import { useRouter } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
 import { ref } from 'vue'
+import { ActionButton } from '@/shared/ui/action-button'
 
 const props = defineProps<{
   bookId: string

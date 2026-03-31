@@ -1,8 +1,9 @@
-export type { IAuthResponse } from './model/auth.types'
+export { removeAccessToken, saveAccessToken, getAccessToken } from './model/auth.token'
 export { useLogin } from './api/useLogin'
 export { useRegister } from './api/useRegister'
 export { useForgotPassword } from './api/useForgotPassword'
 export { useResetPassword } from './api/useResetPassword'
+export type { IAuthResponse } from './model/auth.types'
 export type {
   LoginSchema,
   RegisterSchema,
@@ -15,4 +16,3 @@ export {
   forgotPasswordSchema,
   resetPasswordSchema,
 } from './model/auth.schema'
-export { removeAccessToken, saveAccessToken, getAccessToken } from './model/auth.token'

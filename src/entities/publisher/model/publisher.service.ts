@@ -43,6 +43,13 @@ class PublisherService {
     })
     return response
   }
+  async deletePublisher(publisherId: string) {
+    const response = await apiPrivate<IResponse<IPublisher>>({
+      url: API_URL.deletePublisher(publisherId),
+      method: 'DELETE',
+    })
+    return response
+  }
 }
 
 export const publisherService = new PublisherService()

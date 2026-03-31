@@ -6,22 +6,28 @@ import { useForm } from 'vee-validate'
 import {
   publisherSchema,
   useCreatePublisher,
+  useDeletePublisher,
   useUpdatePublisher,
   type IPublisher,
   type PublisherSchema,
 } from '@/entities/publisher'
 import { usePublisherFormInitialValues } from '../lib/usePublisherFormInitialValues'
 import { Textarea } from '@/shared/ui/textarea'
+import { useConfirm } from 'primevue'
+import { DeleteButton } from '@/features/delete-button'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
   publisher?: IPublisher
 }>()
 
+const confirm = useConfirm()
+
 const initialValues = usePublisherFormInitialValues(props.publisher)
 
 const { createPublisher, isPublisherCreating } = useCreatePublisher()
 const { updatePublisher, isPublisherUpdating } = useUpdatePublisher(String(props.publisher?.id))
+const { deletePublisher } = useDeletePublisher()
 const { handleSubmit, errors, defineField, meta, resetForm, values } = useForm<PublisherSchema>({
   validationSchema: toTypedSchema(publisherSchema),
   initialValues: initialValues,
@@ -33,6 +39,27 @@ const onSubmit = handleSubmit(async (formValues) => {
   if (props.mode === 'create') createPublisher(formValues)
   else updatePublisher(formValues)
 })
+
+const deleteConfirm = () => {
+  confirm.require({
+    message: 'Вы уверены? Это действие необратимо.',
+    header: 'Удалить издательство',
+    icon: 'pi pi-trash',
+    rejectLabel: 'Отмена',
+    rejectProps: {
+      label: 'Отмена',
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: 'Удалить',
+      severity: 'danger',
+    },
+    accept: () => {
+      deletePublisher(String(props.publisher?.id))
+    },
+  })
+}
 </script>
 
 <template>
@@ -61,4 +88,11 @@ const onSubmit = handleSubmit(async (formValues) => {
       />
     </div>
   </form>
+  <div class="w-full flex md:justify-start justify-center mt-4">
+    <DeleteButton
+      v-if="mode === 'edit'"
+      title="Удалить издательство"
+      v-on:delete="deleteConfirm()"
+    />
+  </div>
 </template>

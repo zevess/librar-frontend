@@ -14,7 +14,7 @@ export const useDeleteAuthor = () => {
   const { mutate: deleteAuthor, isPending: isAuthorDeleting } = useMutation({
     mutationKey: ['delete author'],
     mutationFn: (authorId: string) => authorService.deleteAuthor(authorId),
-    onSuccess(data) {
+    onSuccess() {
       router.push(PUBLIC_URL.adminAuthors())
     },
     onError(error) {

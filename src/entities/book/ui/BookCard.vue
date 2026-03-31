@@ -3,19 +3,13 @@ import { ActionButton } from '@/shared/ui/action-button'
 import { RouterLink } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { bookData, type IBook } from '../model/book.types'
-import { useQueryClient } from '@tanstack/vue-query'
-import { bookService } from '../model/book.service'
 import { StoredImage } from '@/shared/ui/stored-image'
-import { useCreateReservation } from '@/entities/reservation'
 import { computed, ref } from 'vue'
-import { Toast } from 'primevue'
-import { useProfile, useUserStore } from '@/entities/user'
-import { ReserveButton } from '@/shared/ui/reserve-button'
+import { ReserveButton } from '@/features/reserve-button'
 
 const props = defineProps<{
   book: IBook
   isEditable: boolean
-  isReservable: boolean
 }>()
 
 const isAvailable = computed(() => props.book.isAvailable)

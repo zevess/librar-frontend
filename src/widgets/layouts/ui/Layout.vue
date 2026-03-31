@@ -12,6 +12,7 @@ import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/entities/user'
 import { ref } from 'vue'
 import { SearchInput } from '@/features/search-input'
+import { NotificationDrawer } from '@/features/notification-drawer'
 
 const { isAuthentificated } = useUserStore()
 const items = useHeaderNavigation(isAuthentificated)
@@ -26,6 +27,7 @@ const items = useHeaderNavigation(isAuthentificated)
       <RouterLink class="hidden md:block" :to="PUBLIC_URL.catalog()">
         <CatalogButton />
       </RouterLink>
+      <NotificationDrawer v-if="isAuthentificated" class="block md:hidden" />
       <div class="hidden md:flex md:w-4/12">
         <SearchInput />
       </div>

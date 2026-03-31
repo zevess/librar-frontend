@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Rating } from 'primevue'
 import { ref } from 'vue'
-defineProps({
-  fontSize: String,
-})
+defineProps<{
+  fontSize: string
+}>()
 </script>
 
 <template>

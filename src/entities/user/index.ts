@@ -1,5 +1,7 @@
 export type { IUser } from './model/user.types'
 export { userService } from './model/user.service'
-export { useProfile } from './api/useProfile'
 export { useUserStore } from './model/user.store'
+export { useProfile } from './api/useProfile'
 export { useLogout } from './api/useLogout'
+export { useReadNotifications } from './api/useReadNotifications'
+export { useGetNotifications } from './api/useGetNotifications'

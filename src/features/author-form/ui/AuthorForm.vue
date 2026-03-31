@@ -14,7 +14,7 @@ import {
 } from '@/entities/author'
 import { useAuthorFormInitialValues } from '../lib/useAuthorFormInitialValues'
 import { useConfirm, useToast } from 'primevue'
-import { DeleteButton } from '@/shared/ui/delete-button'
+import { DeleteButton } from '@/features/delete-button'
 import { Textarea } from '@/shared/ui/textarea'
 
 const props = defineProps<{
@@ -37,9 +37,7 @@ const [description, descriptionAttrs] = defineField('description')
 
 const onSubmit = handleSubmit(async (formValues) => {
   if (props.mode === 'create') createAuthor(formValues)
-  else {
-    updateAuthor(formValues)
-  }
+  if (props.mode === 'edit') updateAuthor(formValues)
 })
 
 const deleteConfirm = () => {
@@ -85,6 +83,8 @@ const deleteConfirm = () => {
         :title="props.mode === 'create' ? 'Добавить автора' : 'Изменить автора'"
       />
     </div>
-    <DeleteButton v-if="mode === 'edit'" title="Удалить автора" v-on:delete="deleteConfirm()" />
   </form>
+  <div class="w-full flex md:justify-start justify-center mt-4">
+    <DeleteButton v-if="mode === 'edit'" title="Удалить автора" v-on:delete="deleteConfirm()" />
+  </div>
 </template>

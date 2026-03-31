@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useLogout } from '@/entities/user'
+import { ActionButton } from '@/shared/ui/action-button'
 import { useRouter } from 'vue-router'
-import { ActionButton } from '../action-button'
 
 const { logout } = useLogout()
 const router = useRouter()

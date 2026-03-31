@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useIssueReservation } from '@/entities/reservation'
-import { ActionButton } from '../action-button'
+import { ActionButton } from '@/shared/ui/action-button'
 
 const props = defineProps<{
   reservationId: number

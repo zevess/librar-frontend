@@ -23,7 +23,6 @@ export const useCreateReview = (bookId: string) => {
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response)
-        // errorMessage.value = error.response?.data.message
         toast.add({
           severity: 'error',
           summary: 'Ошибка',

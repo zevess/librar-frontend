@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useCancelExpired } from '@/entities/reservation'
-import { ActionButton } from '../action-button'
+import { ActionButton } from '@/shared/ui/action-button'
 
 const { cancelExpired, isPending } = useCancelExpired()
 </script>

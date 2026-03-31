@@ -20,11 +20,6 @@ watchEffect(() => {
   <div v-if="author?.success" class="flex flex-col gap-4 w-full">
     <AuthorHeader :author="author.data" />
     <p>{{ author?.data.description }}</p>
-    <BookList
-      :is-reservable="true"
-      :items="author?.data.books.data"
-      v-if="author.data.books"
-      variant="default"
-    />
+    <BookList :items="author?.data.books.data" v-if="author.data.books" variant="default" />
   </div>
 </template>

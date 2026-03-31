@@ -1,19 +1,13 @@
 import type { CreateAxiosDefaults } from 'axios'
 import { errorCatch, getContentType } from './api.helper'
 import axios from 'axios'
-
 import { PUBLIC_URL, SERVER_URL } from '../config'
-import { useUserStore } from '@/entities/user'
-import { useRouter } from 'vue-router'
 import { getAccessToken, removeAccessToken } from '@/entities/auth'
 
 const options: CreateAxiosDefaults = {
   baseURL: SERVER_URL,
   headers: getContentType(),
 }
-
-// const router = useRouter()
-// const store = useUserStore()
 
 const api = axios.create(options)
 const apiPrivate = axios.create(options)

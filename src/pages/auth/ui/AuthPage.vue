@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useLogin } from '@/entities/auth'
 import { LoginForm } from '@/features/login-form'
 import { RegisterForm } from '@/features/register-form'
 import { ActionButton } from '@/shared/ui/action-button'

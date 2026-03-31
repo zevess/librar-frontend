@@ -2,10 +2,12 @@
 import { Column, DataTable, Tag } from 'primevue'
 import { IReservationStatus, type IReservation } from '../model/reservation.types'
 import { StoredImage } from '@/shared/ui/stored-image'
-import { CancelReservationButton } from '@/shared/ui/cancel-reservation-button'
-import { IssueReservationButton } from '@/shared/ui/issue-reservation-button'
 import { getSeverity } from '@/shared/lib'
-import { AcceptReservationButton } from '@/shared/ui/accept-reservation-button'
+
+import { PUBLIC_URL } from '@/shared/config'
+import { AcceptReservationButton } from '@/features/accept-reservation-button'
+import { CancelReservationButton } from '@/features/cancel-reservation-button'
+import { IssueReservationButton } from '@/features/issue-reservation-button'
 
 defineProps<{
   reservations: IReservation[]
@@ -19,7 +21,11 @@ defineProps<{
       <Column :sortable="true" field="book.id" header="ID книги"></Column>
       <Column :sortable="true" field="book.title" header="Название книги">
         <template #body="slotprops">
-          <span v-if="slotprops.data.book">{{ slotprops.data.book.title }}</span>
+          <RouterLink
+            :to="PUBLIC_URL.book(`${slotprops.data.book.slug}-${slotprops.data.book.id}`)"
+            v-if="slotprops.data.book"
+            >{{ slotprops.data.book.title }}</RouterLink
+          >
           <span v-else class="lowercase text-gray-500 select-none">Книга удалена</span>
         </template>
       </Column>

@@ -10,7 +10,7 @@ export const useGetAuthors = (params?: IAuthorParams) => {
   } = useQuery({
     queryKey: ['get authors', params],
     queryFn: () => authorService.getAuthors(params),
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   })
   return { authors, isFetching, isFetched }

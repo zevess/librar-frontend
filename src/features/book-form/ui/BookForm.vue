@@ -18,7 +18,7 @@ import { useAttachGenres, useDetachGenres, useGetGenres, type IGenre } from '@/e
 import { GenresAutocomplete } from '@/features/genres-autocomplete'
 import { PrimeRadioButton } from '@/shared/ui/radio-button'
 import { useConfirm, useToast } from 'primevue'
-import { DeleteButton } from '@/shared/ui/delete-button'
+import { DeleteButton } from '@/features/delete-button'
 import { Textarea } from '@/shared/ui/textarea'
 
 const props = defineProps<{

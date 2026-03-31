@@ -7,7 +7,7 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <div class="max-w-360 mx-auto">
-    <Header>
+    <Header variant="default">
       <RouterLink to="/">
         <Logo />
       </RouterLink>

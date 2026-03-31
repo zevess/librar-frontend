@@ -5,10 +5,11 @@ import { Column, DataTable, Tag } from 'primevue'
 import { IReservationStatus, type IReservation } from '../model/reservation.types'
 import { StoredImage } from '@/shared/ui/stored-image'
 import { ActionButton } from '@/shared/ui/action-button'
-import { CancelReservationButton } from '@/shared/ui/cancel-reservation-button'
-import { IssueReservationButton } from '@/shared/ui/issue-reservation-button'
 import { getSeverity } from '@/shared/lib'
 import { useProfile } from '@/entities/user'
+import { RouterLink } from 'vue-router'
+import { PUBLIC_URL } from '@/shared/config'
+import { CancelReservationButton } from '@/features/cancel-reservation-button'
 
 defineProps<{
   reservations: IReservation[]
@@ -21,7 +22,11 @@ defineProps<{
       <Column field="book.id" header="ID книги"></Column>
       <Column field="book.title" header="Название книги">
         <template #body="slotprops">
-          <span v-if="slotprops.data.book">{{ slotprops.data.book.title }}</span>
+          <RouterLink
+            :to="PUBLIC_URL.book(`${slotprops.data.book.slug}-${slotprops.data.book.id}`)"
+            v-if="slotprops.data.book"
+            >{{ slotprops.data.book.title }}</RouterLink
+          >
           <span v-else class="lowercase text-gray-500 select-none">Книга удалена</span>
         </template>
       </Column>

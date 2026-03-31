@@ -4,12 +4,16 @@ import HeaderItem from './HeaderItem.vue'
 import type { IHeaderNavItem } from '../model/types'
 import { useHeaderStatus } from '@/shared/lib'
 import { PrimeDrawer } from '@/shared/ui/drawer'
+import { useProfile, useUserStore } from '@/entities/user'
+import { OverlayBadge } from 'primevue'
+import { NotificationDrawer } from '@/features/notification-drawer'
+import { computed } from 'vue'
 
 defineProps<{
   items?: IHeaderNavItem[]
   variant: 'default' | 'admin'
 }>()
-
+const { isAuthentificated } = useUserStore()
 const { isHeaderVisible } = useHeaderStatus()
 </script>
 
@@ -23,11 +27,13 @@ const { isHeaderVisible } = useHeaderStatus()
       <slot></slot>
       <div
         :class="[
-          'hidden gap-1',
+          'hidden gap-3',
           variant == 'admin' && 'lg:flex',
           variant == 'default' && 'md:flex',
         ]"
       >
+        <NotificationDrawer v-if="isAuthentificated" />
+
         <RouterLink v-for="item in items" :to="item.url">
           <HeaderItem :icon="item.icon" :title="item.title"></HeaderItem>
         </RouterLink>

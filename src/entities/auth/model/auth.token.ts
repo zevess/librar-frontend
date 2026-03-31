@@ -12,7 +12,7 @@ export const saveAccessToken = (accessToken: string) => {
   Cookies.set(EnumTokens.ACCESS_TOKEN, accessToken, {
     domain: import.meta.env.VITE_APP_DOMAIN,
     sameSite: 'strict',
-    expires: 1,
+    expires: 3,
   })
 }
 

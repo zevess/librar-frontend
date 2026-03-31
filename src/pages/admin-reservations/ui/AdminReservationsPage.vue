@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ReservationsTable, useGetReservations } from '@/entities/reservation'
+import { CancelExpiredButton } from '@/features/cancel-expired-button'
 import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { ReservationFilter } from '@/features/reservation-filter'
-import { CancelExpiredButton } from '@/shared/ui/cancel-expired-button'
 import { NotFound } from '@/shared/ui/not-found'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'

@@ -16,6 +16,7 @@ export interface IBook {
     data: IGenre[]
   }
   isAvailable: boolean
+  isSubscribed: boolean
 }
 
 export interface IBookResponse {

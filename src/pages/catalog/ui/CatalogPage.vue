@@ -67,12 +67,7 @@ const { books, isFetching } = useGetBooks(filters.value)
       </div>
 
       <NotFound v-if="books?.data.length === 0"> Ничего не найдено. Попробуйте позже </NotFound>
-      <BookList
-        v-if="!isFetching && books?.data"
-        :is-reservable="true"
-        variant="catalog"
-        :items="books?.data"
-      />
+      <BookList v-if="!isFetching && books?.data" variant="catalog" :items="books?.data" />
       <BookListSkeleton variant="catalog" v-if="isFetching" />
     </div>
 

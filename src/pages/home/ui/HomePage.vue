@@ -16,12 +16,7 @@ const { books, isFetching } = useGetBooks()
       obcaecati voluptas mollitia cum ipsa? Sunt eveniet dolore iusto minus magnam sed sequi
       corrupti tempora omnis veritatis!
     </p>
-    <BookList
-      v-if="!isFetching"
-      :is-reservable="true"
-      variant="default"
-      :items="books?.data ?? []"
-    />
+    <BookList v-if="!isFetching" variant="default" :items="books?.data ?? []" />
     <BookListSkeleton variant="default" v-if="isFetching" />
     <RouterLink :to="PUBLIC_URL.catalog()" class="mx-auto flex items-center w-fit">
       <ActionButton class="h-12 px-4" title="смотреть больше" />

@@ -10,6 +10,8 @@ export const API_URL = {
   forgotPassword: () => API_URL.auth('/forgot-password'),
   resetPassword: () => API_URL.auth('/reset-password'),
   me: () => API_URL.auth('/me'),
+  notifications: (url = '') => API_URL.auth(`/notifications${url}`),
+  readNotifications: () => API_URL.notifications('/read'),
   logout: () => API_URL.auth('/logout'),
 
   books: (url = '') => API_URL.root(`/books${url}`),
@@ -24,6 +26,10 @@ export const API_URL = {
   getBookReviews: (bookId = '') => API_URL.books(`/${bookId}/reviews`),
   booksReservations: () => API_URL.books(`/reservations`),
   reserveBook: (bookId = '') => API_URL.books(`/${bookId}/reserve`),
+  subscribe: (bookId = '') => API_URL.books(`/${bookId}/subscribe`),
+  unsubscribe: (bookId = '') => API_URL.books(`/${bookId}/unsubscribe`),
+  subscriptions: (url = '') => API_URL.root(`/subscriptions${url}`),
+  getUserSubscriptions: (userId = '') => API_URL.subscriptions(`/${userId}`),
 
   genres: (url = '') => API_URL.root(`/genres${url}`),
   getGenres: () => API_URL.genres('/'),
