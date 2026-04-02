@@ -15,6 +15,12 @@ export const useDeleteAuthor = () => {
     mutationKey: ['delete author'],
     mutationFn: (authorId: string) => authorService.deleteAuthor(authorId),
     onSuccess() {
+      toast.add({
+        severity: 'success',
+        summary: 'Статус',
+        detail: 'Автор успешно удален',
+        life: 3000,
+      })
       router.push(PUBLIC_URL.adminAuthors())
     },
     onError(error) {

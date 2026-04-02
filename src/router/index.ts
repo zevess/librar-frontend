@@ -26,6 +26,7 @@ import { CreateCategoryPage } from '@/pages/create-category'
 import { CreateGenrePage } from '@/pages/create-genre'
 import { ForgotPasswordPage } from '@/pages/forgot-password'
 import { ResetPasswordPage } from '@/pages/reset-password'
+import { VerifyPage } from '@/pages/verify'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -186,7 +187,12 @@ const router = createRouter({
         }
       },
     },
-
+    {
+      path: '/email-verify',
+      name: 'email-verify',
+      component: VerifyPage,
+      meta: { layout: 'default' },
+    },
     {
       path: '/auth',
       name: 'auth',

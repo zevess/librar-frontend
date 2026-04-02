@@ -6,6 +6,8 @@ export const PUBLIC_URL = {
 
   auth: () => PUBLIC_URL.root(`/auth`),
   forgotPassword: () => PUBLIC_URL.root(`/forgot-password`),
+  email: (url = '') => PUBLIC_URL.root(`/email${url}`),
+  verify: () => PUBLIC_URL.email('/verify'),
 
   profile: () => PUBLIC_URL.root(`/me`),
 

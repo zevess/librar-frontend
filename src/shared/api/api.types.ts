@@ -32,4 +32,5 @@ export interface IPaginatedResponse<T> {
 export interface IResponse<T> {
   data: T
   success: boolean
+  message: string
 }

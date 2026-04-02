@@ -6,6 +6,7 @@ export interface IUser {
   email: string
   role: string
   notifications: number
+  isVerified: boolean
 }
 
 export interface IUserResponse {

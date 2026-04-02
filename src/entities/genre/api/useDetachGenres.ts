@@ -6,12 +6,13 @@ import { ref } from 'vue'
 import { genreService } from '../model/genre.service'
 import type { IGenresParasm } from '../model/genre.types'
 import { useToast } from 'primevue'
+import { useToastStore } from '@/shared/lib'
 
 export const useDetachGenres = (bookId: string) => {
   const router = useRouter()
   const errorMessage = ref()
   const queryClient = useQueryClient()
-  const toast = useToast()
+  const toast = useToastStore()
   const { mutate: detachGenre, isPending: isGenreDetaching } = useMutation({
     mutationKey: ['detach genre'],
     mutationFn: (params: IGenresParasm) => genreService.detachGenresFromBook(bookId, params),
@@ -19,11 +20,7 @@ export const useDetachGenres = (bookId: string) => {
       if (axios.isAxiosError(error)) {
         console.error(error.response?.data.message)
         errorMessage.value = error.response?.data.message
-        toast.add({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: String(error.response?.data.message),
-        })
+        toast.error('Ошибка', error.response?.data.message)
       }
     },
   })

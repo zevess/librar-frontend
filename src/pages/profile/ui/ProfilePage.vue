@@ -11,6 +11,7 @@ import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { useGetUserSubscriptions } from '@/entities/subscription'
 import { BookList, BookListSkeleton } from '@/entities/book'
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primevue'
+import { SendVerificationButton } from '@/features/send-verification-button'
 
 const { profile, isFetching, isFetched } = useProfile()
 
@@ -37,7 +38,13 @@ const activeReservations = computed(() =>
           :title="profile?.data.name"
           class="text-center md:text-left"
         />
-        <span class="text-lg">{{ profile?.data.email }}</span>
+        <div class="flex flex-col gap-2">
+          <div class="flex justify-center items-center gap-1">
+            <span class="text-lg">{{ profile?.data.email }} </span>
+            <span v-if="profile?.data.isVerified" class="pi pi-verified"></span>
+          </div>
+          <SendVerificationButton v-if="!profile?.data.isVerified" />
+        </div>
       </div>
 
       <PageSubtitle title="профиль" />

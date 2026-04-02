@@ -6,6 +6,5 @@ import { Toast } from 'primevue'
 
 <template>
   <PageTitle title="создать книгу" />
-  <Toast />
   <BookForm mode="create"></BookForm>
 </template>

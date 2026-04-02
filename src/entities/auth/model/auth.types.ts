@@ -28,3 +28,10 @@ export interface IResetPassword {
   password: string
   password_confirmation: string
 }
+
+export interface IVerify {
+  id: string
+  hash: string
+  expires: string
+  signature: string
+}

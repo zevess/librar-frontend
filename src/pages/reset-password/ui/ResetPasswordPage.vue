@@ -6,7 +6,6 @@ import { Toast } from 'primevue'
 
 <template>
   <div class="flex flex-col gap-4">
-    <Toast />
     <PageTitle title="Новый пароль"></PageTitle>
     <ResetPasswordForm />
   </div>

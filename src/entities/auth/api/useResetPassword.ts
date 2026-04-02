@@ -26,6 +26,7 @@ export const useResetPassword = () => {
         severity: 'success',
         summary: 'Успех',
         detail: String(data.data.message),
+        life: 3000,
       })
       router.replace(PUBLIC_URL.auth())
     },

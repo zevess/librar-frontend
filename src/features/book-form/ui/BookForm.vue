@@ -88,12 +88,12 @@ const onSubmit = handleSubmit(async (formValues) => {
                 genres: genres.value,
               })
             }
-            toast.add({
-              severity: 'success',
-              summary: 'Статус',
-              detail: 'Книга успешно обновлена',
-              life: 3000,
-            })
+            // toast.add({
+            //   severity: 'success',
+            //   summary: 'Статус',
+            //   detail: 'Книга успешно обновлена',
+            //   life: 3000,
+            // })
           },
         },
       )
@@ -108,12 +108,12 @@ const onSubmit = handleSubmit(async (formValues) => {
             ...formValues,
             image: uploadedImage.data.url,
           })
-          toast.add({
-            severity: 'success',
-            summary: 'Статус',
-            detail: 'Книга успешно обновлена',
-            life: 3000,
-          })
+          // toast.add({
+          //   severity: 'success',
+          //   summary: 'Статус',
+          //   detail: 'Книга успешно обновлена',
+          //   life: 3000,
+          // })
         },
       })
     }

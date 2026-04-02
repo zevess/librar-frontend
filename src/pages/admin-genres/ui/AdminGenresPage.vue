@@ -15,7 +15,6 @@ const { genres, isFetching } = useGetGenres()
 
 <template>
   <PageTitle title="жанры" />
-  <Toast />
   <ConfirmDialog></ConfirmDialog>
   <div class="flex justify-center md:justify-end">
     <LinkButton :to="PUBLIC_URL.adminGenreCreate()" text="Добавить жанр" />

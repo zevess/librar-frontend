@@ -3,10 +3,11 @@ import { reviewService } from '../model/review.service'
 import type { IReviewForm } from '../model/review.types'
 import { useToast } from 'primevue'
 import axios from 'axios'
+import { useToastStore } from '@/shared/lib'
 
 export const useCreateReview = (bookId: string) => {
   const queryClient = useQueryClient()
-  const toast = useToast()
+  const toast = useToastStore()
   const { mutate: createReview, isPending: isReviewCreating } = useMutation({
     mutationKey: ['create review'],
     mutationFn: (data: IReviewForm) => reviewService.createReview(bookId, data),
@@ -14,20 +15,12 @@ export const useCreateReview = (bookId: string) => {
       queryClient.invalidateQueries({
         queryKey: ['get book reviews', bookId],
       })
-      toast.add({
-        severity: 'success',
-        summary: 'Статус',
-        detail: 'Отзыв успешно создан',
-      })
+      toast.success('Успех', 'Отзыв успешно создан')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response)
-        toast.add({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: String(error.response?.data.message),
-        })
+        toast.error('Ошибка', error.response?.data.message)
       }
     },
   })

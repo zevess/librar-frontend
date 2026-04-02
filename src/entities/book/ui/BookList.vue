@@ -20,7 +20,6 @@ const styles: Record<'default' | 'catalog', string> = {
 </script>
 
 <template>
-  <Toast />
   <div :class="styles[variant]">
     <BookCard v-for="item in items" :book="item" :is-editable="false" />
   </div>

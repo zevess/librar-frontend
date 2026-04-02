@@ -6,12 +6,13 @@ import { ref } from 'vue'
 import { genreService } from '../model/genre.service'
 import type { IGenresParasm } from '../model/genre.types'
 import { useToast } from 'primevue'
+import { useToastStore } from '@/shared/lib'
 
 export const useAttachGenres = (bookId: string) => {
   const router = useRouter()
   const errorMessage = ref()
   const queryClient = useQueryClient()
-  const toast = useToast()
+  const toast = useToastStore()
   const { mutate: attachGenre, isPending: isGenreAttaching } = useMutation({
     mutationKey: ['attach genre'],
     mutationFn: (params: IGenresParasm) => genreService.attachGenresToBook(bookId, params),
@@ -19,11 +20,7 @@ export const useAttachGenres = (bookId: string) => {
       if (axios.isAxiosError(error)) {
         console.error(error.response?.data.message)
         errorMessage.value = error.response?.data.message
-        toast.add({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: String(error.response?.data.message),
-        })
+        toast.error('Ошибка', error.response?.data.message)
       }
     },
   })

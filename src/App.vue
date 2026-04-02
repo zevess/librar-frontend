@@ -3,6 +3,7 @@ import { RouterView, useRoute } from 'vue-router'
 import { AdminLayout, AuthLayout, Layout } from './widgets/layouts'
 import { computed } from 'vue'
 import { useProfile, useUserStore } from './entities/user'
+import { Toast } from 'primevue'
 
 const route = useRoute()
 const layouts = {
@@ -21,6 +22,7 @@ useUserStore().initFromCookies()
 
 <template>
   <component :is="CurrentLayout">
+    <Toast />
     <RouterView v-slot="{ Component, route }">
       <Transition name="page" mode="out-in">
         <div :key="route.name">

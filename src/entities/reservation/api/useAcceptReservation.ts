@@ -3,20 +3,17 @@ import { reservationService } from '../model/reservation.service'
 import { useToast } from 'primevue'
 import axios from 'axios'
 import { useParams } from '@/features/filter'
+import { useToastStore } from '@/shared/lib'
 
 export const useAcceptReservation = () => {
-  const toast = useToast()
+  const toast = useToastStore()
   const queryClient = useQueryClient()
   const { params } = useParams()
   const { mutate: accept, isPending } = useMutation({
     mutationKey: ['accept reservation'],
     mutationFn: (reservationId: string) => reservationService.acceptReservation(reservationId),
     onSuccess(data) {
-      toast.add({
-        severity: 'success',
-        summary: 'Успех',
-        detail: String(data.data.message),
-      })
+      toast.success('Успех', String(data.data.message))
       queryClient.invalidateQueries({
         queryKey: ['get reservations', params],
       })
@@ -24,11 +21,7 @@ export const useAcceptReservation = () => {
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response)
-        toast.add({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: String(error.response?.data.message),
-        })
+        toast.error('Ошибка', error.response?.data.message)
       }
     },
   })

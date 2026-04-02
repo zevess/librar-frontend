@@ -17,7 +17,6 @@ watchEffect(() => {
 
 <template>
   <PageTitle title="изменить издательство" />
-  <Toast />
   <ConfirmDialog></ConfirmDialog>
   <PublisherForm v-if="publisher?.success" :publisher="publisher?.data" mode="edit" />
   <NotFound v-if="!publisher?.success">Издательство не найдено</NotFound>

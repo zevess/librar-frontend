@@ -3,20 +3,18 @@ import { reservationService } from '../model/reservation.service'
 import { useToast } from 'primevue'
 import { useParams } from '@/features/filter'
 import axios from 'axios'
+import { useToastStore } from '@/shared/lib'
 
 export const useCancelExpired = () => {
-  const toast = useToast()
+  const toast = useToastStore()
   const queryClient = useQueryClient()
   const { params } = useParams()
   const { mutate: cancelExpired, isPending } = useMutation({
     mutationKey: ['cancel expired'],
     mutationFn: () => reservationService.cancelExpired(),
     onSuccess(data) {
-      toast.add({
-        severity: 'success',
-        summary: 'Успех',
-        detail: 'Просроченнные бронирования отменены',
-      })
+      toast.success('Успех', 'Просроченные брони отменены')
+
       queryClient.invalidateQueries({
         queryKey: ['get reservations', params],
       })
@@ -24,11 +22,7 @@ export const useCancelExpired = () => {
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response)
-        toast.add({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: String(error.response?.data.message),
-        })
+        toast.error('Ошибка', error.response?.data.message)
       }
     },
   })

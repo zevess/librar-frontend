@@ -1,10 +1,11 @@
-import { api } from '@/shared/api/api.interceptor'
+import { api, apiPrivate } from '@/shared/api/api.interceptor'
 import type {
   IResetLinkSentResponse,
   IAuthResponse,
   ILogin,
   IRegister,
   IResetPassword,
+  IVerify,
 } from './auth.types'
 import { API_URL } from '@/shared/config/api.config'
 import { saveAccessToken } from './auth.token'
@@ -32,6 +33,30 @@ class AuthService {
       saveAccessToken(response.data.token)
     }
     return response
+  }
+
+  async sendVerification() {
+    const response = await apiPrivate({
+      url: API_URL.sendVerification(),
+      method: 'POST',
+    })
+    return response
+  }
+
+  async verify(params: IVerify) {
+    const { data } = await api({
+      url: API_URL.verify(params.id, params.hash),
+      method: 'GET',
+      params: {
+        expires: params.expires,
+        signature: params.signature,
+      },
+      // data: {
+      //   expires: params.expires,
+      //   signature: params.signature,
+      // },
+    })
+    return data
   }
 
   async forgotPassword(email: string) {

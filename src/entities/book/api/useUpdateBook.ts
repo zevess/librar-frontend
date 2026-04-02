@@ -6,11 +6,12 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { PUBLIC_URL } from '@/shared/config'
 import { useToast } from 'primevue'
+import { useToastStore } from '@/shared/lib'
 
 export const useUpdateBook = (bookId: string) => {
   const router = useRouter()
   const errorMessage = ref()
-  const toast = useToast()
+  const toast = useToastStore()
   const {
     mutate: updateBook,
     isPending: isUpdating,
@@ -19,23 +20,15 @@ export const useUpdateBook = (bookId: string) => {
     mutationKey: ['update book'],
     mutationFn: (data: IBookForm) => bookService.updateBook(data, bookId),
     onSuccess(data) {
-      router.push(PUBLIC_URL.book(`${data.data.data.slug}-${data.data.data.id}`))
-      toast.add({
-        severity: 'success',
-        summary: 'Статус',
-        detail: 'Книга успешно обновлена',
-        life: 3000,
-      })
+      router.push(PUBLIC_URL.adminBooks())
+      // router.push(PUBLIC_URL.book(`${data.data.data.slug}-${data.data.data.id}`))
+      toast.success('Статус', 'Книга успешно обновлена')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.error(error.response?.data.message)
         errorMessage.value = error.response?.data.message
-        toast.add({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: error.response?.data.message,
-        })
+        toast.error('Ошибка', error.response?.data.message)
       }
     },
   })

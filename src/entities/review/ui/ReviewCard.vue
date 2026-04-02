@@ -24,7 +24,7 @@ const isFetching = inject('isFetching')
       <span class="font-semibold">{{ review.user.name }}</span>
       <span>{{ new Date(review.created_at).toLocaleDateString('ru-RU') }}</span>
     </div>
-    <PrimeRating v-model="rating" readonly />
+    <PrimeRating font-size="16px" v-model="rating" readonly />
     <p>{{ review.text }}</p>
   </div>
 </template>

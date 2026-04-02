@@ -12,16 +12,16 @@ export const useDeleteBook = () => {
     mutationKey: ['delete book'],
     mutationFn: (bookId: string) => bookService.deleteBook(bookId),
     onSuccess() {
+      toast.add({
+        severity: 'success',
+        summary: 'Статус',
+        detail: 'Книга успешно удалена',
+        life: 3000,
+      })
       queryClient.invalidateQueries({
         queryKey: ['get books'],
       })
       router.push(PUBLIC_URL.adminBooks())
-      toast.add({
-        severity: 'success',
-        summary: 'Статус',
-        detail: 'Жанр успешно удален',
-        life: 3000,
-      })
     },
   })
   return { deleteBook }

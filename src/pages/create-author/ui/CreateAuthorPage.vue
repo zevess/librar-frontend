@@ -7,6 +7,5 @@ import { Toast } from 'primevue'
 
 <template>
   <PageTitle title="добавить автора" />
-  <Toast />
   <AuthorForm mode="create" />
 </template>

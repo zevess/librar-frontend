@@ -15,6 +15,12 @@ export const useCreateAuthor = () => {
     mutationKey: ['create author'],
     mutationFn: (data: IAuthorForm) => authorService.createAuthor(data),
     onSuccess(data) {
+      toast.add({
+        severity: 'success',
+        summary: 'Статус',
+        detail: 'Автор успешно создан',
+        life: 3000,
+      })
       router.push(PUBLIC_URL.author(`${data.data.data.slug}-${data.data.data.id}`))
     },
     onError(error) {

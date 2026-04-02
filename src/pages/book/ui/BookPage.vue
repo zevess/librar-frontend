@@ -31,7 +31,6 @@ provide('isFetching', isFetching)
 </script>
 
 <template>
-  <Toast />
   <PageSkeleton variant="book" v-if="isFetching" />
   <NotFound v-if="!book?.success && isFetched"> Книга на найдена </NotFound>
   <div v-if="book?.data" class="flex flex-col gap-4 w-full">

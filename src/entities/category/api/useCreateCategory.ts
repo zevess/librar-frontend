@@ -6,22 +6,18 @@ import { ref } from 'vue'
 import type { ICategoryForm } from '../model/category.types'
 import { categoryService } from '../model/category.service'
 import { useToast } from 'primevue'
+import { useToastStore } from '@/shared/lib'
 
 export const useCreateCategory = () => {
   const router = useRouter()
   const errorMessage = ref()
   const queryClient = useQueryClient()
-  const toast = useToast()
+  const toast = useToastStore()
   const { mutate: createCategory, isPending: isCategoryCreating } = useMutation({
     mutationKey: ['create category'],
     mutationFn: (data: ICategoryForm) => categoryService.createCategory(data),
     onSuccess() {
-      toast.add({
-        severity: 'success',
-        summary: 'Статус',
-        detail: 'Категория успешно создана',
-        life: 3000,
-      })
+      toast.success('Статус', 'Категория успешно создана')
       queryClient.invalidateQueries({
         queryKey: ['get categories'],
       })
@@ -31,11 +27,7 @@ export const useCreateCategory = () => {
       if (axios.isAxiosError(error)) {
         console.error(error.response?.data.message)
         errorMessage.value = error.response?.data.message
-        toast.add({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: error.response?.data.message,
-        })
+        toast.error('Ошибка', error.response?.data.message)
       }
     },
   })

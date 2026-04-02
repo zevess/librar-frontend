@@ -22,6 +22,7 @@ export const useForgotPassword = () => {
         severity: 'success',
         summary: 'Успех',
         detail: String(data.data.message),
+        life: 3000,
       })
     },
     onError(error) {

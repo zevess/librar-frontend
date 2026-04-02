@@ -10,6 +10,10 @@ export const API_URL = {
   forgotPassword: () => API_URL.auth('/forgot-password'),
   resetPassword: () => API_URL.auth('/reset-password'),
   me: () => API_URL.auth('/me'),
+  email: (url = '') => API_URL.auth(`/email${url}`),
+  sendVerification: () => API_URL.email(`/send-verification`),
+  verify: (id = '', hash = '') => API_URL.email(`/verify/${id}/${hash}`),
+
   notifications: (url = '') => API_URL.auth(`/notifications${url}`),
   readNotifications: () => API_URL.notifications('/read'),
   logout: () => API_URL.auth('/logout'),

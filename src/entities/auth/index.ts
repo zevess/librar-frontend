@@ -3,6 +3,8 @@ export { useLogin } from './api/useLogin'
 export { useRegister } from './api/useRegister'
 export { useForgotPassword } from './api/useForgotPassword'
 export { useResetPassword } from './api/useResetPassword'
+export { useVerify } from './api/useVerify'
+export { useSendVerification } from './api/useSendVerification'
 export type { IAuthResponse } from './model/auth.types'
 export type {
   LoginSchema,

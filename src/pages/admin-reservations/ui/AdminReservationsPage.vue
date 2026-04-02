@@ -32,7 +32,6 @@ const { reservations, isReservationsFetching, isReservationsFetched } = useGetRe
 
 <template>
   <div class="flex flex-col gap-4">
-    <Toast />
     <PageTitle title="брони" />
     <ReservationFilter
       v-model:book-id-filter="filter.bookId"

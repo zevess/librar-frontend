@@ -17,7 +17,6 @@ watchEffect(() => {
 
 <template>
   <PageTitle title="изменить автора" />
-  <Toast />
   <ConfirmDialog></ConfirmDialog>
   <AuthorForm mode="edit" v-if="author?.data" :author="author?.data" />
   <NotFound v-if="!author?.success">Автор не найден</NotFound>

@@ -17,7 +17,6 @@ watchEffect(() => {
 
 <template>
   <PageTitle title="изменить книгу" />
-  <Toast />
   <ConfirmDialog></ConfirmDialog>
   <BookForm mode="edit" v-if="book?.data" :book="book.data"></BookForm>
   <NotFound v-if="!book?.success && isFetched">Книга не найдена</NotFound>
