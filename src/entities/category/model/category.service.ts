@@ -10,6 +10,18 @@ class CategoryService {
     })
     return data
   }
+
+  async getCategoriesByQuery(q: string) {
+    const { data } = await api<IResponse<ICategory[]>>({
+      url: API_URL.getCategoriesByQuery(),
+      method: 'GET',
+      params: {
+        q,
+      },
+    })
+    return data
+  }
+
   async getCategory(categoryId: string) {
     const { data } = await api<IResponse<ICategory>>({
       url: API_URL.getCategoryById(categoryId),

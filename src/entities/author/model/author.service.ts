@@ -19,6 +19,18 @@ class AuthorService {
     })
     return data
   }
+
+  async getAuthorsByQuery(q: string) {
+    const { data } = await api<IResponse<IAuthor[]>>({
+      url: API_URL.getAuthorsByQuery(),
+      method: 'GET',
+      params: {
+        q,
+      },
+    })
+    return data
+  }
+
   async createAuthor(data: IAuthorForm) {
     const response = await apiPrivate<IResponse<IAuthor>>({
       url: API_URL.createAuthor(),

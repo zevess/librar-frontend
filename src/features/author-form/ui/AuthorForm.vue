@@ -22,8 +22,6 @@ const props = defineProps<{
   author?: IAuthor
 }>()
 
-const confirm = useConfirm()
-const toast = useToast()
 const initialValues = useAuthorFormInitialValues(props.author)
 const { createAuthor, isAuthorCreating, errorMessage } = useCreateAuthor()
 const { updateAuthor, isAuthorUpdating } = useUpdateAuthor(String(props.author?.id))
@@ -39,27 +37,6 @@ const onSubmit = handleSubmit(async (formValues) => {
   if (props.mode === 'create') createAuthor(formValues)
   if (props.mode === 'edit') updateAuthor(formValues)
 })
-
-const deleteConfirm = () => {
-  confirm.require({
-    message: 'Вы уверены? Это действие необратимо.',
-    header: 'Удалить автора',
-    icon: 'pi pi-trash',
-    rejectLabel: 'Отмена',
-    rejectProps: {
-      label: 'Отмена',
-      severity: 'secondary',
-      outlined: true,
-    },
-    acceptProps: {
-      label: 'Удалить',
-      severity: 'danger',
-    },
-    accept: () => {
-      deleteAuthor(String(props.author?.id))
-    },
-  })
-}
 </script>
 
 <template>
@@ -85,6 +62,11 @@ const deleteConfirm = () => {
     </div>
   </form>
   <div class="w-full flex md:justify-start justify-center mt-4">
-    <DeleteButton v-if="mode === 'edit'" title="Удалить автора" v-on:delete="deleteConfirm()" />
+    <DeleteButton
+      v-if="mode === 'edit'"
+      title="Удалить автора"
+      confirm-header="Удалить автора"
+      v-on:delete="deleteAuthor(String(props.author?.id))"
+    />
   </div>
 </template>

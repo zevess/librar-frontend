@@ -13,15 +13,12 @@ import {
 } from '@/entities/publisher'
 import { usePublisherFormInitialValues } from '../lib/usePublisherFormInitialValues'
 import { Textarea } from '@/shared/ui/textarea'
-import { useConfirm } from 'primevue'
 import { DeleteButton } from '@/features/delete-button'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
   publisher?: IPublisher
 }>()
-
-const confirm = useConfirm()
 
 const initialValues = usePublisherFormInitialValues(props.publisher)
 
@@ -37,29 +34,8 @@ const [description, descriptionAttrs] = defineField('description')
 
 const onSubmit = handleSubmit(async (formValues) => {
   if (props.mode === 'create') createPublisher(formValues)
-  else updatePublisher(formValues)
+  if (props.mode === 'edit') updatePublisher(formValues)
 })
-
-const deleteConfirm = () => {
-  confirm.require({
-    message: 'Вы уверены? Это действие необратимо.',
-    header: 'Удалить издательство',
-    icon: 'pi pi-trash',
-    rejectLabel: 'Отмена',
-    rejectProps: {
-      label: 'Отмена',
-      severity: 'secondary',
-      outlined: true,
-    },
-    acceptProps: {
-      label: 'Удалить',
-      severity: 'danger',
-    },
-    accept: () => {
-      deletePublisher(String(props.publisher?.id))
-    },
-  })
-}
 </script>
 
 <template>
@@ -92,7 +68,8 @@ const deleteConfirm = () => {
     <DeleteButton
       v-if="mode === 'edit'"
       title="Удалить издательство"
-      v-on:delete="deleteConfirm()"
+      confirm-header="Удалить издательство"
+      v-on:delete="deletePublisher(String(props.publisher?.id))"
     />
   </div>
 </template>

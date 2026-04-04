@@ -15,6 +15,6 @@ const model = defineModel()
     :type="type"
     v-model="model"
     :placeholder="placeholder"
-    class="w-full h-12 border-box rounded-md p-2 bg-gray-50 outline-2 outline-[#d1ebe9] focus:outline-[#a4c8c6] -outline-offset-2"
+    class="w-full h-12 border-box rounded-md p-2 bg-gray-50 outline-2 outline-[#d1ebe9] focus:outline-[#a4c8c6] -outline-offset-2 transition"
   />
 </template>

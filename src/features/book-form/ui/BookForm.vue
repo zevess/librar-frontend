@@ -20,14 +20,18 @@ import { PrimeRadioButton } from '@/shared/ui/radio-button'
 import { useConfirm, useToast } from 'primevue'
 import { DeleteButton } from '@/features/delete-button'
 import { Textarea } from '@/shared/ui/textarea'
+import { CategoryAutocomplete } from '@/features/category-autocomplete'
+import type { ICategory } from '@/entities/category'
+import { AuthorAutocomplete } from '@/features/author-autocomplete'
+import type { IAuthor } from '@/entities/author'
+import { PublisherAutocomplete } from '@/features/publisher-autocomplete'
+import type { IPublisher } from '@/entities/publisher'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
   book?: IBook
 }>()
 
-const confirm = useConfirm()
-const toast = useToast()
 const { upload, isFileUploading } = useFileUpload()
 const { createBook, isPending, errorMessage } = useCreateBook()
 const { updateBook, isUpdating } = useUpdateBook(String(props.book?.id))
@@ -49,6 +53,9 @@ const [publisher, publisherAttrs] = defineField('publisher_id')
 const imageUrl = ref<string | null>(props.book?.image ?? null)
 const image = ref<File | null>(null)
 
+const selectedCategory = ref<ICategory | null>(props.book?.category ?? null)
+const selectedAuthor = ref<IAuthor | null>(props.book?.author ?? null)
+const selectedPublisher = ref<IPublisher | null>(props.book?.publisher ?? null)
 const selectedGenres = ref<IGenre[]>(props.book?.genres.data ?? [])
 const genres = computed(() => selectedGenres.value.map((g) => g.id))
 const genresAction = ref<'attach' | 'detach'>('attach')
@@ -88,17 +95,10 @@ const onSubmit = handleSubmit(async (formValues) => {
                 genres: genres.value,
               })
             }
-            // toast.add({
-            //   severity: 'success',
-            //   summary: 'Статус',
-            //   detail: 'Книга успешно обновлена',
-            //   life: 3000,
-            // })
           },
         },
       )
     }
-
     if (image.value) {
       const formData = new FormData()
       formData.append('file', image.value)
@@ -108,38 +108,11 @@ const onSubmit = handleSubmit(async (formValues) => {
             ...formValues,
             image: uploadedImage.data.url,
           })
-          // toast.add({
-          //   severity: 'success',
-          //   summary: 'Статус',
-          //   detail: 'Книга успешно обновлена',
-          //   life: 3000,
-          // })
         },
       })
     }
   }
 })
-
-const deleteConfirm = () => {
-  confirm.require({
-    message: 'Вы уверены? Это действие необратимо.',
-    header: 'Удалить книгу',
-    icon: 'pi pi-trash',
-    rejectLabel: 'Отмена',
-    rejectProps: {
-      label: 'Отмена',
-      severity: 'secondary',
-      outlined: true,
-    },
-    acceptProps: {
-      label: 'Удалить',
-      severity: 'danger',
-    },
-    accept: () => {
-      deleteBook(String(props.book?.id))
-    },
-  })
-}
 </script>
 
 <template>
@@ -166,36 +139,21 @@ const deleteConfirm = () => {
         />
         <span v-if="errors.description" class="text-red-500">{{ errors.description }}</span>
       </div>
-      <div>
-        <Input
-          with-label
-          label="ID категории"
-          type="number"
-          v-model="category"
-          v-bind="categoryAttrs"
-          placeholder="ID категории"
+      <div class="flex flex-col gap-4">
+        <CategoryAutocomplete
+          v-model:selected-category="selectedCategory"
+          v-model:category="category"
         />
         <span v-if="errors.category_id" class="text-red-500">{{ errors.category_id }}</span>
       </div>
-      <div>
-        <Input
-          with-label
-          label="ID автора"
-          type="number"
-          v-model="author"
-          v-bind="authorAttrs"
-          placeholder="ID автора"
-        />
+      <div class="flex flex-col gap-4">
+        <AuthorAutocomplete v-model:selected-author="selectedAuthor" v-model:author="author" />
         <span v-if="errors.author_id" class="text-red-500">{{ errors.author_id }}</span>
       </div>
-      <div>
-        <Input
-          with-label
-          label="ID издателя"
-          type="number"
-          v-model="publisher"
-          v-bind="publisherAttrs"
-          placeholder="ID издателя"
+      <div class="flex flex-col gap-4">
+        <PublisherAutocomplete
+          v-model:selected-publisher="selectedPublisher"
+          v-model:publisher="publisher"
         />
         <span v-if="errors.publisher_id" class="text-red-500">{{ errors.publisher_id }}</span>
       </div>
@@ -225,6 +183,11 @@ const deleteConfirm = () => {
     </div>
   </form>
   <div class="w-full flex md:justify-start justify-center mt-4">
-    <DeleteButton v-if="mode === 'edit'" title="Удалить книгу" v-on:delete="deleteConfirm()" />
+    <DeleteButton
+      v-if="mode === 'edit'"
+      title="Удалить книгу"
+      confirm-header="Удалить книгу"
+      v-on:delete="deleteBook(String(props.book?.id))"
+    />
   </div>
 </template>

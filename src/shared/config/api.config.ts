@@ -54,6 +54,7 @@ export const API_URL = {
 
   publishers: (url = '') => API_URL.root(`/publishers${url}`),
   getPublishers: () => API_URL.publishers('/'),
+  getPublishersByQuery: () => API_URL.publishers('/query'),
   createPublisher: () => API_URL.publishers(),
   updatePublisher: (publisherId = '') => API_URL.publishers(`/${publisherId}`),
   deletePublisher: (publisherId = '') => API_URL.publishers(`/${publisherId}`),
@@ -62,6 +63,7 @@ export const API_URL = {
 
   categories: (url = '') => API_URL.root(`/categories${url}`),
   getCategories: () => API_URL.categories('/'),
+  getCategoriesByQuery: () => API_URL.categories('/query'),
   createCategory: () => API_URL.categories(),
   updateCategory: (categoryId = '') => API_URL.categories(`/${categoryId}`),
   deleteCategory: (categoryId = '') => API_URL.categories(`/${categoryId}`),
@@ -70,6 +72,7 @@ export const API_URL = {
   authors: (url = '') => API_URL.root(`/authors${url}`),
   getAuthorBySlug: (slug = '') => API_URL.authors(`/${slug}`),
   getAuthors: () => API_URL.authors('/'),
+  getAuthorsByQuery: () => API_URL.authors('/query'),
   createAuthor: () => API_URL.authors(),
   updateAuthor: (authorId = '') => API_URL.authors(`/${authorId}`),
   deleteAuthor: (authorId = '') => API_URL.authors(`/${authorId}`),

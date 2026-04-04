@@ -27,6 +27,18 @@ class PublisherService {
     })
     return data
   }
+
+  async getPublishersByQuery(q: string) {
+    const { data } = await api<IResponse<IPublisher[]>>({
+      url: API_URL.getPublishersByQuery(),
+      method: 'GET',
+      params: {
+        q,
+      },
+    })
+    return data
+  }
+
   async createPublisher(data: IPublisherForm) {
     const response = await apiPrivate<IResponse<IPublisher>>({
       url: API_URL.createPublisher(),
