@@ -20,8 +20,7 @@ export const useUpdateBook = (bookId: string) => {
     mutationKey: ['update book'],
     mutationFn: (data: IBookForm) => bookService.updateBook(data, bookId),
     onSuccess(data) {
-      router.push(PUBLIC_URL.adminBooks())
-      // router.push(PUBLIC_URL.book(`${data.data.data.slug}-${data.data.data.id}`))
+      router.push(PUBLIC_URL.book(`${data.data.data.slug}-${data.data.data.id}`))
       toast.success('Статус', 'Книга успешно обновлена')
     },
     onError(error) {

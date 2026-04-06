@@ -5,7 +5,9 @@ import { ActionButton } from '@/shared/ui/action-button'
 import { PageTitle } from '@/shared/ui/page-title'
 import { RouterLink } from 'vue-router'
 
-const { books, isFetching } = useGetBooks()
+const { books, isFetching } = useGetBooks({
+  sort: 'created_at',
+})
 </script>
 
 <template>

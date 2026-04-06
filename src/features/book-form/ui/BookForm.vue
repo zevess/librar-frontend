@@ -26,6 +26,7 @@ import { AuthorAutocomplete } from '@/features/author-autocomplete'
 import type { IAuthor } from '@/entities/author'
 import { PublisherAutocomplete } from '@/features/publisher-autocomplete'
 import type { IPublisher } from '@/entities/publisher'
+import { useGenresAction } from '../lib/useGenresAction'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
@@ -36,8 +37,9 @@ const { upload, isFileUploading } = useFileUpload()
 const { createBook, isPending, errorMessage } = useCreateBook()
 const { updateBook, isUpdating } = useUpdateBook(String(props.book?.id))
 const { deleteBook } = useDeleteBook()
-const { attachGenre } = useAttachGenres(String(props.book?.id))
-const { detachGenre } = useDetachGenres(String(props.book?.id))
+const { genresAction } = useGenresAction(String(props.book?.id))
+// const { attachGenre } = useAttachGenres(String(props.book?.id))
+// const { detachGenre } = useDetachGenres(String(props.book?.id))
 
 const initialValues = useBookFormInitialValues(props.book)
 const { handleSubmit, errors, defineField, meta } = useForm<BookSchema>({
@@ -58,7 +60,7 @@ const selectedAuthor = ref<IAuthor | null>(props.book?.author ?? null)
 const selectedPublisher = ref<IPublisher | null>(props.book?.publisher ?? null)
 const selectedGenres = ref<IGenre[]>(props.book?.genres.data ?? [])
 const genres = computed(() => selectedGenres.value.map((g) => g.id))
-const genresAction = ref<'attach' | 'detach'>('attach')
+const genresMode = ref<'attach' | 'detach'>('attach')
 
 const onSubmit = handleSubmit(async (formValues) => {
   if (props.mode === 'create') {
@@ -85,16 +87,7 @@ const onSubmit = handleSubmit(async (formValues) => {
         },
         {
           onSuccess: () => {
-            if (genresAction.value === 'attach') {
-              attachGenre({
-                genres: genres.value,
-              })
-            }
-            if (genresAction.value === 'detach') {
-              detachGenre({
-                genres: genres.value,
-              })
-            }
+            genresAction(genresMode.value, genres.value)
           },
         },
       )
@@ -104,10 +97,17 @@ const onSubmit = handleSubmit(async (formValues) => {
       formData.append('file', image.value)
       upload(formData, {
         onSuccess: (uploadedImage) => {
-          updateBook({
-            ...formValues,
-            image: uploadedImage.data.url,
-          })
+          updateBook(
+            {
+              ...formValues,
+              image: uploadedImage.data.url,
+            },
+            {
+              onSuccess: () => {
+                genresAction(genresMode.value, genres.value)
+              },
+            },
+          )
         },
       })
     }
@@ -119,6 +119,7 @@ const onSubmit = handleSubmit(async (formValues) => {
   <form @submit="onSubmit" class="flex flex-col gap-4 w-full">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
+        <label class="text-gray-500" :for="title">название книги</label>
         <Input
           type="text"
           with-label
@@ -130,6 +131,7 @@ const onSubmit = handleSubmit(async (formValues) => {
         <span v-if="errors.title" class="text-red-500">{{ errors.title }}</span>
       </div>
       <div>
+        <label class="text-gray-500" :for="description">описание книги</label>
         <Textarea
           with-label
           label="описание книги"
@@ -140,32 +142,47 @@ const onSubmit = handleSubmit(async (formValues) => {
         <span v-if="errors.description" class="text-red-500">{{ errors.description }}</span>
       </div>
       <div class="flex flex-col gap-4">
-        <CategoryAutocomplete
-          v-model:selected-category="selectedCategory"
-          v-model:category="category"
-        />
-        <span v-if="errors.category_id" class="text-red-500">{{ errors.category_id }}</span>
-      </div>
-      <div class="flex flex-col gap-4">
-        <AuthorAutocomplete v-model:selected-author="selectedAuthor" v-model:author="author" />
+        <div class="flex flex-col">
+          <label class="text-gray-500" for="authorAutocomplete">автор</label>
+          <AuthorAutocomplete
+            id="authorAutocomplete"
+            v-model:selected-author="selectedAuthor"
+            v-model:author="author"
+          />
+        </div>
         <span v-if="errors.author_id" class="text-red-500">{{ errors.author_id }}</span>
       </div>
       <div class="flex flex-col gap-4">
-        <PublisherAutocomplete
-          v-model:selected-publisher="selectedPublisher"
-          v-model:publisher="publisher"
-        />
+        <div class="flex flex-col">
+          <label class="text-gray-500" for="publisherAutocomplete">издательство</label>
+          <PublisherAutocomplete
+            id="publisherAutocomplete"
+            v-model:selected-publisher="selectedPublisher"
+            v-model:publisher="publisher"
+          />
+        </div>
+
         <span v-if="errors.publisher_id" class="text-red-500">{{ errors.publisher_id }}</span>
       </div>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col">
+          <label class="text-gray-500" for="categoryAutocomplete">категория</label>
+          <CategoryAutocomplete
+            id="categoryAutocomplete"
+            v-model:selected-category="selectedCategory"
+            v-model:category="category"
+          />
+        </div>
+        <span v-if="errors.category_id" class="text-red-500">{{ errors.category_id }}</span>
+      </div>
       <div class="flex flex-col gap-4" v-if="mode === 'edit'">
-        <GenresAutocomplete v-model:selected-genres="selectedGenres" />
+        <div class="flex flex-col">
+          <label class="text-gray-500" for="genresAutocomplete">жанры</label>
+          <GenresAutocomplete id="genresAutocomplete" v-model:selected-genres="selectedGenres" />
+        </div>
         <div class="flex gap-4">
-          <PrimeRadioButton
-            value="attach"
-            v-model="genresAction"
-            label="Добавить"
-          ></PrimeRadioButton>
-          <PrimeRadioButton value="detach" v-model="genresAction" label="Убрать"></PrimeRadioButton>
+          <PrimeRadioButton value="attach" v-model="genresMode" label="Добавить"></PrimeRadioButton>
+          <PrimeRadioButton value="detach" v-model="genresMode" label="Убрать"></PrimeRadioButton>
         </div>
       </div>
     </div>

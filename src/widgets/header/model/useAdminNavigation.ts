@@ -38,5 +38,10 @@ export const useAdminHeaderNavigation = (): IHeaderNavItem[] => {
       url: PUBLIC_URL.adminUsers(),
       icon: 'users',
     },
+    {
+      title: 'Профиль',
+      url: PUBLIC_URL.profile(),
+      icon: 'user',
+    },
   ]
 }

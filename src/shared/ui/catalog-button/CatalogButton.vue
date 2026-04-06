@@ -6,6 +6,3 @@
     <span class="lowercase text-xl font-medium">каталог</span>
   </div>
 </template>
-<!-- background-color: rgb(231, 254, 252); -->
-<!-- bg-[#d1ebe9] -->
-<!-- hover:bg-[#bededc] -->

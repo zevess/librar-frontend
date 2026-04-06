@@ -32,6 +32,8 @@ export interface IBooksParams {
   publishers?: number[] | null
   page?: number
   bookId?: string | ''
+  order?: 'asc' | 'desc'
+  sort?: string
 }
 
 export interface IBookForm {

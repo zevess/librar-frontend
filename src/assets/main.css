@@ -31,7 +31,7 @@ body {
   @apply size-12 flex items-center justify-center rounded-full cursor-pointer transition hover:bg-[#d1ebe9];
 }
 
-.p-inputtext,
+.p-autocomplete-input,
 .p-autocomplete-input-multiple {
   width: 100%;
   padding: 0.5rem;
@@ -41,9 +41,10 @@ body {
   background-color: #f9fafb !important;
   border-color: #d1ebe9 !important;
   border-width: 2px !important;
+  color: black !important;
 }
 
-.p-inputtext:focus,
+.p-autocomplete-input:focus,
 .p-autocomplete-input-multiple:focus {
   border-color: #a4c8c6 !important;
 }

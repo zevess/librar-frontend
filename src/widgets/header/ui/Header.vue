@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import HeaderItem from './HeaderItem.vue'
 import type { IHeaderNavItem } from '../model/types'
 import { useHeaderStatus } from '@/shared/lib'
 import { PrimeDrawer } from '@/shared/ui/drawer'
@@ -8,6 +7,7 @@ import { useProfile, useUserStore } from '@/entities/user'
 import { OverlayBadge } from 'primevue'
 import { NotificationDrawer } from '@/features/notification-drawer'
 import { computed } from 'vue'
+import { NavigationItem } from '@/shared/ui/navigation-item'
 
 defineProps<{
   items?: IHeaderNavItem[]
@@ -25,28 +25,17 @@ const { isHeaderVisible } = useHeaderStatus()
   >
     <ul class="w-full flex justify-between items-center gap-4">
       <slot></slot>
-      <div
-        :class="[
-          'hidden gap-3',
-          variant == 'admin' && 'lg:flex',
-          variant == 'default' && 'md:flex',
-        ]"
-      >
+      <div class="flex items-center gap-4">
+        <div :class="['hidden gap-1 lg:gap-3 md:flex']">
+          <RouterLink v-for="item in items" :to="item.url">
+            <NavigationItem
+              :show-title="variant === 'default'"
+              :icon="item.icon"
+              :title="item.title"
+            />
+          </RouterLink>
+        </div>
         <NotificationDrawer v-if="isAuthentificated" />
-
-        <RouterLink v-for="item in items" :to="item.url">
-          <HeaderItem :icon="item.icon" :title="item.title"></HeaderItem>
-        </RouterLink>
-      </div>
-
-      <div v-if="variant == 'admin'" class="block lg:hidden">
-        <PrimeDrawer drawer-name="Навигация" icon="bars">
-          <div class="grid grid-cols-2 gap-2">
-            <RouterLink v-for="item in items" :to="item.url">
-              <HeaderItem :icon="item.icon" :title="item.title"></HeaderItem>
-            </RouterLink>
-          </div>
-        </PrimeDrawer>
       </div>
     </ul>
   </header>

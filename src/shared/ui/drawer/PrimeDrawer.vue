@@ -5,6 +5,7 @@ import { IconButton } from '../icon-button'
 defineProps<{
   icon: string
   drawerName: string
+  filled?: boolean
 }>()
 
 const visible = ref(false)
@@ -15,7 +16,6 @@ const visible = ref(false)
     <Drawer v-model:visible="visible" :header="drawerName">
       <slot></slot>
     </Drawer>
-
-    <IconButton @click="visible = true" class="" :icon="icon" />
+    <IconButton :filled="filled" @click="visible = true" class="" :icon="icon" />
   </div>
 </template>

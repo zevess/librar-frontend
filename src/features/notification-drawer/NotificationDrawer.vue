@@ -37,7 +37,7 @@ const drawerClick = () => {
       </div>
     </Drawer>
     <div
-      class="relative flex flex-col items-center p-2 justify-center transition hover:bg-gray-100 cursor-pointer rounded-2xl"
+      class="relative flex flex-col items-center transition hover:bg-gray-100 p-3 cursor-pointer rounded-2xl"
       @click="drawerClick"
     >
       <i class="pi pi-bell" style="font-size: 24px" />

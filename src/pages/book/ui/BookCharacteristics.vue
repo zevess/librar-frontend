@@ -16,15 +16,19 @@ const genres = computed(() => {
   <ul class="w-full gap-4 grid grid-cols-1 lg:grid-cols-2 justify-between">
     <li v-if="book" class="flex gap-8">
       <span class="text-gray-700 w-30">Автор:</span>
-      <RouterLink :to="PUBLIC_URL.author(`${book.author.slug}-${book.author.id}`)">{{
-        book.author.name
-      }}</RouterLink>
+      <RouterLink
+        class="hover:underline"
+        :to="PUBLIC_URL.author(`${book.author.slug}-${book.author.id}`)"
+        >{{ book.author.name }}</RouterLink
+      >
     </li>
     <li class="flex gap-8">
       <span class="text-gray-700 w-30">Издательство:</span>
-      <RouterLink :to="PUBLIC_URL.publisher(`${book.publisher.slug}-${book.publisher.id}`)">{{
-        book.publisher.name
-      }}</RouterLink>
+      <RouterLink
+        class="hover:underline"
+        :to="PUBLIC_URL.publisher(`${book.publisher.slug}-${book.publisher.id}`)"
+        >{{ book.publisher.name }}</RouterLink
+      >
     </li>
     <li class="flex gap-8">
       <span class="text-gray-700 w-30">Категория:</span>

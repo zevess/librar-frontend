@@ -47,7 +47,7 @@ const { books, isFetching } = useGetBooks(filters.value)
     <div class="flex items-center justify-between">
       <PageTitle title="каталог" />
       <div class="block lg:hidden">
-        <PrimeDrawer drawer-name="Фильтрация" icon="filter">
+        <PrimeDrawer filled drawer-name="Фильтрация" icon="filter">
           <CatalogFilter
             v-model:category-filter="filters.category"
             v-model:genre-filter="filters.genres"

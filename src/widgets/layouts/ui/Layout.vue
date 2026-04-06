@@ -5,7 +5,7 @@ import { Container } from '@/shared/ui/container'
 import { IconButton } from '@/shared/ui/icon-button'
 import { Logo } from '@/shared/ui/logo'
 import { Input } from '@/shared/ui/input'
-import { Footer } from '@/widgets/footer'
+import { Footer, useFooterNavigation } from '@/widgets/footer'
 import { Header } from '@/widgets/header'
 import { useHeaderNavigation } from '@/widgets/header/model/useNavigation'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
@@ -15,19 +15,19 @@ import { SearchInput } from '@/features/search-input'
 import { NotificationDrawer } from '@/features/notification-drawer'
 
 const { isAuthentificated } = useUserStore()
-const items = useHeaderNavigation(isAuthentificated)
+const headerItems = useHeaderNavigation(isAuthentificated)
+const footerItems = useFooterNavigation()
 </script>
 
 <template>
   <div class="mx-auto max-w-360 flex flex-col min-h-screen">
-    <Header variant="default" :items="items">
+    <Header variant="default" :items="headerItems">
       <RouterLink to="/">
         <Logo />
       </RouterLink>
       <RouterLink class="hidden md:block" :to="PUBLIC_URL.catalog()">
         <CatalogButton />
       </RouterLink>
-      <NotificationDrawer v-if="isAuthentificated" class="block md:hidden" />
       <div class="hidden md:flex md:w-4/12">
         <SearchInput />
       </div>
@@ -38,6 +38,6 @@ const items = useHeaderNavigation(isAuthentificated)
     <Container>
       <slot></slot>
     </Container>
-    <Footer class="flex md:hidden mt-auto" />
+    <Footer :items="footerItems" class="flex md:hidden mt-auto" />
   </div>
 </template>

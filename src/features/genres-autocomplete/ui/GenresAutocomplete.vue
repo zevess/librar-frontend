@@ -29,9 +29,10 @@ const search = (event: AutoCompleteCompleteEvent) => {
   <AutoComplete
     v-model="selectedGenres"
     :suggestions="filteredGenres"
-    multiple
     @complete="search"
     option-label="name"
+    multiple
+    dropdown
   >
     <template #empty>
       <div class="p-3 text-gray-500">Жанры не найдены</div>

@@ -32,13 +32,14 @@ const onSelect = (event: AutoCompleteOptionSelectEvent) => {
 <template>
   <AutoComplete
     :suggestions="filteredCategories"
-    option-label="name"
     v-model="selectedCategory"
     @option-select="onSelect"
     @complete="search"
+    placeholder="категория"
+    option-label="name"
     forceSelection
     show-clear
-    placeholder="категория"
+    dropdown
   >
     <template #empty>
       <div class="p-3 text-gray-500">Категория не найдена</div>
