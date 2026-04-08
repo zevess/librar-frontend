@@ -13,6 +13,31 @@ export interface IUserResponse {
   user: IUser
 }
 
+export interface IUserParams {
+  id?: string
+  q?: string
+  email?: string
+  role?: string
+  page: number
+}
+
+export interface IUserForm {
+  role?: string
+  name?: string
+  password?: string
+}
+
+export enum IUserRole {
+  admin = 'Админ',
+  librarian = 'Библиотекарь',
+  user = 'Пользователь',
+}
+
+export const roleArray = Object.entries(IUserRole).map(([value, label]) => ({
+  value,
+  label,
+}))
+
 export interface IUserNotifications {
   id: string
   notifiableId: number

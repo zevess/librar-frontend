@@ -15,7 +15,6 @@ const applyFilter = () => {
       ([_, value]) => value !== null && value !== undefined && value !== '',
     ),
   )
-  console.log(sortedFilter)
 
   const newFilters = { ...sortedFilter }
   newFilters.page = 1

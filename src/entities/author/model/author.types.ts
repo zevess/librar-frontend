@@ -16,8 +16,9 @@ export interface IAuthorForm {
 }
 
 export interface IAuthorParams {
-  id: string | null
-  q: string | null
+  id?: string | ''
+  q?: string | ''
+  page: number
 }
 
 export const authorData = {

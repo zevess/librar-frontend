@@ -1,5 +1,4 @@
 export { useFilter, filterInitialData } from './lib/useFilter'
 export { useParams } from './lib/useParams'
-export { applyFilter } from './lib/applyFilter'
 export { default as ApplyButton } from './ui/ApplyButton.vue'
 export { default as ClearButton } from './ui/ClearButton.vue'

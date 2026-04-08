@@ -10,7 +10,9 @@ const props = defineProps<{
 const router = useRouter()
 const clearFilter = () => {
   router.replace({
-    params: {},
+    query: {
+      page: 1,
+    },
   })
   Object.assign(props.filter, filterInitialData)
 }

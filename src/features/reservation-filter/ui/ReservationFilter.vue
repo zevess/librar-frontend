@@ -4,7 +4,7 @@ import { Input } from '@/shared/ui/input'
 import { PrimeSelect } from '@/shared/ui/select'
 
 const reservationIdFilter = defineModel<string | null>('reservationIdFilter')
-const userFilter = defineModel<string | null>('userFilter')
+const emailFilter = defineModel<string | null>('emailFilter')
 const bookIdFilter = defineModel<string | null>('bookIdFilter')
 const statusFilter = defineModel<string | null>('statusFilter')
 </script>
@@ -18,7 +18,7 @@ const statusFilter = defineModel<string | null>('statusFilter')
 
     <div class="flex flex-col gap-1">
       <label class="text-sm font-medium text-gray-700">email пользователя:</label>
-      <Input v-model="userFilter" placeholder="найти..." class="w-full" />
+      <Input v-model="emailFilter" placeholder="найти..." class="w-full" />
     </div>
 
     <div class="flex flex-col gap-1">

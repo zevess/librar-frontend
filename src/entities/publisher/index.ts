@@ -1,4 +1,4 @@
-export { type IPublisher } from './model/publisher.types'
+export type { IPublisher, IPublisherParams } from './model/publisher.types'
 export { useGetPublisher } from './api/useGetPublisher'
 export { useGetPublishers } from './api/useGetPublishers'
 export { useGetAllPublishers } from './api/useGetAllPublishers'

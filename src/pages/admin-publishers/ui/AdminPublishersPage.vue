@@ -2,7 +2,7 @@
 import { PublisherTable, useGetPublishers } from '@/entities/publisher'
 import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
-import { PublisherFilter } from '@/features/publisher-filter'
+import { PublisherFilter, usePublisherParams } from '@/features/publisher-filter'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { ActionButton } from '@/shared/ui/action-button'
 import { LinkButton } from '@/shared/ui/link-button'
@@ -15,18 +15,18 @@ import { RouterLink, useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 
 const { filter } = useFilter()
-const { params } = useParams()
+const { publisherParams } = usePublisherParams()
 
 watch(
   () => route.query,
   () => {
-    params.value.q = route.query.q ? String(route.query.q) : ''
-    params.value.id = route.query.id ? String(route.query.id) : ''
-    params.value.page = Number(route.query.page)
+    publisherParams.value.q = route.query.q ? String(route.query.q) : ''
+    publisherParams.value.id = route.query.id ? String(route.query.id) : ''
+    publisherParams.value.page = Number(route.query.page)
   },
 )
 
-const { publishers, isFetching } = useGetPublishers(params.value)
+const { publishers, isFetching } = useGetPublishers(publisherParams.value)
 </script>
 
 <template>
@@ -35,9 +35,9 @@ const { publishers, isFetching } = useGetPublishers(params.value)
 
     <PublisherFilter v-model:publisher-id-filter="filter.id" v-model:query-filter="filter.q" />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
-      <div class="flex gap-4">
-        <ApplyButton :filter="filter" />
+      <div class="flex justify-between gap-4">
         <ClearButton :filter="filter" />
+        <ApplyButton :filter="filter" />
       </div>
 
       <LinkButton :to="PUBLIC_URL.adminPublisherCreate()" text="Добавить издательство" />

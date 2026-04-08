@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { BookList, BookTable, useGetBooks } from '@/entities/book'
 import type { IGenre } from '@/entities/genre'
-import { BookFilter } from '@/features/book-filter'
-import { ApplyButton, applyFilter, ClearButton, useFilter, useParams } from '@/features/filter'
+import { BookFilter, useBookParams } from '@/features/book-filter'
+import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { convertArrayQuery } from '@/shared/lib'
@@ -18,23 +18,23 @@ import { RouterLink, useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 
 const { filter } = useFilter()
-const { params } = useParams()
+const { bookParams } = useBookParams()
 
 watch(
   () => route.query,
   () => {
-    params.value.q = route.query.q ? String(route.query.q) : ''
-    params.value.bookId = route.query.bookId ? String(route.query.bookId) : ''
-    params.value.page = Number(route.query.page)
-    params.value.category = route.query.category ? Number(route.query.category) : null
-    params.value.genres = route.query.genres ? convertArrayQuery(route.query.genres) : []
-    params.value.publishers = route.query.publishers
+    bookParams.value.q = route.query.q ? String(route.query.q) : ''
+    bookParams.value.id = route.query.id ? String(route.query.id) : ''
+    bookParams.value.page = Number(route.query.page)
+    bookParams.value.category = route.query.category ? Number(route.query.category) : null
+    bookParams.value.genres = route.query.genres ? convertArrayQuery(route.query.genres) : []
+    bookParams.value.publishers = route.query.publishers
       ? convertArrayQuery(route.query.publishers)
       : []
   },
 )
 
-const { books, isFetched, isFetching } = useGetBooks(params.value)
+const { books, isFetched, isFetching } = useGetBooks(bookParams.value)
 </script>
 
 <template>
@@ -48,9 +48,9 @@ const { books, isFetched, isFetching } = useGetBooks(params.value)
       v-model:publishers-filter="filter.publishers"
     />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
-      <div class="flex gap-4">
-        <ApplyButton :filter="filter" />
+      <div class="flex justify-between gap-4">
         <ClearButton :filter="filter" />
+        <ApplyButton :filter="filter" />
       </div>
       <LinkButton :to="PUBLIC_URL.adminBookCreate()" text="Добавить книгу" />
     </div>

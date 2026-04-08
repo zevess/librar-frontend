@@ -31,7 +31,7 @@ export interface IBooksParams {
   genres?: number[] | null
   publishers?: number[] | null
   page?: number
-  bookId?: string | ''
+  id?: string | ''
   order?: 'asc' | 'desc'
   sort?: string
 }

@@ -1,4 +1,4 @@
-export { type IAuthor } from './model/author.types'
+export type { IAuthor, IAuthorParams } from './model/author.types'
 export { useGetAuthor } from './api/useGetAuthor'
 export { useGetAuthors } from './api/useGetAuthors'
 export { useCreateAuthor } from './api/useCreateAuthor'

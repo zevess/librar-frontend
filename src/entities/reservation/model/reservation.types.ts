@@ -17,7 +17,7 @@ export interface IReservationResponse {
 
 export interface IReservationParams {
   bookId?: string
-  user?: string
+  email?: string
   status?: string
   id?: string
   page?: number

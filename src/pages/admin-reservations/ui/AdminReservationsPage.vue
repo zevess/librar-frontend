@@ -3,7 +3,7 @@ import { ReservationsTable, useGetReservations } from '@/entities/reservation'
 import { CancelExpiredButton } from '@/features/cancel-expired-button'
 import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
-import { ReservationFilter } from '@/features/reservation-filter'
+import { ReservationFilter, useReservationParams } from '@/features/reservation-filter'
 import { NotFound } from '@/shared/ui/not-found'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
@@ -14,20 +14,21 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const { filter } = useFilter()
-const { params } = useParams()
+const { reservationParams } = useReservationParams()
 
 watch(
   () => route.query,
   () => {
-    params.value.id = route.query.id ? String(route.query.id) : ''
-    params.value.bookId = route.query.bookId ? String(route.query.bookId) : ''
-    params.value.status = route.query.status ? String(route.query.status) : ''
-    params.value.user = route.query.user ? String(route.query.user) : ''
-    params.value.page = Number(route.query.page)
+    reservationParams.value.id = route.query.id ? String(route.query.id) : ''
+    reservationParams.value.bookId = route.query.bookId ? String(route.query.bookId) : ''
+    reservationParams.value.status = route.query.status ? String(route.query.status) : ''
+    reservationParams.value.email = route.query.email ? String(route.query.email) : ''
+    reservationParams.value.page = Number(route.query.page)
   },
 )
 
-const { reservations, isReservationsFetching, isReservationsFetched } = useGetReservations(params)
+const { reservations, isReservationsFetching, isReservationsFetched } =
+  useGetReservations(reservationParams)
 </script>
 
 <template>
@@ -37,12 +38,14 @@ const { reservations, isReservationsFetching, isReservationsFetched } = useGetRe
       v-model:book-id-filter="filter.bookId"
       v-model:reservation-id-filter="filter.id"
       v-model:status-filter="filter.status"
-      v-model:user-filter="filter.user"
+      v-model:email-filter="filter.email"
     />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
-      <ClearButton :filter="filter" />
-      <ApplyButton :filter="filter" />
-      <CancelExpiredButton />
+      <div class="flex justify-between gap-4">
+        <ClearButton :filter="filter" />
+        <ApplyButton :filter="filter" />
+      </div>
+      <CancelExpiredButton class="p-4" />
     </div>
     <SkeletonTable v-if="isReservationsFetching && !reservations" />
 
