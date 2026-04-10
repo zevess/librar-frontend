@@ -5,6 +5,7 @@ import { PUBLIC_URL } from '@/shared/config'
 import { useToast } from 'primevue'
 import { publisherService } from '../model/publisher.service'
 import { useToastStore } from '@/shared/lib'
+import axios from 'axios'
 
 export const useDeletePublisher = () => {
   const router = useRouter()
@@ -19,6 +20,12 @@ export const useDeletePublisher = () => {
       })
       router.push(PUBLIC_URL.adminPublishers())
       toast.success('Успех', 'Издатель успешно удален')
+    },
+    onError(error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error.response?.data.message)
+        toast.error('Ошибка', error.response?.data.message)
+      }
     },
   })
   return { deletePublisher }

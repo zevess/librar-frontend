@@ -24,6 +24,7 @@ const { slug } = useGetParams()
       </div>
 
       <RouterLink
+        v-if="book.author"
         :to="PUBLIC_URL.author(`${book?.author.slug}-${book?.author.id}`)"
         class="text-xl hover:underline text-center md:text-left w-fit"
         >{{ book?.author.name }}</RouterLink

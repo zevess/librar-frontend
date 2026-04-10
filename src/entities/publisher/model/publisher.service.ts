@@ -62,6 +62,13 @@ class PublisherService {
     })
     return response
   }
+  async restorePublisher(publisherId: string) {
+    const response = await apiPrivate({
+      url: API_URL.restorePublisher(publisherId),
+      method: 'POST',
+    })
+    return response
+  }
 }
 
 export const publisherService = new PublisherService()

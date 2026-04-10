@@ -49,8 +49,14 @@ body {
   border-color: #a4c8c6 !important;
 }
 
-/* a:hover {
-  color: #bededc;
-} */
-/* #bededc */
-/* #d1ebe9 */
+.p-toast {
+  width: 100% !important;
+  max-width: 20rem !important;
+}
+
+.custom-row {
+  cursor: pointer;
+}
+.custom-row:hover {
+  background-color: #f0f0f0;
+}

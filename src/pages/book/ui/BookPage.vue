@@ -6,7 +6,7 @@ import { computed, onMounted, provide, ref, watch, watchEffect } from 'vue'
 import BookCharacteristics from './BookCharacteristics.vue'
 import BookHeader from './BookHeader.vue'
 import BookCover from './BookCover.vue'
-import { NotFound } from '@/shared/ui/not-found'
+import { Message } from '@/shared/ui/message'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
 import { ReviewForm } from '@/features/review-form'
 import { useUserStore } from '@/entities/user'
@@ -32,7 +32,7 @@ provide('isFetching', isFetching)
 
 <template>
   <PageSkeleton variant="book" v-if="isFetching" />
-  <NotFound v-if="!book?.success && isFetched"> Книга на найдена </NotFound>
+  <Message v-if="!book?.success && isFetched"> Книга на найдена </Message>
   <div v-if="book?.data" class="flex flex-col gap-4 w-full">
     <BookHeader :book="book?.data" />
 

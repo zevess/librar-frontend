@@ -7,6 +7,7 @@ export interface IUser {
   role: string
   notifications: number
   isVerified: boolean
+  isDeleted: boolean
 }
 
 export interface IUserResponse {

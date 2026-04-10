@@ -65,6 +65,17 @@ class UserService {
     })
     return response
   }
+
+  async restoreUser(userId: string) {
+    const response = await apiPrivate({
+      url: API_URL.restoreUser(userId),
+      method: 'POST',
+      data: {
+        userId,
+      },
+    })
+    return response
+  }
 }
 
 export const userService = new UserService()

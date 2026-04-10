@@ -2,7 +2,7 @@
 import { BookList } from '@/entities/book'
 import { useGetParams } from '@/shared/lib'
 import { useGetPublisher } from '@/entities/publisher'
-import { NotFound } from '@/shared/ui/not-found'
+import { Message } from '@/shared/ui/message'
 import PublisherHeader from './PublisherHeader.vue'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
 import { computed, watch, watchEffect } from 'vue'
@@ -17,7 +17,7 @@ watchEffect(() => {
 
 <template>
   <PageSkeleton variant="publisher" v-if="isFetching && !publisher?.data" />
-  <NotFound v-if="!publisher?.success && isFetched"> Издательство на найдено </NotFound>
+  <Message v-if="!publisher?.success && isFetched"> Издательство на найдено </Message>
 
   <div v-if="publisher?.success" class="flex flex-col gap-4 w-full">
     <PublisherHeader :publisher="publisher.data" />

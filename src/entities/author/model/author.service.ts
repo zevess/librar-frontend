@@ -53,6 +53,14 @@ class AuthorService {
       method: 'DELETE',
       data: authorId,
     })
+    return response
+  }
+  async restoreAuthor(authorId: string) {
+    const response = await apiPrivate({
+      url: API_URL.restoreAuthor(authorId),
+      method: 'POST',
+    })
+    return response
   }
 }
 export const authorService = new AuthorService()

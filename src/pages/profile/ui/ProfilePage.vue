@@ -3,10 +3,14 @@ import { PageSubtitle } from '@/shared/ui/page-subtitle'
 import { PageTitle } from '@/shared/ui/page-title'
 import { useLogout, useProfile, useUserStore } from '@/entities/user'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
-import { ProfileReservationsTable, useGetUserReservations } from '@/entities/reservation'
-import { computed } from 'vue'
+import {
+  ProfileReservationsTable,
+  useGetUserReservations,
+  type IReservation,
+} from '@/entities/reservation'
+import { computed, watch } from 'vue'
 import { LogoutButton } from '@/features/logout-button'
-import { NotFound } from '@/shared/ui/not-found'
+import { Message } from '@/shared/ui/message'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { useGetUserSubscriptions } from '@/entities/subscription'
 import { BookList, BookListSkeleton } from '@/entities/book'
@@ -26,6 +30,9 @@ const { reservations, isReservationsFetching, isReservationsFetched } =
 const activeReservations = computed(() =>
   reservations.value?.data.filter((item) => item.status === 'reserved' || item.status === 'issued'),
 )
+watch(activeReservations, () => {
+  console.log(activeReservations.value)
+})
 </script>
 
 <template>
@@ -65,8 +72,8 @@ const activeReservations = computed(() =>
               v-if="subscriptions?.data && isSubscriptionsFetched"
               :items="subscriptions?.data"
             />
-            <NotFound v-if="subscriptions?.data.length === 0 && isSubscriptionsFetched"
-              >Отслеживаемое не найдены</NotFound
+            <Message v-if="subscriptions?.data.length === 0 && isSubscriptionsFetched"
+              >Отслеживаемое не найдены</Message
             >
           </div>
         </TabPanel>
@@ -78,8 +85,8 @@ const activeReservations = computed(() =>
               v-if="activeReservations && isReservationsFetched"
               :reservations="activeReservations"
             />
-            <NotFound v-if="activeReservations?.length === 0 && isReservationsFetched"
-              >Брони не найдены</NotFound
+            <Message v-if="activeReservations?.length === 0 && isReservationsFetched"
+              >Брони не найдены</Message
             >
           </div>
         </TabPanel>
@@ -88,11 +95,11 @@ const activeReservations = computed(() =>
             <span class="text-xl uppercase font-semibold">Все брони:</span>
             <SkeletonTable v-if="isReservationsFetching && !reservations" />
             <ProfileReservationsTable
-              v-if="reservations && isReservationsFetched"
+              v-if="reservations?.data && isReservationsFetched"
               :reservations="reservations.data"
             />
-            <NotFound v-if="reservations?.data.length === 0 && isReservationsFetched"
-              >Брони не найдены</NotFound
+            <Message v-if="reservations?.data.length === 0 && isReservationsFetched"
+              >Брони не найдены</Message
             >
           </div>
         </TabPanel>

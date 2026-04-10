@@ -22,7 +22,7 @@ useUserStore().initFromCookies()
 
 <template>
   <component :is="CurrentLayout">
-    <Toast />
+    <Toast position="top-center" />
     <RouterView v-slot="{ Component, route }">
       <Transition name="page" mode="out-in">
         <div :key="route.name">

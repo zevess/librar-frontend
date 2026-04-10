@@ -2,7 +2,7 @@
 import { BookList, BookCard, BookListSkeleton } from '@/entities/book'
 import { useGetParams } from '@/shared/lib'
 import { useGetAuthor } from '@/entities/author'
-import { NotFound } from '@/shared/ui/not-found'
+import { Message } from '@/shared/ui/message'
 import AuthorHeader from './AuthorHeader.vue'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
 import { computed, watch, watchEffect } from 'vue'
@@ -16,7 +16,7 @@ watchEffect(() => {
 
 <template>
   <PageSkeleton variant="author" v-if="isFetching" />
-  <NotFound v-if="!author?.success && isFetched"> Автор на найден </NotFound>
+  <Message v-if="!author?.success && isFetched"> Автор на найден </Message>
   <div v-if="author?.success" class="flex flex-col gap-4 w-full">
     <AuthorHeader :author="author.data" />
     <p>{{ author?.data.description }}</p>

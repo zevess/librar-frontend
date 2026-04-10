@@ -8,7 +8,7 @@ import { CatalogFilter } from '@/features/catalog-filter'
 import { useGetBooks } from '@/entities/book/api/useGetBooks'
 import { convertArrayQuery } from '@/shared/lib'
 import { useRoute, useRouter } from 'vue-router'
-import { NotFound } from '@/shared/ui/not-found'
+import { Message } from '@/shared/ui/message'
 import { Pagination } from '@/features/pagination'
 import { useCatalogFilter } from '../lib/useCatalogFilter'
 
@@ -66,7 +66,7 @@ const { books, isFetching } = useGetBooks(filters.value)
         />
       </div>
 
-      <NotFound v-if="books?.data.length === 0"> Ничего не найдено. Попробуйте позже </NotFound>
+      <Message v-if="books?.data.length === 0"> Ничего не найдено. Попробуйте позже </Message>
       <BookList v-if="!isFetching && books?.data" variant="catalog" :items="books?.data" />
       <BookListSkeleton variant="catalog" v-if="isFetching" />
     </div>

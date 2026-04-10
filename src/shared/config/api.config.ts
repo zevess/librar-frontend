@@ -60,6 +60,7 @@ export const API_URL = {
   deletePublisher: (publisherId = '') => API_URL.publishers(`/${publisherId}`),
   getPublisherById: (publisherId = '') => API_URL.publishers(`/${publisherId}`),
   getPublisherBySlugAndId: (publisherSlug = '') => API_URL.publishers(`/${publisherSlug}`),
+  restorePublisher: (publisherId = '') => API_URL.publishers(`/${publisherId}/restore`),
 
   categories: (url = '') => API_URL.root(`/categories${url}`),
   getCategories: () => API_URL.categories('/'),
@@ -77,6 +78,7 @@ export const API_URL = {
   updateAuthor: (authorId = '') => API_URL.authors(`/${authorId}`),
   deleteAuthor: (authorId = '') => API_URL.authors(`/${authorId}`),
   getAuthorById: (authorId = '') => API_URL.authors(`/${authorId}`),
+  restoreAuthor: (authorId = '') => API_URL.authors(`/${authorId}/restore`),
 
   reviews: (url = '') => API_URL.root(`/reviews${url}`),
   getReviews: () => API_URL.reviews('/'),

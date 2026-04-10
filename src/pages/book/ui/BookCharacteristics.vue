@@ -17,6 +17,7 @@ const genres = computed(() => {
     <li v-if="book" class="flex gap-8">
       <span class="text-gray-700 w-30">Автор:</span>
       <RouterLink
+        v-if="book.author"
         class="hover:underline"
         :to="PUBLIC_URL.author(`${book.author.slug}-${book.author.id}`)"
         >{{ book.author.name }}</RouterLink

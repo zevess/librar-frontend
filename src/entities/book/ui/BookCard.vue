@@ -25,7 +25,7 @@ const isAvailable = computed(() => props.book.isAvailable)
       </div>
       <div class="flex flex-col gap-1 w-full">
         <span :title="book.title" class="mt-2 text-base/tight line-clamp-2">{{ book.title }}</span>
-        <span class="text-xs text-gray-500">{{ book.author.name }}</span>
+        <span v-if="book.author" class="text-xs text-gray-500">{{ book.author.name }}</span>
       </div>
     </RouterLink>
 

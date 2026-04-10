@@ -8,7 +8,7 @@ import { PUBLIC_URL } from '@/shared/config/url.config'
 import { convertArrayQuery } from '@/shared/lib'
 import { ActionButton } from '@/shared/ui/action-button'
 import { LinkButton } from '@/shared/ui/link-button'
-import { NotFound } from '@/shared/ui/not-found'
+import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { Paginator } from 'primevue'
@@ -57,8 +57,8 @@ const { books, isFetched, isFetching } = useGetBooks(bookParams.value)
     <SkeletonTable :cols="6" v-if="isFetching && !books" />
 
     <BookTable v-if="books?.data" :books="books?.data" />
-    <NotFound v-if="books?.data.length === 0"
-      >Ничего не найдено. Попробуйте позже или измените запрос</NotFound
+    <Message v-if="books?.data.length === 0"
+      >Ничего не найдено. Попробуйте позже или измените запрос</Message
     >
     <Pagination v-if="books" :meta="books?.meta" :links="books?.links" />
   </div>

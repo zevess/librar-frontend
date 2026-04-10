@@ -4,7 +4,7 @@ import { CancelExpiredButton } from '@/features/cancel-expired-button'
 import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { ReservationFilter, useReservationParams } from '@/features/reservation-filter'
-import { NotFound } from '@/shared/ui/not-found'
+import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { Toast } from 'primevue'
@@ -50,8 +50,8 @@ const { reservations, isReservationsFetching, isReservationsFetched } =
     <SkeletonTable v-if="isReservationsFetching && !reservations" />
 
     <ReservationsTable v-if="reservations" :reservations="reservations?.data" />
-    <NotFound v-if="reservations?.data.length === 0"
-      >Ничего не найдено. Попробуйте позже или измените запрос</NotFound
+    <Message v-if="reservations?.data.length === 0"
+      >Ничего не найдено. Попробуйте позже или измените запрос</Message
     >
     <Pagination v-if="reservations" :meta="reservations?.meta" :links="reservations?.links" />
   </div>

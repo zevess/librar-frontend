@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useGetBook } from '@/entities/book'
 import { BookForm } from '@/features/book-form'
-import { NotFound } from '@/shared/ui/not-found'
+import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { ConfirmDialog, Toast } from 'primevue'
 import { computed, watch, watchEffect } from 'vue'
@@ -19,5 +19,5 @@ watchEffect(() => {
   <PageTitle title="изменить книгу" />
   <ConfirmDialog></ConfirmDialog>
   <BookForm mode="edit" v-if="book?.data" :book="book.data"></BookForm>
-  <NotFound v-if="!book?.success && isFetched">Книга не найдена</NotFound>
+  <Message v-if="!book?.success && isFetched">Книга не найдена</Message>
 </template>

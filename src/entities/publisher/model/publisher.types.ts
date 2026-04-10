@@ -5,6 +5,7 @@ export interface IPublisher {
   name: string
   slug: string
   description?: string
+  isDeleted: boolean
   books: {
     data: IBook[]
   }

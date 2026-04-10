@@ -2,9 +2,15 @@
 import { useProfile } from '@/entities/user'
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
-defineProps<{
-  to: string
-}>()
+withDefaults(
+  defineProps<{
+    to: string
+    iconSize?: string
+  }>(),
+  {
+    iconSize: 'x-large',
+  },
+)
 const { profile } = useProfile()
 const isAdmin = computed(
   () => profile.value?.data.role === 'admin' || profile.value?.data.role === 'librarian',
@@ -15,7 +21,7 @@ const isAdmin = computed(
   <RouterLink v-if="isAdmin" :to="to">
     <span
       class="pi pi-cog transition hover:rotate-90 cursor-pointer hover:bg-gray-100 p-3 rounded-full"
-      style="font-size: x-large"
+      :style="[`font-size: ${iconSize}`]"
     ></span>
   </RouterLink>
 </template>
