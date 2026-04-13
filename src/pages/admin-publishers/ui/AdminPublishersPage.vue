@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PublisherTable, useGetPublishers } from '@/entities/publisher'
+import { PublisherTable, useGetAdminPublishers, useGetPublishers } from '@/entities/publisher'
 import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { PublisherFilter, usePublisherParams } from '@/features/publisher-filter'
@@ -27,7 +27,7 @@ watch(
   },
 )
 
-const { publishers, isFetching } = useGetPublishers(publisherParams.value)
+const { publishers, isFetching } = useGetAdminPublishers(publisherParams.value)
 </script>
 
 <template>

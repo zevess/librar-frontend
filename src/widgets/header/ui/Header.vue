@@ -2,11 +2,8 @@
 import { RouterLink } from 'vue-router'
 import type { IHeaderNavItem } from '../model/types'
 import { useHeaderStatus } from '@/shared/lib'
-import { PrimeDrawer } from '@/shared/ui/drawer'
-import { useProfile, useUserStore } from '@/entities/user'
-import { OverlayBadge } from 'primevue'
+import { useUserStore } from '@/entities/user'
 import { NotificationDrawer } from '@/features/notification-drawer'
-import { computed } from 'vue'
 import { NavigationItem } from '@/shared/ui/navigation-item'
 
 defineProps<{

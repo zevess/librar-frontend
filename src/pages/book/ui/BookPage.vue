@@ -10,7 +10,7 @@ import { Message } from '@/shared/ui/message'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
 import { ReviewForm } from '@/features/review-form'
 import { useUserStore } from '@/entities/user'
-import { Toast } from 'primevue'
+import { ConfirmDialog, Toast } from 'primevue'
 
 const { slug, id } = useGetParams()
 const { previousRoute } = usePreviousRoute()
@@ -32,6 +32,7 @@ provide('isFetching', isFetching)
 
 <template>
   <PageSkeleton variant="book" v-if="isFetching" />
+  <ConfirmDialog />
   <Message v-if="!book?.success && isFetched"> Книга на найдена </Message>
   <div v-if="book?.data" class="flex flex-col gap-4 w-full">
     <BookHeader :book="book?.data" />

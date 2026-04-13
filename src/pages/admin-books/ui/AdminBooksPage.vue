@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BookList, BookTable, useGetBooks } from '@/entities/book'
+import { BookList, BookTable, useGetAdminBooks, useGetBooks } from '@/entities/book'
 import type { IGenre } from '@/entities/genre'
 import { BookFilter, useBookParams } from '@/features/book-filter'
 import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
@@ -11,7 +11,7 @@ import { LinkButton } from '@/shared/ui/link-button'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
-import { Paginator } from 'primevue'
+import { ConfirmDialog, Paginator } from 'primevue'
 import { computed, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 
@@ -34,12 +34,13 @@ watch(
   },
 )
 
-const { books, isFetched, isFetching } = useGetBooks(bookParams.value)
+const { books, isFetched, isFetching } = useGetAdminBooks(bookParams.value)
 </script>
 
 <template>
   <div class="flex flex-col gap-4 w-full">
     <PageTitle title="книги" />
+    <ConfirmDialog />
     <BookFilter
       v-model:book-id-filter="filter.bookId"
       v-model:query-filter="filter.q"

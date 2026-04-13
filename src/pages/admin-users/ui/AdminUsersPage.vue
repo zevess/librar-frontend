@@ -34,8 +34,8 @@ const { users, isFetching } = useGetUsers(userParams.value, isAdmin)
 
 <template>
   <div class="flex flex-col gap-4">
-    <ConfirmDialog />
     <PageTitle title="пользователи" />
+    <ConfirmDialog />
     <Message v-if="!isAdmin">Данная страница только для администратора</Message>
     <div v-if="isAdmin" class="flex flex-col gap-4">
       <UserFilter

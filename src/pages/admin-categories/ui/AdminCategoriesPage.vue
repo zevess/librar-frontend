@@ -11,7 +11,7 @@ const { categories, isFetching } = useGetCategories()
 
 <template>
   <PageTitle title="категории" />
-  <ConfirmDialog></ConfirmDialog>
+  <ConfirmDialog />
   <div class="flex justify-center md:justify-end">
     <LinkButton :to="PUBLIC_URL.adminCategoryCreate()" text="Добавить категорию" />
   </div>

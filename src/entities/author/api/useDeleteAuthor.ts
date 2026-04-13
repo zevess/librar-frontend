@@ -19,7 +19,7 @@ export const useDeleteAuthor = () => {
     onSuccess() {
       toast.success('Успех', 'Автор успешно удален')
       queryClient.invalidateQueries({
-        queryKey: ['get authors'],
+        queryKey: ['get admin authors'],
       })
       router.push(PUBLIC_URL.adminAuthors())
     },

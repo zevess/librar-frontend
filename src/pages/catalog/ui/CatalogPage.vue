@@ -15,17 +15,19 @@ import { useCatalogFilter } from '../lib/useCatalogFilter'
 const route = useRoute()
 const router = useRouter()
 
-const { filters } = useCatalogFilter()
-
+const { filter } = useCatalogFilter(route.query)
+let isSyncing = false
 watch(
   () => ({
-    q: filters.value.q,
-    category: filters.value.category,
-    genres: filters.value.genres,
-    publishers: filters.value.publishers,
+    q: filter.value.q,
+    category: filter.value.category,
+    genres: filter.value.genres,
+    publishers: filter.value.publishers,
+    status: filter.value.status,
   }),
   () => {
-    const newFilters = { ...filters.value }
+    if (isSyncing) return
+    const newFilters = { ...filter.value }
     newFilters.page = 1
     router.push({ query: newFilters })
   },
@@ -34,12 +36,23 @@ watch(
 watch(
   () => route.query,
   () => {
-    filters.value.q = route.query.q ? String(route.query.q) : ''
-    filters.value.page = Number(route.query.page)
+    isSyncing = true
+    console.log(route.query)
+    filter.value.page = Number(route.query.page)
+    filter.value.q = route.query.q ? String(route.query.q) : ''
+    filter.value.status = route.query.status ? String(route.query.status) : ''
+    filter.value.category = route.query.category ? Number(route.query.category) : null
+    filter.value.genres = route.query.genres ? convertArrayQuery(route.query.genres) : []
+    filter.value.publishers = route.query.publishers
+      ? convertArrayQuery(route.query.publishers)
+      : []
+    nextTick(() => {
+      isSyncing = false
+    })
   },
 )
 
-const { books, isFetching } = useGetBooks(filters.value)
+const { books, isFetching } = useGetBooks(filter.value)
 </script>
 
 <template>
@@ -49,9 +62,10 @@ const { books, isFetching } = useGetBooks(filters.value)
       <div class="block lg:hidden">
         <PrimeDrawer filled drawer-name="Фильтрация" icon="filter">
           <CatalogFilter
-            v-model:category-filter="filters.category"
-            v-model:genre-filter="filters.genres"
-            v-model:publisher-filter="filters.publishers"
+            v-model:category-filter="filter.category"
+            v-model:genre-filter="filter.genres"
+            v-model:publisher-filter="filter.publishers"
+            v-model:status-filter="filter.status"
           />
         </PrimeDrawer>
       </div>
@@ -60,9 +74,10 @@ const { books, isFetching } = useGetBooks(filters.value)
     <div class="flex flex-row justify-center lg:justify-between">
       <div class="hidden lg:block w-full max-w-60">
         <CatalogFilter
-          v-model:category-filter="filters.category"
-          v-model:genre-filter="filters.genres"
-          v-model:publisher-filter="filters.publishers"
+          v-model:category-filter="filter.category"
+          v-model:genre-filter="filter.genres"
+          v-model:publisher-filter="filter.publishers"
+          v-model:status-filter="filter.status"
         />
       </div>
 

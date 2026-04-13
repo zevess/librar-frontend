@@ -20,6 +20,15 @@ class PublisherService {
     return data
   }
 
+  async getAdminPublishers(params?: IPublisherParams) {
+    const { data } = await apiPrivate<IPaginatedResponse<IPublisher>>({
+      url: API_URL.adminPublishers(),
+      method: 'GET',
+      params,
+    })
+    return data
+  }
+
   async getPublisherBySlug(slug: string) {
     const { data } = await api<IResponse<IPublisher>>({
       url: API_URL.getPublisherBySlugAndId(slug),

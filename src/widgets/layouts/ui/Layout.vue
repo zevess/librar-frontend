@@ -25,9 +25,10 @@ const footerItems = useFooterNavigation()
       <RouterLink to="/">
         <Logo />
       </RouterLink>
-      <RouterLink class="hidden md:block" :to="PUBLIC_URL.catalog()">
+      <CatalogButton />
+      <!-- <RouterLink class="hidden md:block" :to="PUBLIC_URL.catalog()">
         <CatalogButton />
-      </RouterLink>
+      </RouterLink> -->
       <div class="hidden md:flex md:w-4/12">
         <SearchInput />
       </div>

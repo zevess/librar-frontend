@@ -1,16 +1,16 @@
 import { convertArrayQuery } from '@/shared/lib'
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, type LocationQuery } from 'vue-router'
 
-export const useCatalogFilter = () => {
-  const route = useRoute()
-
-  const filters = ref({
-    q: route.query.q ? String(route.query.q) : '',
-    page: route.query.page ? Number(route.query.page) : 1,
-    category: route.query.category ? Number(route.query.category) : null,
-    genres: route.query.genres ? convertArrayQuery(route.query.genres) : [],
-    publishers: route.query.publishers ? convertArrayQuery(route.query.publishers) : [],
+export const useCatalogFilter = (query: LocationQuery) => {
+  // const route = useRoute()
+  const filter = ref({
+    q: query.q ? String(query.q) : '',
+    page: query.page ? Number(query.page) : 1,
+    category: query.category ? Number(query.category) : null,
+    genres: query.genres ? convertArrayQuery(query.genres) : [],
+    publishers: query.publishers ? convertArrayQuery(query.publishers) : [],
+    status: query.status ? String(query.status) : '',
   })
-  return { filters }
+  return { filter }
 }

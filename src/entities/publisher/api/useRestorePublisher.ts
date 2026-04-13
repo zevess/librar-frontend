@@ -12,7 +12,7 @@ export const useRestorePublisher = () => {
     mutationFn: (publisherId: string) => publisherService.restorePublisher(publisherId),
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ['get publishers'],
+        queryKey: ['get admin publishers'],
       })
       toast.success('Успех', 'Издатель успешно восстановлен')
     },

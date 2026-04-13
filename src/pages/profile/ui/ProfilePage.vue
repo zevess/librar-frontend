@@ -30,9 +30,6 @@ const { reservations, isReservationsFetching, isReservationsFetched } =
 const activeReservations = computed(() =>
   reservations.value?.data.filter((item) => item.status === 'reserved' || item.status === 'issued'),
 )
-watch(activeReservations, () => {
-  console.log(activeReservations.value)
-})
 </script>
 
 <template>
@@ -82,7 +79,7 @@ watch(activeReservations, () => {
             <span class="text-xl uppercase font-semibold">Активные брони:</span>
             <SkeletonTable v-if="isReservationsFetching && !reservations" />
             <ProfileReservationsTable
-              v-if="activeReservations && isReservationsFetched"
+              v-if="activeReservations && activeReservations?.length > 0 && isReservationsFetched"
               :reservations="activeReservations"
             />
             <Message v-if="activeReservations?.length === 0 && isReservationsFetched"

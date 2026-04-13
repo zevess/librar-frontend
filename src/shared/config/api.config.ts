@@ -95,5 +95,9 @@ export const API_URL = {
   deleteUser: (userId = '') => API_URL.users(`/${userId}`),
   restoreUser: (userId = '') => API_URL.users(`/${userId}/restore`),
 
+  adminAuthors: () => API_URL.admin('/authors'),
+  adminBooks: () => API_URL.admin('/books'),
+  adminPublishers: () => API_URL.admin('/publishers'),
+
   uploadImage: () => API_URL.root('/upload-image'),
 }

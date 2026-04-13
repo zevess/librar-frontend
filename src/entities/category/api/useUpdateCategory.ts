@@ -21,8 +21,6 @@ export const useUpdateCategory = () => {
         queryKey: ['get categories'],
       })
       toast.success('Статус', 'Категория успешно обновлена')
-
-      // router.push(PUBLIC_URL.adminCategories())
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

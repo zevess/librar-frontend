@@ -6,26 +6,24 @@ import { useToast } from 'primevue'
 import axios from 'axios'
 import { useToastStore } from '@/shared/lib'
 
-export const useDeleteBook = () => {
-  const router = useRouter()
+export const useRestoreBook = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: deleteBook } = useMutation({
-    mutationKey: ['delete book'],
-    mutationFn: (bookId: string) => bookService.deleteBook(bookId),
+  const { mutate: restoreBook } = useMutation({
+    mutationKey: ['restore book'],
+    mutationFn: (bookId: string) => bookService.restoreBook(bookId),
     onSuccess() {
       toast.success('Успех', 'Книга успешно удалена')
       queryClient.invalidateQueries({
         queryKey: ['get admin books'],
       })
-      router.push(PUBLIC_URL.adminBooks())
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
-        console.log(error.response)
+        console.error(error.response?.data.message)
         toast.error('Ошибка', error.response?.data.message)
       }
     },
   })
-  return { deleteBook }
+  return { restoreBook }
 }

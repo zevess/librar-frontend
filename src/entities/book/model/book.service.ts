@@ -11,6 +11,16 @@ class BookService {
     })
     return data
   }
+
+  async getAdminBooks(params?: IBooksParams) {
+    const { data } = await apiPrivate<IPaginatedResponse<IBook>>({
+      url: API_URL.adminBooks(),
+      method: 'GET',
+      params: params,
+    })
+    return data
+  }
+
   async getBook(id: string) {
     const { data } = await api<IResponse<IBook>>({
       url: API_URL.getBookById(id),
@@ -46,6 +56,13 @@ class BookService {
       url: API_URL.deleteBook(bookId),
       method: 'DELETE',
       data: bookId,
+    })
+    return response
+  }
+  async restoreBook(bookId: string) {
+    const response = await apiPrivate({
+      url: API_URL.restoreBook(bookId),
+      method: 'POST',
     })
     return response
   }

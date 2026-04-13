@@ -31,6 +31,12 @@ body {
   @apply size-12 flex items-center justify-center rounded-full cursor-pointer transition hover:bg-[#d1ebe9];
 }
 
+.pagination-navigation:disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  color: rgb(156, 163, 175);
+}
+
 .p-autocomplete-input,
 .p-autocomplete-input-multiple {
   width: 100%;

@@ -5,7 +5,16 @@ import { API_URL } from '@/shared/config'
 class AuthorService {
   async getAuthors(params?: IAuthorParams) {
     const { data } = await api<IPaginatedResponse<IAuthor>>({
-      url: API_URL.getAuthors(),
+      url: API_URL.authors(),
+      method: 'GET',
+      params,
+    })
+    return data
+  }
+
+  async getAdminAuthors(params?: IAuthorParams) {
+    const { data } = await apiPrivate<IPaginatedResponse<IAuthor>>({
+      url: API_URL.adminAuthors(),
       method: 'GET',
       params,
     })

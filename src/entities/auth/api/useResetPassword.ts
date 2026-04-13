@@ -6,9 +6,10 @@ import { ref } from 'vue'
 import type { IResetPassword } from '../model/auth.types'
 import { useRouter } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
+import { useToastStore } from '@/shared/lib'
 
 export const useResetPassword = () => {
-  const toast = useToast()
+  const toast = useToastStore()
   const errorMessage = ref()
   const router = useRouter()
   const {
@@ -22,23 +23,14 @@ export const useResetPassword = () => {
     mutationKey: ['reset password'],
     mutationFn: (data: IResetPassword) => authService.resetPassword(data),
     onSuccess(data) {
-      toast.add({
-        severity: 'success',
-        summary: 'Успех',
-        detail: String(data.data.message),
-        life: 3000,
-      })
+      toast.success('Успех', String(data.data.message))
       router.replace(PUBLIC_URL.auth())
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response)
         errorMessage.value = error.response?.data.message
-        toast.add({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: String(error.response?.data.message),
-        })
+        toast.success('Ошибка', String(error.response?.data.message))
       }
     },
   })

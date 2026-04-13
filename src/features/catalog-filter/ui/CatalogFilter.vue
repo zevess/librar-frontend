@@ -1,14 +1,8 @@
 <script setup lang="ts">
-import { useGetBooks } from '@/entities/book'
 import { useGetCategories } from '@/entities/category'
-import { categoryData } from '@/entities/category/model/category.types'
 import { useGetGenres } from '@/entities/genre'
-import { genreData } from '@/entities/genre/model/genre.types'
 import { useGetAllPublishers, useGetPublishers } from '@/entities/publisher'
-import { publisherData } from '@/entities/publisher/model/publisher.types'
-import { convertArrayQuery, getArrayKey } from '@/shared/lib'
 import { PrimeAccordion } from '@/shared/ui/accordion'
-import { ActionButton } from '@/shared/ui/action-button'
 import { PrimeCheckbox } from '@/shared/ui/checkbox'
 import { PrimeRadioButton } from '@/shared/ui/radio-button'
 import { Accordion } from 'primevue'
@@ -20,6 +14,7 @@ const { publishers } = useGetAllPublishers()
 const categoryFilter = defineModel<number | null>('categoryFilter')
 const genreFilter = defineModel<number[]>('genreFilter')
 const publisherFilter = defineModel<number[]>('publisherFilter')
+const statusFilter = defineModel<string | ''>('statusFilter')
 const emit = defineEmits(['apply'])
 </script>
 
@@ -61,28 +56,23 @@ const emit = defineEmits(['apply'])
         ></PrimeCheckbox>
       </div>
     </PrimeAccordion>
-    <!-- <PrimeAccordion header="наличие" :value="3">
+    <PrimeAccordion header="наличие" :value="3">
       <div class="flex flex-col gap-2">
+        <PrimeRadioButton v-model="statusFilter" name="" value="" label="Все"></PrimeRadioButton>
         <PrimeRadioButton
-          v-model="selectedAvailability"
-          name="all"
-          value="Все"
-          input-id="all"
+          v-model="statusFilter"
+          name="available"
+          value="available"
+          label="Доступные"
         ></PrimeRadioButton>
         <PrimeRadioButton
-          v-model="selectedAvailability"
-          name="true"
-          value="Доступные"
-          input-id="true"
-        ></PrimeRadioButton>
-        <PrimeRadioButton
-          v-model="selectedAvailability"
-          name="false"
-          value="Забронированные"
-          input-id="false"
+          v-model="statusFilter"
+          name="reserved"
+          value="reserved"
+          label="Забронированные"
         ></PrimeRadioButton>
       </div>
-    </PrimeAccordion> -->
+    </PrimeAccordion>
   </Accordion>
   <!-- <ActionButton @click="emit('apply')" title="Применить" /> -->
 </template>

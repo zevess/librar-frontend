@@ -7,7 +7,7 @@ import { ReservationFilter, useReservationParams } from '@/features/reservation-
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
-import { Toast } from 'primevue'
+import { ConfirmDialog, Toast } from 'primevue'
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -34,6 +34,7 @@ const { reservations, isReservationsFetching, isReservationsFetched } =
 <template>
   <div class="flex flex-col gap-4">
     <PageTitle title="брони" />
+    <ConfirmDialog />
     <ReservationFilter
       v-model:book-id-filter="filter.bookId"
       v-model:reservation-id-filter="filter.id"

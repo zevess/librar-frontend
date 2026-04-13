@@ -20,7 +20,7 @@ const router = useRouter()
 const { reserve } = useCreateReservation()
 
 const reserveBook = () => {
-  if (!isAuthentificated) router.replace(PUBLIC_URL.auth())
+  if (!isAuthentificated) router.push(PUBLIC_URL.auth())
   else {
     reserve(props.bookId)
     isAvailable.value = !isAvailable.value

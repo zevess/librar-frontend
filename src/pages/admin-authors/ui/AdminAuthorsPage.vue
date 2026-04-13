@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AuthorTable, useGetAuthor, useGetAuthors } from '@/entities/author'
+import { AuthorTable, useGetAdminAuthors, useGetAuthor, useGetAuthors } from '@/entities/author'
 import { AuthorFilter, useAuthorParams } from '@/features/author-filter'
 import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
@@ -27,7 +27,7 @@ watch(
   },
 )
 
-const { authors, isFetched, isFetching } = useGetAuthors(authorParams.value)
+const { authors, isFetched, isFetching } = useGetAdminAuthors(authorParams.value)
 </script>
 
 <template>

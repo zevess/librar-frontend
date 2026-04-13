@@ -8,7 +8,6 @@ import { genreService } from '../model/genre.service'
 import { useToastStore } from '@/shared/lib'
 
 export const useUpdateGenre = () => {
-  const router = useRouter()
   const errorMessage = ref()
   const queryClient = useQueryClient()
   const toast = useToastStore()

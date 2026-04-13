@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { categoryService } from '../model/category.service'
 import { useToast } from 'primevue'
 import { useToastStore } from '@/shared/lib'
+import axios from 'axios'
 
 export const useDeleteCategory = () => {
   const queryClient = useQueryClient()
@@ -14,6 +15,12 @@ export const useDeleteCategory = () => {
       queryClient.invalidateQueries({
         queryKey: ['get categories'],
       })
+    },
+    onError(error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error.response?.data.message)
+        toast.error('Ошибка', error.response?.data.message)
+      }
     },
   })
 

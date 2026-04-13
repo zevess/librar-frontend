@@ -3,9 +3,10 @@ import { authService } from '../model/auth.service'
 import { useToast } from 'primevue'
 import axios from 'axios'
 import { ref } from 'vue'
+import { useToastStore } from '@/shared/lib'
 
 export const useForgotPassword = () => {
-  const toast = useToast()
+  const toast = useToastStore()
   const errorMessage = ref()
   const {
     mutate: sendResetLink,
@@ -18,22 +19,13 @@ export const useForgotPassword = () => {
     mutationKey: ['forgot password'],
     mutationFn: (email: string) => authService.forgotPassword(email),
     onSuccess(data) {
-      toast.add({
-        severity: 'success',
-        summary: 'Успех',
-        detail: String(data.data.message),
-        life: 3000,
-      })
+      toast.success('Успех', String(data.data.message))
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response)
         errorMessage.value = error.response?.data.message
-        toast.add({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: String(error.response?.data.message),
-        })
+        toast.error('Ошибка', String(error.response?.data.message))
       }
     },
   })
