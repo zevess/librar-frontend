@@ -42,7 +42,7 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
     @row-edit-save="onRowEditSave"
     :value="users"
   >
-    <Column field="id" header="ID" style="width: 20%"> </Column>
+    <Column field="id" header="ID" style="width: 5%"> </Column>
     <Column field="name" header="Имя">
       <template #editor="{ data, field }">
         <Input v-if="!data.isDeleted" class="h-fit" v-model="data[field]" />

@@ -17,14 +17,18 @@ const isAvailable = ref(props.isAvailable)
 const { isAuthentificated } = useUserStore()
 const router = useRouter()
 
-const { reserve } = useCreateReservation()
+const { reserve, isSuccess } = useCreateReservation()
 
 const reserveBook = () => {
-  if (!isAuthentificated) router.push(PUBLIC_URL.auth())
-  else {
-    reserve(props.bookId)
-    isAvailable.value = !isAvailable.value
+  if (!isAuthentificated) {
+    router.push(PUBLIC_URL.auth())
+    return
   }
+  reserve(props.bookId, {
+    onSuccess() {
+      isAvailable.value = !isAvailable.value
+    },
+  })
 }
 </script>
 

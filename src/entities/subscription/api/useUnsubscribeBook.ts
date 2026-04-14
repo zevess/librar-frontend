@@ -6,11 +6,15 @@ import { useToastStore } from '@/shared/lib'
 
 export const useUnsubscribeBook = () => {
   const toast = useToastStore()
-  const { mutate: unsubscribe, isPending: isUnsubscribing } = useMutation({
+  const {
+    mutate: unsubscribe,
+    isPending: isUnsubscribing,
+    isSuccess,
+  } = useMutation({
     mutationKey: ['unsubscribe book'],
     mutationFn: (bookId: string) => subscriptionService.unsubscribeBook(bookId),
     onSuccess() {
-      toast.success('Успех', 'Вы успешно подписались на книгу')
+      toast.success('Успех', 'Вы успешно отписались от книги')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
@@ -20,5 +24,5 @@ export const useUnsubscribeBook = () => {
     },
   })
 
-  return { unsubscribe, isUnsubscribing }
+  return { unsubscribe, isUnsubscribing, isSuccess }
 }

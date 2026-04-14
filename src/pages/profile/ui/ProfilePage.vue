@@ -92,7 +92,7 @@ const activeReservations = computed(() =>
             <span class="text-xl uppercase font-semibold">Все брони:</span>
             <SkeletonTable v-if="isReservationsFetching && !reservations" />
             <ProfileReservationsTable
-              v-if="reservations?.data && isReservationsFetched"
+              v-if="reservations && reservations?.data.length > 0 && isReservationsFetched"
               :reservations="reservations.data"
             />
             <Message v-if="reservations?.data.length === 0 && isReservationsFetched"

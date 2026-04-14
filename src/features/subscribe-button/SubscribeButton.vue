@@ -17,18 +17,30 @@ const { isAuthentificated } = useUserStore()
 const router = useRouter()
 
 const { subscribe } = useSubscribeBook()
-const { unsubscribe } = useUnsubscribeBook()
+const { unsubscribe, isSuccess } = useUnsubscribeBook()
 
-const handleFollowAction = () => {
-  if (!isAuthentificated) router.replace(PUBLIC_URL.auth())
-  isSubscribed.value ? unsubscribe(String(props.bookId)) : subscribe(String(props.bookId))
-  isSubscribed.value = !isSubscribed.value
+const handleSubscriptionAction = () => {
+  if (!isAuthentificated) {
+    router.replace(PUBLIC_URL.auth())
+    return
+  }
+  isSubscribed.value
+    ? unsubscribe(String(props.bookId), {
+        onSuccess() {
+          isSubscribed.value = !isSubscribed.value
+        },
+      })
+    : subscribe(String(props.bookId), {
+        onSuccess() {
+          isSubscribed.value = !isSubscribed.value
+        },
+      })
 }
 </script>
 
 <template>
   <ActionButton
-    @click="handleFollowAction"
+    @click="handleSubscriptionAction"
     :title="isSubscribed ? 'Перестать отслеживать' : 'Отслеживать'"
   >
     <span :class="isSubscribed ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'"></span>
