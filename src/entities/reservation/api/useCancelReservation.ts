@@ -8,14 +8,14 @@ import { useToastStore } from '@/shared/lib'
 export const useCancelReservation = () => {
   const toast = useToastStore()
   const queryClient = useQueryClient()
-  const params = useParams()
+  // const params = useParams()
   const { mutate: cancel, isPending } = useMutation({
     mutationKey: ['cancel reservation'],
     mutationFn: (reservationId: string) => reservationService.cancelReservation(reservationId),
     onSuccess(data) {
       toast.success('Успех', String(data.data.message))
       queryClient.invalidateQueries({
-        queryKey: ['get reservations', params],
+        queryKey: ['get reservations'],
       })
     },
     onError(error) {

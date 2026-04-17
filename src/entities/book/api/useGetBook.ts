@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/vue-query'
 import { bookService } from '../model/book.service'
+import type { ComputedRef } from 'vue'
 
-export const useGetBook = (slug: string) => {
+export const useGetBook = (slug: ComputedRef<string | string[] | undefined>) => {
   const {
     data: book,
     isFetching,
@@ -10,7 +11,7 @@ export const useGetBook = (slug: string) => {
     refetch,
   } = useQuery({
     queryKey: ['get book', slug],
-    queryFn: () => bookService.getBookBySlug(slug),
+    queryFn: () => bookService.getBookBySlug(String(slug.value)),
     refetchOnWindowFocus: false,
     refetchOnMount: true,
   })

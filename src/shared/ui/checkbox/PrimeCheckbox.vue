@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { Checkbox } from 'primevue'
 defineProps<{
-  inputId: string
+  inputId?: string
   name: string
-  value: string | number
+  value?: string | number | null
   size?: 'small' | 'large'
   label: string
+  binary?: boolean
 }>()
 
 const model = defineModel()
@@ -18,6 +19,7 @@ const model = defineModel()
       :name="name"
       :value="value"
       :size="size"
+      :binary="binary"
       :pt="{
         box: ({ context }) => ({
           style: {

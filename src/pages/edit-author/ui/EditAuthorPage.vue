@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { useGetAuthor } from '@/entities/author'
 import { AuthorForm } from '@/features/author-form'
+import { useGetParams } from '@/shared/lib'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { ConfirmDialog, Toast } from 'primevue'
 import { computed, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 
-const route = useRoute()
-const { author } = useGetAuthor(String(route.params.authorSlug))
+const { slug } = useGetParams()
+const { author } = useGetAuthor(slug)
 watchEffect(() => {
   const title = author.value?.data?.name
   document.title = title ? 'Изменить ' + title : 'Загрузка...'

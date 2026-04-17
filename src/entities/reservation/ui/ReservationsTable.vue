@@ -2,8 +2,7 @@
 import { Column, DataTable, Tag } from 'primevue'
 import { IReservationStatus, type IReservation } from '../model/reservation.types'
 import { StoredImage } from '@/shared/ui/stored-image'
-import { getSeverity } from '@/shared/lib'
-
+import { convertedDate, getSeverity } from '@/shared/lib'
 import { PUBLIC_URL } from '@/shared/config'
 import { AcceptReservationButton } from '@/features/accept-reservation-button'
 import { CancelReservationButton } from '@/features/cancel-reservation-button'
@@ -40,19 +39,17 @@ defineProps<{
       </Column>
       <Column :sortable="true" field="expiresAt" header="Истекает в">
         <template #body="{ data }">
-          {{ data.expiresAt !== null ? new Date(data.expiresAt).toLocaleDateString('ru-RU') : '-' }}
+          {{ data.expiresAt !== null ? convertedDate(data.expiresAt) : '-' }}
         </template>
       </Column>
       <Column :sortable="true" field="issuedAt" header="Выдано">
         <template #body="{ data }">
-          {{ data.issuedAt !== null ? new Date(data.issuedAt).toLocaleDateString('ru-RU') : '-' }}
+          {{ data.issuedAt !== null ? convertedDate(data.issuedAt) : '-' }}
         </template>
       </Column>
       <Column :sortable="true" field="acceptedAt" header="Принято">
         <template #body="{ data }">
-          {{
-            data.acceptedAt !== null ? new Date(data.acceptedAt).toLocaleDateString('ru-RU') : '-'
-          }}
+          {{ data.acceptedAt !== null ? convertedDate(data.acceptedAt) : '-' }}
         </template>
       </Column>
       <Column :sortable="true" field="status" header="Статус">

@@ -95,7 +95,7 @@ const router = createRouter({
           meta: { layout: 'admin', admin: true, title: 'Создать автора' },
         },
         {
-          path: 'authors/:authorSlug/edit',
+          path: 'authors/:slug/edit',
           name: 'authors/edit',
           component: EditAuthorPage,
           meta: { layout: 'admin', admin: true },
@@ -119,7 +119,7 @@ const router = createRouter({
           meta: { layout: 'admin', admin: true, title: 'Создать книгу' },
         },
         {
-          path: 'books/:bookSlug/edit',
+          path: 'books/:slug/edit',
           name: 'books/edit',
           component: EditBookPage,
           meta: { layout: 'admin', admin: true },
@@ -137,7 +137,7 @@ const router = createRouter({
           meta: { layout: 'admin', admin: true, title: 'Создать издательство' },
         },
         {
-          path: 'publishers/:publisherSlug/edit',
+          path: 'publishers/:slug/edit',
           name: 'publishers/edit',
           component: EditPublisherPage,
           meta: { layout: 'admin', admin: true },
@@ -243,7 +243,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to) => {
-  const baseTitle = 'Librar'
+  const baseTitle = import.meta.env.VITE_APP_NAME as string
   const metaTitle = to.meta.title as string | undefined
   document.title = metaTitle ? metaTitle : baseTitle
 })

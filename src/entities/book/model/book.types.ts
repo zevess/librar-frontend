@@ -9,7 +9,7 @@ export interface IBook {
   slug: string
   description: string
   image: string
-  author: IAuthor
+  author?: IAuthor
   publisher: IPublisher
   category: ICategory
   genres: {
@@ -40,7 +40,7 @@ export interface IBooksParams {
 export interface IBookForm {
   title: string
   description: string
-  author_id: number
+  author_id: number | null
   category_id: number
   publisher_id: number
   image?: string | null

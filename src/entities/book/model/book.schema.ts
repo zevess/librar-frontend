@@ -11,7 +11,8 @@ export const bookSchema = z.object({
     .nonempty('Название не должно быть пустым'),
   author_id: z
     .number('Некорректный формат. Введите число')
-    .nonnegative('Число не должно быть отрицательным'),
+    .nonnegative('Число не должно быть отрицательным')
+    .nullable(),
   category_id: z
     .number('Некорректный формат. Введите число')
     .nonnegative('Число не должно быть отрицательным'),

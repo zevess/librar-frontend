@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/vue-query'
 import { bookService } from '../model/book.service'
 import type { IBook, IBooksParams } from '../model/book.types'
-import { computed } from 'vue'
+import { computed, type Ref } from 'vue'
 
-export const useGetBooks = (params?: IBooksParams, enabled?: boolean) => {
+export const useGetBooks = (params?: Ref<IBooksParams>, enabled?: boolean) => {
   const {
     data: books,
     isFetching,
@@ -11,7 +11,7 @@ export const useGetBooks = (params?: IBooksParams, enabled?: boolean) => {
     refetch,
   } = useQuery({
     queryKey: ['get books', params],
-    queryFn: () => bookService.getBooks(params),
+    queryFn: () => bookService.getBooks(params?.value),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     enabled: enabled,

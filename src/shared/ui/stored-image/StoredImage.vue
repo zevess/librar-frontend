@@ -14,7 +14,7 @@ const imageUrl = computed(() => {
 </script>
 
 <template>
-  <div class="w-full h-full rounded">
+  <div class="h-full rounded">
     <img
       v-if="url !== null"
       :src="imageUrl"

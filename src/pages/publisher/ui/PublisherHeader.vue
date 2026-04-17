@@ -18,11 +18,11 @@ const { slug } = useGetParams()
     <div class="flex flex-col items-center md:items-baseline w-full">
       <div class="flex justify-center md:justify-start items-center w-full">
         <PageTitle :title="publisher.name" class="md:text-left" />
-        <SettingButton class="block md:hidden" :to="PUBLIC_URL.adminPublisherEdit(slug)" />
+        <SettingButton class="block md:hidden" :to="PUBLIC_URL.adminPublisherEdit(String(slug))" />
       </div>
     </div>
     <div class="flex items-center gap-6">
-      <SettingButton class="hidden md:block" :to="PUBLIC_URL.adminPublisherEdit(slug)" />
+      <SettingButton class="hidden md:block" :to="PUBLIC_URL.adminPublisherEdit(String(slug))" />
 
       <PageSubtitle title="издательство" />
     </div>

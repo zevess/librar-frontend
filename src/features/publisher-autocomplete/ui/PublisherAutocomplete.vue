@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useGetPublishersByQuery, type IPublisher } from '@/entities/publisher'
+import { useDebounceFn } from '@vueuse/core'
 import {
   AutoComplete,
   type AutoCompleteCompleteEvent,
@@ -10,11 +11,9 @@ const { publishers, findPublisher } = useGetPublishersByQuery()
 const selectedPublisher = defineModel<IPublisher | string | null>('selectedPublisher')
 const publisher = defineModel<null | number>('publisher')
 
-const search = (event: AutoCompleteCompleteEvent) => {
-  setTimeout(() => {
-    findPublisher(event.query)
-  }, 250)
-}
+const search = useDebounceFn((event: AutoCompleteCompleteEvent) => {
+  findPublisher(event.query)
+}, 800)
 const onSelect = (event: AutoCompleteOptionSelectEvent) => {
   publisher.value = event.value.id
 }

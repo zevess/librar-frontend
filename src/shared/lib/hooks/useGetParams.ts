@@ -1,8 +1,9 @@
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 export const useGetParams = () => {
   const route = useRoute()
-  const slug = String(route.params.slug)
-  const id = String(slug.split('-')[slug.split('-').length - 1])
+  const slug = computed(() => route.params.slug)
+  const id = computed(() => String(slug.value).split('-')[String(slug.value).split('-').length - 1])
   return { slug, id }
 }

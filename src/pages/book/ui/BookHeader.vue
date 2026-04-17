@@ -20,7 +20,7 @@ const { slug } = useGetParams()
     <div class="flex flex-col items-center md:items-baseline w-full">
       <div class="flex justify-center md:justify-start items-center w-full">
         <PageTitle :title="book?.title" class="md:text-left" />
-        <SettingButton class="block md:hidden" :to="PUBLIC_URL.adminBookEdit(slug)" />
+        <SettingButton class="block md:hidden" :to="PUBLIC_URL.adminBookEdit(String(slug))" />
       </div>
 
       <RouterLink
@@ -31,7 +31,7 @@ const { slug } = useGetParams()
       >
     </div>
     <div class="flex items-center gap-6">
-      <SettingButton class="hidden md:block" :to="PUBLIC_URL.adminBookEdit(slug)" />
+      <SettingButton class="hidden md:block" :to="PUBLIC_URL.adminBookEdit(String(slug))" />
       <PageSubtitle title="книга" />
     </div>
   </div>

@@ -13,6 +13,7 @@ import { useUserStore } from '@/entities/user'
 import { ref } from 'vue'
 import { SearchInput } from '@/features/search-input'
 import { NotificationDrawer } from '@/features/notification-drawer'
+import { SearchAutocomplete } from '@/features/search-autocomplete'
 
 const { isAuthentificated } = useUserStore()
 const headerItems = useHeaderNavigation(isAuthentificated)
@@ -25,16 +26,13 @@ const footerItems = useFooterNavigation()
       <RouterLink to="/">
         <Logo />
       </RouterLink>
-      <CatalogButton />
-      <!-- <RouterLink class="hidden md:block" :to="PUBLIC_URL.catalog()">
-        <CatalogButton />
-      </RouterLink> -->
+      <CatalogButton class="hidden md:flex" />
       <div class="hidden md:flex md:w-4/12">
-        <SearchInput />
+        <SearchAutocomplete />
       </div>
     </Header>
     <div class="w-full flex md:hidden p-2 bg-white rounded-xl shadow-lg mt-6">
-      <SearchInput />
+      <SearchAutocomplete />
     </div>
     <Container>
       <slot></slot>

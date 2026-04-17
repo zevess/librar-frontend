@@ -26,6 +26,7 @@ export const API_URL = {
   restoreBook: (bookId = '') => API_URL.books(`/${bookId}/restore`),
   getBookById: (bookId = '') => API_URL.books(`/${bookId}`),
   getBookBySlug: (bookSlug = '') => API_URL.books(`/${bookSlug}`),
+  getBookByQuery: () => API_URL.books(`/query`),
   getBookBySlugAndId: (bookSlug = '', bookId = '') => API_URL.books(`/${bookSlug}-${bookId}`),
   getBookReviews: (bookId = '') => API_URL.books(`/${bookId}/reviews`),
   booksReservations: () => API_URL.books(`/reservations`),

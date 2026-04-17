@@ -35,6 +35,16 @@ class BookService {
     })
     return data
   }
+  async getBooksByQuery(q: string) {
+    const { data } = await apiPrivate<IResponse<IBook[]>>({
+      url: API_URL.getBookByQuery(),
+      method: 'GET',
+      params: {
+        q,
+      },
+    })
+    return data
+  }
   async createBook(data: IBookForm) {
     const response = await apiPrivate<IResponse<IBook>>({
       url: API_URL.createBook(),

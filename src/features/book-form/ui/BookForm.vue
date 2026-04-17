@@ -14,10 +14,9 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { computed, ref, watch } from 'vue'
 import { useBookFormInitialValues } from '../lib/useBookFormInitialValues'
-import { useAttachGenres, useDetachGenres, useGetGenres, type IGenre } from '@/entities/genre'
+import { type IGenre } from '@/entities/genre'
 import { GenresAutocomplete } from '@/features/genres-autocomplete'
 import { PrimeRadioButton } from '@/shared/ui/radio-button'
-import { useConfirm, useToast } from 'primevue'
 import { DeleteButton } from '@/features/delete-button'
 import { Textarea } from '@/shared/ui/textarea'
 import { CategoryAutocomplete } from '@/features/category-autocomplete'
@@ -27,6 +26,7 @@ import type { IAuthor } from '@/entities/author'
 import { PublisherAutocomplete } from '@/features/publisher-autocomplete'
 import type { IPublisher } from '@/entities/publisher'
 import { useGenresAction } from '../lib/useGenresAction'
+import { PrimeCheckbox } from '@/shared/ui/checkbox'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
@@ -38,8 +38,6 @@ const { createBook, isPending, errorMessage } = useCreateBook()
 const { updateBook, isUpdating } = useUpdateBook(String(props.book?.id))
 const { deleteBook } = useDeleteBook()
 const { genresAction } = useGenresAction(String(props.book?.id))
-// const { attachGenre } = useAttachGenres(String(props.book?.id))
-// const { detachGenre } = useDetachGenres(String(props.book?.id))
 
 const initialValues = useBookFormInitialValues(props.book)
 const { handleSubmit, errors, defineField, meta } = useForm<BookSchema>({
@@ -61,6 +59,7 @@ const selectedPublisher = ref<IPublisher | null>(props.book?.publisher ?? null)
 const selectedGenres = ref<IGenre[]>(props.book?.genres.data ?? [])
 const genres = computed(() => selectedGenres.value.map((g) => g.id))
 const genresMode = ref<'attach' | 'detach'>('attach')
+const isAuthorDisabled = ref()
 
 const onSubmit = handleSubmit(async (formValues) => {
   if (props.mode === 'create') {
@@ -113,6 +112,17 @@ const onSubmit = handleSubmit(async (formValues) => {
     }
   }
 })
+
+watch(isAuthorDisabled, () => {
+  if (isAuthorDisabled.value) {
+    selectedAuthor.value = null
+    author.value = null
+  }
+})
+
+watch(author, () => console.log(author.value))
+
+console.log(author.value)
 </script>
 
 <template>
@@ -148,8 +158,16 @@ const onSubmit = handleSubmit(async (formValues) => {
             id="authorAutocomplete"
             v-model:selected-author="selectedAuthor"
             v-model:author="author"
+            :disabled="isAuthorDisabled"
           />
         </div>
+        <PrimeCheckbox
+          v-model="isAuthorDisabled"
+          name="isAuthorDisabled"
+          input-id="isAuthorDisabled"
+          label="Без автора"
+          binary
+        />
         <span v-if="errors.author_id" class="text-red-500">{{ errors.author_id }}</span>
       </div>
       <div class="flex flex-col gap-4">

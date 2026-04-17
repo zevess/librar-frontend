@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/vue-query'
 import { reviewService } from '../model/review.service'
+import type { ComputedRef } from 'vue'
 
-export const useGetBookReviews = (bookId: string) => {
+export const useGetBookReviews = (bookId: ComputedRef<string | undefined>) => {
   const {
     data: reviews,
     isFetching,
@@ -9,7 +10,7 @@ export const useGetBookReviews = (bookId: string) => {
     isFetched: isReviewsFetched,
   } = useQuery({
     queryKey: ['get book reviews', bookId],
-    queryFn: () => reviewService.getBookReviews(bookId),
+    queryFn: () => reviewService.getBookReviews(String(bookId.value)),
     refetchOnWindowFocus: false,
     refetchOnMount: true,
   })

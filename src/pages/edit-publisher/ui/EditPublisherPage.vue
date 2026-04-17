@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { useGetPublisher } from '@/entities/publisher'
 import { PublisherForm } from '@/features/publisher-form'
+import { useGetParams } from '@/shared/lib'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { ConfirmDialog, Toast } from 'primevue'
 import { computed, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 
-const route = useRoute()
-const { publisher } = useGetPublisher(String(route.params.publisherSlug))
+const { slug } = useGetParams()
+const { publisher } = useGetPublisher(slug)
 watchEffect(() => {
   const title = publisher.value?.data?.name
   document.title = title ? 'Изменить ' + title : 'Загрузка...'
