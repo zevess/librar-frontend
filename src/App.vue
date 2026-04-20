@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router'
 import { AdminLayout, AuthLayout, Layout } from './widgets/layouts'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useProfile, useUserStore } from './entities/user'
 import { Toast } from 'primevue'
 

@@ -6,7 +6,7 @@ import { Input } from '@/shared/ui/input'
 import { PrimeMultiSelect } from '@/shared/ui/multi-select'
 import { PrimeSelect } from '@/shared/ui/select'
 
-const { publishers } = useGetAllPublishers()
+const { publishers, isFetching } = useGetAllPublishers()
 const { genres } = useGetGenres()
 const { categories } = useGetCategories()
 

@@ -55,11 +55,13 @@ const onSelect = (event: AutoCompleteOptionSelectEvent) => {
     </template>
     <template #option="slotProps">
       <RouterLink
+        v-if="slotProps.option"
         class="relative w-full flex items-center gap-4 h-8"
         :to="PUBLIC_URL.book(`${slotProps.option.slug}-${slotProps.option.id}`)"
       >
         <StoredImage v-if="slotProps.option.image" :url="slotProps.option.image" />
         {{ slotProps.option.title }}
+        <span v-if="slotProps.option.author">{{ slotProps.option.author.name }}</span>
       </RouterLink>
     </template>
   </AutoComplete>

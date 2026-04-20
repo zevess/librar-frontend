@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AuthorTable, useGetAdminAuthors, useGetAuthor, useGetAuthors } from '@/entities/author'
 import { AuthorFilter, useAuthorParams } from '@/features/author-filter'
-import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
+import { ApplyButton, ClearButton, useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { ActionButton } from '@/shared/ui/action-button'
@@ -13,32 +13,19 @@ import { ConfirmDialog } from 'primevue'
 import { watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 
-const route = useRoute()
-
-const { filter } = useFilter()
-const { authorParams } = useAuthorParams()
-
-watch(
-  () => route.query,
-  () => {
-    authorParams.value.q = route.query.q ? String(route.query.q) : ''
-    authorParams.value.id = route.query.id ? String(route.query.id) : ''
-    authorParams.value.page = Number(route.query.page)
-  },
-)
-
-const { authors, isFetched, isFetching } = useGetAdminAuthors(authorParams.value)
+const { id, q, params, applyFilter, clearFilter } = useFilter()
+const { authors, isFetched, isFetching } = useGetAdminAuthors(params)
 </script>
 
 <template>
   <div class="flex flex-col gap-4 w-full">
     <PageTitle title="авторы" />
     <ConfirmDialog />
-    <AuthorFilter v-model:author-id-filter="filter.id" v-model:query-filter="filter.q" />
+    <AuthorFilter v-model:author-id-filter="id" v-model:query-filter="q" />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
       <div class="flex justify-between gap-4">
-        <ClearButton :filter="filter" />
-        <ApplyButton :filter="filter" />
+        <ActionButton class="p-4" @click="clearFilter">Сбросить</ActionButton>
+        <ActionButton class="p-4" @click="applyFilter">Применить</ActionButton>
       </div>
       <LinkButton :to="PUBLIC_URL.adminAuthorCreate()" text="Добавить автора" />
     </div>

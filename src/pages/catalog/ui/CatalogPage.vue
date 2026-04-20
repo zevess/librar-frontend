@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { bookData } from '@/entities/book/model/book.types'
 import { BookList, BookListSkeleton } from '@/entities/book'
 import { PrimeDrawer } from '@/shared/ui/drawer'
 import { PageTitle } from '@/shared/ui/page-title'
-import { computed, nextTick, provide, ref, watch } from 'vue'
 import { CatalogFilter } from '@/features/catalog-filter'
 import { useGetBooks } from '@/entities/book/api/useGetBooks'
-import { convertArrayQuery } from '@/shared/lib'
-import { useRoute, useRouter } from 'vue-router'
 import { Message } from '@/shared/ui/message'
 import { Pagination } from '@/features/pagination'
 import { useCatalogFilter } from '../lib/useCatalogFilter'

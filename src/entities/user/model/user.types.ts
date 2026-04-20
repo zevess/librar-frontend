@@ -15,10 +15,10 @@ export interface IUserResponse {
 }
 
 export interface IUserParams {
-  id?: string
-  q?: string
-  email?: string
-  role?: string
+  id?: string | null
+  q?: string | null
+  email?: string | null
+  role?: string | null
   page: number
 }
 

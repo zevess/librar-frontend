@@ -26,13 +26,13 @@ export interface IBookResponse {
 }
 
 export interface IBooksParams {
-  q?: string | ''
+  q?: string | null
   category?: number | null
   genres?: number[] | null
   publishers?: number[] | null
   page?: number
-  id?: string | ''
-  status?: string | ''
+  id?: string | null
+  status?: string | null
   order?: 'asc' | 'desc'
   sort?: string
 }
@@ -45,94 +45,3 @@ export interface IBookForm {
   publisher_id: number
   image?: string | null
 }
-
-export const bookData = [
-  {
-    title: 'Абсолютный Бэтмен. том 1',
-    slug: 'absolute-batman',
-    author_id: 'Скотт Снайдер',
-    category_id: '1',
-    publisher_id: '2',
-    image: '/src/assets/cover-example.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat.',
-    isAvailable: true,
-  },
-  {
-    title: 'Абсолютный Бэтмен. том 1',
-    slug: 'absolute-batman',
-    author_id: 'Скотт Снайдер',
-    category_id: '1',
-    publisher_id: '2',
-    image: '/src/assets/cover-example.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat.',
-    isAvailable: false,
-  },
-  {
-    title: 'Абсолютный Бэтмен. том 1',
-    slug: 'absolute-batman',
-    author_id: 'Скотт Снайдер',
-    category_id: '1',
-    publisher_id: '2',
-    image: '/src/assets/cover-example.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat.',
-    isAvailable: true,
-  },
-  {
-    title: 'Абсолютный Бэтмен. том 1',
-    slug: 'absolute-batman',
-    author_id: 'Скотт Снайдер',
-    category_id: '1',
-    publisher_id: '2',
-    image: '/src/assets/cover-example.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat.',
-    isAvailable: false,
-  },
-  {
-    title: 'Абсолютный Бэтмен. том 1',
-    slug: 'absolute-batman',
-    author_id: 'Скотт Снайдер',
-    category_id: '1',
-    publisher_id: '2',
-    image: '/src/assets/cover-example.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat.',
-    isAvailable: true,
-  },
-  {
-    title: 'Абсолютный Бэтмен. том 1',
-    slug: 'absolute-batman',
-    author_id: 'Скотт Снайдер',
-    category_id: '1',
-    publisher_id: '2',
-    image: '/src/assets/cover-example.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat.',
-    isAvailable: false,
-  },
-  {
-    title: 'Абсолютный Бэтмен. том 1',
-    slug: 'absolute-batman',
-    author_id: 'Скотт Снайдер',
-    category_id: '1',
-    publisher_id: '2',
-    image: '/src/assets/cover-example.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat.',
-    isAvailable: true,
-  },
-  {
-    title: 'Абсолютный Бэтмен. том 1',
-    slug: 'absolute-batman',
-    author_id: 'Скотт Снайдер',
-    category_id: '1',
-    publisher_id: '2',
-    image: '/src/assets/cover-example.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a volutpat lorem. In accumsan dolor lobortis dictum porta. Cras maximus dictum tristique. Phasellus placerat mattis mauris non tempus. Nunc vitae laoreet arcu, vel maximus diam. Ut feugiat mollis sollicitudin. Nulla euismod elit ut erat congue, non blandit erat consequat. Donec metus felis, placerat eget condimentum ac, mattis lacinia est. Cras nisi ex, gravida sit amet urna sed, eleifend ultricies erat.',
-    isAvailable: false,
-  },
-]

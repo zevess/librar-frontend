@@ -2,13 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { reservationService } from '../model/reservation.service'
 import { useToast } from 'primevue'
 import axios from 'axios'
-import { useParams } from '@/features/filter'
 import { useToastStore } from '@/shared/lib'
 
 export const useAcceptReservation = () => {
   const toast = useToastStore()
   const queryClient = useQueryClient()
-  // const { params } = useParams()
   const { mutate: accept, isPending } = useMutation({
     mutationKey: ['accept reservation'],
     mutationFn: (reservationId: string) => reservationService.acceptReservation(reservationId),

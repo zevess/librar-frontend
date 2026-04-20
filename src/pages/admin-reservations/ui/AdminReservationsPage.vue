@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ReservationsTable, useGetReservations } from '@/entities/reservation'
 import { CancelExpiredButton } from '@/features/cancel-expired-button'
-import { ApplyButton, ClearButton, useFilter, useParams } from '@/features/filter'
+import { ApplyButton, ClearButton, useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { ReservationFilter, useReservationParams } from '@/features/reservation-filter'
 import { Message } from '@/shared/ui/message'
@@ -13,22 +13,9 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const { filter } = useFilter()
-const { reservationParams } = useReservationParams()
+const { params, bookId, id, email, status, applyFilter, clearFilter } = useFilter()
 
-watch(
-  () => route.query,
-  () => {
-    reservationParams.value.id = route.query.id ? String(route.query.id) : ''
-    reservationParams.value.bookId = route.query.bookId ? String(route.query.bookId) : ''
-    reservationParams.value.status = route.query.status ? String(route.query.status) : ''
-    reservationParams.value.email = route.query.email ? String(route.query.email) : ''
-    reservationParams.value.page = Number(route.query.page)
-  },
-)
-
-const { reservations, isReservationsFetching, isReservationsFetched } =
-  useGetReservations(reservationParams)
+const { reservations, isReservationsFetching, isReservationsFetched } = useGetReservations(params)
 </script>
 
 <template>
@@ -36,15 +23,15 @@ const { reservations, isReservationsFetching, isReservationsFetched } =
     <PageTitle title="брони" />
     <ConfirmDialog />
     <ReservationFilter
-      v-model:book-id-filter="filter.bookId"
-      v-model:reservation-id-filter="filter.id"
-      v-model:status-filter="filter.status"
-      v-model:email-filter="filter.email"
+      v-model:book-id-filter="bookId"
+      v-model:reservation-id-filter="id"
+      v-model:status-filter="status"
+      v-model:email-filter="email"
     />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
       <div class="flex justify-between gap-4">
-        <ClearButton :filter="filter" />
-        <ApplyButton :filter="filter" />
+        <ActionButton class="p-4" @click="clearFilter">Сбросить</ActionButton>
+        <ActionButton class="p-4" @click="applyFilter">Применить</ActionButton>
       </div>
       <CancelExpiredButton class="p-4" />
     </div>

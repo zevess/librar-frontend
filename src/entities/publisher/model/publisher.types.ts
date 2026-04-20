@@ -17,8 +17,8 @@ export interface IPublisherForm {
 }
 
 export interface IPublisherParams {
-  q?: string | ''
-  id?: string | ''
+  q?: string | null
+  id?: string | null
   page?: number
 }
 

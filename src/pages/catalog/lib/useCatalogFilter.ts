@@ -4,41 +4,6 @@ import { convertArrayQuery } from '@/shared/lib'
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter, type LocationQuery } from 'vue-router'
 
-// export const useCatalogFilter = () => {
-//   const route = useRoute()
-//   const router = useRouter()
-//   const filter = ref({
-//     q: route.query.q ? String(route.query.q) : '',
-//     category: route.query.category ? Number(route.query.category) : null,
-//     genres: route.query.genres ? convertArrayQuery(route.query.genres) : [],
-//     publishers: route.query.publishers ? convertArrayQuery(route.query.publishers) : [],
-//     status: route.query.status ? String(route.query.status) : '',
-//   })
-
-//   const page = ref(route.query.page ? Number(route.query.page) : 1)
-
-//   watch(
-//     () => route.query,
-//     () => {
-//       page.value = Number(route.query.page)
-//     },
-//   )
-
-//   watch(
-//     filter,
-//     () =>
-//       router.push({
-//         query: { ...filter.value, page: 1 },
-//       }),
-//     { deep: true },
-//   )
-
-//   const params = computed(() => ({
-//     ...filter.value,
-//     page: page.value,
-//   }))
-//   return { filter, page, params }
-// }
 export const useCatalogFilter = () => {
   const route = useRoute()
   const router = useRouter()
@@ -62,7 +27,7 @@ export const useCatalogFilter = () => {
   })
 
   const q = computed({
-    get: () => (route.query.q ? String(route.query.q) : ''),
+    get: () => (route.query.q ? String(route.query.q) : null),
     set: (value: string) => {
       updateQuery({ q: value }, true)
     },
@@ -90,7 +55,7 @@ export const useCatalogFilter = () => {
   })
 
   const status = computed({
-    get: () => (route.query.status ? String(route.query.status) : ''),
+    get: () => (route.query.status ? String(route.query.status) : null),
     set: (value: string) => {
       updateQuery({ status: value }, true)
     },

@@ -14,7 +14,7 @@ const { publishers } = useGetAllPublishers()
 const categoryFilter = defineModel<number | null>('categoryFilter')
 const genreFilter = defineModel<number[]>('genreFilter')
 const publisherFilter = defineModel<number[]>('publisherFilter')
-const statusFilter = defineModel<string | ''>('statusFilter')
+const statusFilter = defineModel<string | null>('statusFilter')
 const emit = defineEmits(['apply'])
 </script>
 
