@@ -1,12 +1,21 @@
-import { api, apiPrivate, type IResponse } from '@/shared/api'
+import { api, apiPrivate, type IPaginatedResponse, type IResponse } from '@/shared/api'
 import { API_URL } from '@/shared/config'
-import { type ICategory, type ICategoryForm } from './category.types'
+import { type ICategoriesParams, type ICategory, type ICategoryForm } from './category.types'
 
 class CategoryService {
   async getCategories() {
     const { data } = await api<IResponse<ICategory[]>>({
       url: API_URL.categories(),
       method: 'GET',
+    })
+    return data
+  }
+
+  async getAdminCategories(params?: ICategoriesParams) {
+    const { data } = await apiPrivate<IPaginatedResponse<ICategory>>({
+      url: API_URL.adminCategories(),
+      method: 'GET',
+      params,
     })
     return data
   }
@@ -50,6 +59,13 @@ class CategoryService {
       url: API_URL.deleteCategory(categoryId),
       method: 'DELETE',
       data: categoryId,
+    })
+    return response
+  }
+  async restoreCategory(categoryId: string) {
+    const response = await apiPrivate({
+      url: API_URL.restoreCategory(categoryId),
+      method: 'POST',
     })
     return response
   }

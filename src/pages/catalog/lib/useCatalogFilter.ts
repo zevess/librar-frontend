@@ -1,5 +1,4 @@
 import type { IBooksParams } from '@/entities/book'
-import { filterInitialData } from '@/features/filter'
 import { convertArrayQuery } from '@/shared/lib'
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter, type LocationQuery } from 'vue-router'

@@ -1,7 +1,7 @@
 import { cleanQuery, convertArrayQuery } from '@/shared/lib'
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { filterInitialData, type IFilter } from '../model/types'
+import { filterInitialData, type IFilter } from '../model/filter.types'
 
 export const useFilter = () => {
   const route = useRoute()

@@ -1,20 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import { genreService } from '../model/genre.service'
-import { useToast } from 'primevue'
-import { useToastStore } from '@/shared/lib'
 import axios from 'axios'
+import { useToastStore } from '@/shared/lib'
+import { genreService } from '../model/genre.service'
 
-export const useDeleteGenre = () => {
+export const useRestoreGenre = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: deleteGenre } = useMutation({
-    mutationKey: ['delete genre'],
-    mutationFn: (genreId: string) => genreService.deleteGenre(genreId),
+  const { mutate: restoreGenre } = useMutation({
+    mutationKey: ['restore genre'],
+    mutationFn: (genreId: string) => genreService.restoreGenre(genreId),
     onSuccess() {
+      toast.success('Успех', 'Жанр успешно восстановлен')
       queryClient.invalidateQueries({
         queryKey: ['get admin genres'],
       })
-      toast.success('Успех', 'Жанр успешно удален')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
@@ -23,6 +22,5 @@ export const useDeleteGenre = () => {
       }
     },
   })
-
-  return { deleteGenre }
+  return { restoreGenre }
 }

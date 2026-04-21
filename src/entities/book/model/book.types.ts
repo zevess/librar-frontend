@@ -34,7 +34,8 @@ export interface IBooksParams {
   id?: string | null
   status?: string | null
   order?: 'asc' | 'desc'
-  sort?: string
+  sort?: string | null
+  perPage?: number
 }
 
 export interface IBookForm {
@@ -44,4 +45,9 @@ export interface IBookForm {
   category_id: number
   publisher_id: number
   image?: string | null
+}
+
+export enum BookStatus {
+  AVAILABLE = 'available',
+  RESERVED = 'reserved',
 }

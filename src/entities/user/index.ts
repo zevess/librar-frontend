@@ -1,4 +1,11 @@
-export type { IUser } from './model/user.types'
+export type {
+  IUser,
+  IUserNotifications,
+  IUserParams,
+  IUserForm,
+  IUserResponse,
+} from './model/user.types'
+export { IUserRole } from './model/user.types'
 export { userService } from './model/user.service'
 export { useUserStore } from './model/user.store'
 export { useProfile } from './api/useProfile'

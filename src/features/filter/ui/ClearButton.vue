@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ActionButton } from '@/shared/ui/action-button'
 import { useRouter } from 'vue-router'
-import { filterInitialData, type IFilter } from '../model/types'
+import { filterInitialData, type IFilter } from '../model/filter.types'
 
 const props = defineProps<{
   filter: IFilter

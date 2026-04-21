@@ -6,7 +6,7 @@ const props = defineProps<{
   reservationId: number
 }>()
 
-const { issue } = useIssueReservation()
+const { issue, isPending } = useIssueReservation()
 
 const issueReservation = () => {
   issue(String(props.reservationId))
@@ -14,5 +14,5 @@ const issueReservation = () => {
 </script>
 
 <template>
-  <ActionButton @click="issueReservation" title="Выдать" />
+  <ActionButton :disabled="isPending" @click="issueReservation" title="Выдать" />
 </template>

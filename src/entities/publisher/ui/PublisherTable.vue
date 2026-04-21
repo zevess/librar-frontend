@@ -10,7 +10,7 @@ import { useDeletePublisher } from '../api/useDeletePublisher'
 import { SettingButton } from '@/shared/ui/setting-button'
 import { DeleteButton } from '@/features/delete-button'
 import { RestoreButton } from '@/features/restore-button'
-import { TableEditorButton } from '@/features/table-editor-button'
+import { TableEditorButton } from '@/shared/ui/table-editor-button'
 
 defineProps<{
   publishers: IPublisher[]

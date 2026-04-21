@@ -13,7 +13,7 @@ export const useRestoreBook = () => {
     mutationKey: ['restore book'],
     mutationFn: (bookId: string) => bookService.restoreBook(bookId),
     onSuccess() {
-      toast.success('Успех', 'Книга успешно удалена')
+      toast.success('Успех', 'Книга успешно восстановлена')
       queryClient.invalidateQueries({
         queryKey: ['get admin books'],
       })

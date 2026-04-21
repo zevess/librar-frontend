@@ -15,7 +15,7 @@ import { useDeleteUser } from '../api/useDeleteUser'
 import { DeleteButton } from '@/features/delete-button'
 import { useRestoreUser } from '../api/useRestoreUser'
 import { RestoreButton } from '@/features/restore-button'
-import { TableEditorButton } from '@/features/table-editor-button'
+import { TableEditorButton } from '@/shared/ui/table-editor-button'
 import { useRowActions } from '@/shared/lib'
 
 defineProps<{

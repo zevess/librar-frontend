@@ -2,6 +2,7 @@ export interface IGenre {
   id: number
   name: string
   slug: string
+  isDeleted?: boolean
 }
 
 export interface IGenreForm {
@@ -10,6 +11,12 @@ export interface IGenreForm {
 
 export interface IGenresParasm {
   genres: number[] | null
+}
+
+export interface IGenresParams {
+  q?: string | null
+  id?: string | null
+  page?: number
 }
 
 export const genreData = [

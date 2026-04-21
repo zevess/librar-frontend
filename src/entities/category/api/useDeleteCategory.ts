@@ -11,9 +11,9 @@ export const useDeleteCategory = () => {
     mutationKey: ['delete genre'],
     mutationFn: (categoryId: string) => categoryService.deleteCategory(categoryId),
     onSuccess(data) {
-      toast.success('Статус', 'Категория успешно создана')
+      toast.success('Статус', 'Категория успешно удалена')
       queryClient.invalidateQueries({
-        queryKey: ['get categories'],
+        queryKey: ['get admin categories'],
       })
     },
     onError(error) {

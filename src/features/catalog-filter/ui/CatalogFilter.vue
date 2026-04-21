@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { BookStatus } from '@/entities/book'
 import { useGetCategories } from '@/entities/category'
 import { useGetGenres } from '@/entities/genre'
 import { useGetAllPublishers, useGetPublishers } from '@/entities/publisher'
@@ -61,18 +62,17 @@ const emit = defineEmits(['apply'])
         <PrimeRadioButton v-model="statusFilter" name="" value="" label="Все"></PrimeRadioButton>
         <PrimeRadioButton
           v-model="statusFilter"
-          name="available"
-          value="available"
+          :name="BookStatus.AVAILABLE"
+          :value="BookStatus.AVAILABLE"
           label="Доступные"
         ></PrimeRadioButton>
         <PrimeRadioButton
           v-model="statusFilter"
-          name="reserved"
-          value="reserved"
+          :name="BookStatus.RESERVED"
+          :value="BookStatus.RESERVED"
           label="Забронированные"
         ></PrimeRadioButton>
       </div>
     </PrimeAccordion>
   </Accordion>
-  <!-- <ActionButton @click="emit('apply')" title="Применить" /> -->
 </template>

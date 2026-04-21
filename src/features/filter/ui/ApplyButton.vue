@@ -2,7 +2,7 @@
 import { ActionButton } from '@/shared/ui/action-button'
 import { useRouter } from 'vue-router'
 import type { Ref } from 'vue'
-import type { IFilter } from '../model/types'
+import type { IFilter } from '../model/filter.types'
 
 const props = defineProps<{
   filter: IFilter

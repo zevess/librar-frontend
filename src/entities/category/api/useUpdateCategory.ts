@@ -18,7 +18,7 @@ export const useUpdateCategory = () => {
       categoryService.updateCategory(data, categoryId),
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ['get categories'],
+        queryKey: ['get admin categories'],
       })
       toast.success('Статус', 'Категория успешно обновлена')
     },

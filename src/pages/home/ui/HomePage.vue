@@ -1,13 +1,24 @@
 <script setup lang="ts">
-import { BookList, BookListSkeleton, useGetBooks } from '@/entities/book'
+import {
+  BookList,
+  BookListSkeleton,
+  BookStatus,
+  type IBooksParams,
+  useGetBooks,
+} from '@/entities/book'
 import { PUBLIC_URL } from '@/shared/config'
 import { ActionButton } from '@/shared/ui/action-button'
 import { PageTitle } from '@/shared/ui/page-title'
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
-const { books, isFetching } = useGetBooks({
+const params = computed<IBooksParams>(() => ({
   sort: 'created_at',
-})
+  status: BookStatus.AVAILABLE,
+  perPage: 6,
+}))
+
+const { books, isFetching } = useGetBooks(params)
 </script>
 
 <template>

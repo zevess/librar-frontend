@@ -6,7 +6,7 @@ const props = defineProps<{
   reservationId: number
 }>()
 
-const { cancel } = useCancelReservation()
+const { cancel, isPending } = useCancelReservation()
 
 const cancelReservation = () => {
   cancel(String(props.reservationId))
@@ -14,5 +14,5 @@ const cancelReservation = () => {
 </script>
 
 <template>
-  <ActionButton @click="cancelReservation" title="Отменить" />
+  <ActionButton :disabled="isPending" @click="cancelReservation" title="Отменить" />
 </template>

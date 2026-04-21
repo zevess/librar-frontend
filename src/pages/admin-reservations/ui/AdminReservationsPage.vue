@@ -4,17 +4,13 @@ import { CancelExpiredButton } from '@/features/cancel-expired-button'
 import { ApplyButton, ClearButton, useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { ReservationFilter, useReservationParams } from '@/features/reservation-filter'
+import { ActionButton } from '@/shared/ui/action-button'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { ConfirmDialog, Toast } from 'primevue'
-import { watch } from 'vue'
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
 
 const { params, bookId, id, email, status, applyFilter, clearFilter } = useFilter()
-
 const { reservations, isReservationsFetching, isReservationsFetched } = useGetReservations(params)
 </script>
 

@@ -1,6 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import { useRouter } from 'vue-router'
-import { PUBLIC_URL } from '@/shared/config'
 import axios from 'axios'
 import { ref } from 'vue'
 import type { IGenreForm } from '../model/genre.types'
@@ -17,7 +15,7 @@ export const useUpdateGenre = () => {
       genreService.updateGenre(data, genreId),
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ['get genres'],
+        queryKey: ['get admin genres'],
       })
       toast.success('Успех', 'Жанр успешно обновлен')
     },

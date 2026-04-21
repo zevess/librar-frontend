@@ -4,6 +4,7 @@ import { ref, onMounted, watch } from 'vue'
 import {
   Column,
   DataTable,
+  Tag,
   useConfirm,
   type DataTableRowClickEvent,
   type DataTableRowEditSaveEvent,
@@ -13,39 +14,25 @@ import { Input } from '@/shared/ui/input'
 import type { IGenre } from '../model/genre.types'
 import { useDeleteGenre } from '../api/useDeleteGenre'
 import { useUpdateGenre } from '../api/useUpdateGenre'
+import { DeleteButton } from '@/features/delete-button'
+import { useRowActions } from '@/shared/lib'
+import { RestoreButton } from '@/features/restore-button'
+import { TableEditorButton } from '@/shared/ui/table-editor-button'
+import { useRestoreGenre } from '../api/useRestoreGenre'
 
 defineProps<{
   genres: IGenre[]
 }>()
 
-const confirm = useConfirm()
+const editingRows = ref([])
 const { deleteGenre } = useDeleteGenre()
 const { updateGenre } = useUpdateGenre()
+const { restoreGenre } = useRestoreGenre()
+const { onRowEditClose } = useRowActions(editingRows)
 
-const editingRows = ref([])
 const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
   const row = event.newData
   updateGenre({ data: row, genreId: row.id })
-}
-const onRowDelete = (data: IGenre) => {
-  confirm.require({
-    message: 'Вы уверены? Это действие необратимо.',
-    header: 'Удалить жанр',
-    icon: 'pi pi-trash',
-    rejectLabel: 'Отмена',
-    rejectProps: {
-      label: 'Отмена',
-      severity: 'secondary',
-      outlined: true,
-    },
-    acceptProps: {
-      label: 'Удалить',
-      severity: 'danger',
-    },
-    accept: () => {
-      deleteGenre(String(data.id))
-    },
-  })
 }
 </script>
 <template>
@@ -61,17 +48,50 @@ const onRowDelete = (data: IGenre) => {
       <template #editor="{ data, field }">
         <div class="flex items-center gap-4 justify-between w-full">
           <Input class="h-fit" v-model="data[field]" />
-          <button @click="onRowDelete(data)">
-            <span
-              class="pi pi-trash p-3 hover:bg-red-500 cursor-pointer rounded-full transition"
-            ></span>
-          </button>
         </div> </template
     ></Column>
-    <Column
-      :rowEditor="true"
-      style="width: 10%; min-width: 8rem"
-      bodyStyle="text-align:center"
-    ></Column>
+    <Column field="isDeleted" header="Статус">
+      <template #body="{ data }">
+        <Tag v-if="data.isDeleted" value="Удален" severity="danger" />
+        <Tag v-if="!data.isDeleted" value="Доступна" severity="success" />
+      </template>
+    </Column>
+    <Column style="width: 5%">
+      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+        <DeleteButton
+          v-if="!data.isDeleted"
+          is-icon
+          v-on:delete="
+            () => {
+              deleteGenre(String(data.id))
+              onRowEditClose(data)
+            }
+          "
+          confirm-header="Удалить жанр"
+        />
+      </template>
+    </Column>
+    <Column style="width: 5%">
+      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+        <RestoreButton
+          v-if="data.isDeleted"
+          is-icon
+          v-on:restore="
+            () => {
+              restoreGenre(String(data.id))
+              onRowEditClose(data)
+            }
+          "
+          confirm-message="Вы уверены? Жанр будет восстановлен"
+          confirm-header="Восстановить жанр"
+        />
+      </template>
+    </Column>
+    <Column :rowEditor="true" style="width: 5%; min-width: 8rem" bodyStyle="text-align:center">
+      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+        <TableEditorButton icon="check" @click="editorSaveCallback" />
+        <TableEditorButton icon="times" @click="editorCancelCallback" />
+      </template>
+    </Column>
   </DataTable>
 </template>

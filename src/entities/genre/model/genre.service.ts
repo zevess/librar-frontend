@@ -1,12 +1,20 @@
-import { api, apiPrivate, type IResponse } from '@/shared/api'
+import { api, apiPrivate, type IPaginatedResponse, type IResponse } from '@/shared/api'
 import { API_URL } from '@/shared/config'
-import type { IGenre, IGenreForm, IGenresParasm } from './genre.types'
+import type { IGenre, IGenreForm, IGenresParams, IGenresParasm } from './genre.types'
 
 class GenreService {
   async getGenres() {
     const { data } = await api<IResponse<IGenre[]>>({
       url: API_URL.genres(),
       method: 'GET',
+    })
+    return data
+  }
+  async getAdminGenres(params?: IGenresParams) {
+    const { data } = await apiPrivate<IPaginatedResponse<IGenre>>({
+      url: API_URL.adminGenres(),
+      method: 'GET',
+      params,
     })
     return data
   }
@@ -49,6 +57,13 @@ class GenreService {
       url: API_URL.deleteGenre(genreId),
       method: 'DELETE',
       data: genreId,
+    })
+    return response
+  }
+  async restoreGenre(genreId: string) {
+    const response = await apiPrivate({
+      url: API_URL.restoreGenre(genreId),
+      method: 'POST',
     })
     return response
   }

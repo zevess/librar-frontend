@@ -8,10 +8,10 @@ import { useDeleteBook } from '../api/useDeleteBook'
 import { useRestoreBook } from '../api/useRestoreBook'
 import { ref } from 'vue'
 import { useRowActions } from '@/shared/lib'
-import { TableEditorButton } from '@/features/table-editor-button'
 import { RestoreButton } from '@/features/restore-button'
 import { DeleteButton } from '@/features/delete-button'
 import { SettingButton } from '@/shared/ui/setting-button'
+import { TableEditorButton } from '@/shared/ui/table-editor-button'
 
 defineProps<{
   books: IBook[]
@@ -28,7 +28,9 @@ const { onRowEditClose } = useRowActions(editingRows)
     <Column field="id" header="ID" style="width: 5%"> </Column>
     <Column field="title" header="Название">
       <template #body="{ data }">
-        <RouterLink :to="PUBLIC_URL.book(`${data.slug}-${data.id}`)">{{ data.title }}</RouterLink>
+        <RouterLink class="hover:underline" :to="PUBLIC_URL.book(`${data.slug}-${data.id}`)">{{
+          data.title
+        }}</RouterLink>
       </template>
     </Column>
     <Column field="image" header="Обложка">
