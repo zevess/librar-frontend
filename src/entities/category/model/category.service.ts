@@ -12,7 +12,7 @@ class CategoryService {
   }
 
   async getAdminCategories(params?: ICategoriesParams) {
-    const { data } = await apiPrivate<IPaginatedResponse<ICategory>>({
+    const { data } = await apiPrivate<IResponse<ICategory[]>>({
       url: API_URL.adminCategories(),
       method: 'GET',
       params,

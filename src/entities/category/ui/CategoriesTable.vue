@@ -61,10 +61,6 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
           "
           confirm-header="Удалить категорию"
         />
-      </template>
-    </Column>
-    <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
         <RestoreButton
           v-if="data.isDeleted"
           is-icon

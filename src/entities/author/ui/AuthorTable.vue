@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Column, DataTable, Tag } from 'primevue'
-import { RouterLink, useRouter } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
 import type { IAuthor } from '../model/author.types'
 import { TableEditorButton } from '@/shared/ui/table-editor-button'
@@ -67,10 +67,6 @@ const { onRowEditClose } = useRowActions(editingRows)
           "
           confirm-header="Удалить автора"
         />
-      </template>
-    </Column>
-    <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
         <RestoreButton
           v-if="data.isDeleted"
           is-icon

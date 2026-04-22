@@ -11,7 +11,7 @@ class GenreService {
     return data
   }
   async getAdminGenres(params?: IGenresParams) {
-    const { data } = await apiPrivate<IPaginatedResponse<IGenre>>({
+    const { data } = await apiPrivate<IResponse<IGenre[]>>({
       url: API_URL.adminGenres(),
       method: 'GET',
       params,

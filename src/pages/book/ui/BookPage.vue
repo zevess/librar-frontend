@@ -11,11 +11,12 @@ import { PageSkeleton } from '@/shared/ui/page-skeleton'
 import { ReviewForm } from '@/features/review-form'
 import { useUserStore } from '@/entities/user'
 import { ConfirmDialog, Toast } from 'primevue'
+import { SkeletonCard } from '@/shared/ui/skeleton-card'
 
 const { slug, id } = useGetParams()
 const { previousRoute } = usePreviousRoute()
 const { book, isFetching, isSuccess, isFetched, refetch } = useGetBook(slug)
-const { reviews, isReviewsFetched } = useGetBookReviews(id)
+const { reviews, isReviewsFetched, isReviewsFetching } = useGetBookReviews(id)
 const { isAuthentificated } = useUserStore()
 
 onMounted(async () => {
@@ -26,8 +27,6 @@ watchEffect(() => {
   const title = book.value?.data?.title
   document.title = title ?? 'Загрузка...'
 })
-
-provide('isFetching', isFetching)
 </script>
 
 <template>
@@ -59,12 +58,16 @@ provide('isFetching', isFetching)
               :book-id="book.data.id"
               v-if="!reviews?.hasUserReviewed && isAuthentificated"
             />
-            <ReviewCard
-              v-if="reviews?.data"
-              v-for="review in reviews?.data"
-              :key="review.id"
-              :review="review"
-            />
+            <div class="flex flex-col gap-4">
+              <SkeletonCard v-for="n in 4" :key="n" v-if="isReviewsFetching" />
+              <ReviewCard
+                v-if="reviews?.data"
+                v-for="review in reviews?.data"
+                :key="review.id"
+                :review="review"
+                variant="book"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  placeholder: string
+  placeholder?: string
   withLabel?: boolean
   label?: string
 }>()
@@ -15,4 +15,3 @@ const model = defineModel<string>()
     class="border-2 w-full field-sizing-content border-[#d1ebe9] rounded-md p-2 bg-gray-50 focus:border-[#a4c8c6] focus:outline-0 focus:border-r-2 transition"
   />
 </template>
-<!-- v-model="value" rows="5" cols="30" -->

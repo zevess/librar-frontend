@@ -2,13 +2,13 @@
 import { CategoriesTable, useGetAdminCategories, useGetCategories } from '@/entities/category'
 import { CategoryFilter } from '@/features/category-filter'
 import { useFilter } from '@/features/filter'
-import { Pagination } from '@/features/pagination'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { ActionButton } from '@/shared/ui/action-button'
 import { LinkButton } from '@/shared/ui/link-button'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
-import { ConfirmDialog, Toast } from 'primevue'
+import { ConfirmDialog } from 'primevue'
+import { Message } from '@/shared/ui/message'
 
 const { q, id, params, applyFilter, clearFilter } = useFilter()
 
@@ -33,6 +33,5 @@ const { categories, isFetching } = useGetAdminCategories(params)
     <Message v-if="categories?.data.length === 0"
       >Ничего не найдено. Попробуйте позже или измените запрос</Message
     >
-    <Pagination v-if="categories" :meta="categories?.meta" :links="categories?.links" />
   </div>
 </template>

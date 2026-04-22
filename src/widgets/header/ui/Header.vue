@@ -22,7 +22,7 @@ const { isHeaderVisible } = useHeaderStatus()
   >
     <ul class="w-full flex justify-between items-center gap-4">
       <slot></slot>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center">
         <div :class="['hidden gap-1 lg:gap-3 md:flex']">
           <RouterLink v-for="item in items" :to="item.url">
             <NavigationItem

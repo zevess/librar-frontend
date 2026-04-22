@@ -16,6 +16,8 @@ import { useGetUserSubscriptions } from '@/entities/subscription'
 import { BookList, BookListSkeleton } from '@/entities/book'
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primevue'
 import { SendVerificationButton } from '@/features/send-verification-button'
+import { ReviewCard, useGetUserReviews } from '@/entities/review'
+import { SkeletonCard } from '@/shared/ui/skeleton-card'
 
 const { profile, isFetching, isFetched } = useProfile()
 
@@ -23,6 +25,8 @@ const userId = computed(() => profile.value?.data.id)
 
 const { subscriptions, isSubscriptionsFetched, isSubscriptionsFetching } =
   useGetUserSubscriptions(userId)
+
+const { reviews, isReviewsFetched, isReviewsFetching } = useGetUserReviews(userId)
 
 const { reservations, isReservationsFetching, isReservationsFetched } =
   useGetUserReservations(userId)
@@ -58,6 +62,7 @@ const activeReservations = computed(() =>
         <Tab value="0" class="uppercase">Отслеживаемое</Tab>
         <Tab value="1" class="uppercase">Активные брони</Tab>
         <Tab value="2" class="uppercase">Все брони</Tab>
+        <Tab value="3" class="uppercase">Отзывы</Tab>
       </TabList>
       <TabPanels class="">
         <TabPanel value="0">
@@ -97,6 +102,21 @@ const activeReservations = computed(() =>
             />
             <Message v-if="reservations?.data.length === 0 && isReservationsFetched"
               >Брони не найдены</Message
+            >
+          </div>
+        </TabPanel>
+        <TabPanel value="3">
+          <div class="flex flex-col gap-4 mt-8">
+            <span class="text-xl uppercase font-semibold">Отзывы:</span>
+            <SkeletonCard v-if="isReservationsFetching && !reviews" />
+            <ReviewCard
+              variant="user"
+              :key="review.id"
+              :review="review"
+              v-for="review in reviews?.data"
+            />
+            <Message v-if="reviews?.data.length === 0 && isReviewsFetched"
+              >Отзывы не найдены</Message
             >
           </div>
         </TabPanel>

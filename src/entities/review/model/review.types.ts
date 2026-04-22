@@ -1,3 +1,4 @@
+import type { IBook } from '@/entities/book'
 import type { IUser } from '@/entities/user'
 
 export interface IReview {
@@ -5,8 +6,11 @@ export interface IReview {
   text: string
   rating: number
   user: IUser
+  book: IBook
   created_at: Date
+  isDeleted: boolean
 }
+
 export interface IReviewsResponse {
   data: IReview[]
   average: number
@@ -16,4 +20,12 @@ export interface IReviewsResponse {
 export interface IReviewForm {
   text: string
   rating: number
+}
+
+export interface IReviewParams {
+  q?: string | null
+  id?: string | null
+  bookId?: string | null
+  userId?: string | null
+  email?: string | null
 }

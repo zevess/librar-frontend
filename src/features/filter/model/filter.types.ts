@@ -5,6 +5,7 @@ export interface IFilter {
   bookId?: string | null
   status?: string | null
   email?: string | null
+  userId?: string | null
   category?: number | null
   genres?: number[]
   publishers?: number[]
@@ -19,6 +20,7 @@ export const filterInitialData: IFilter = {
   bookId: '',
   status: '',
   email: '',
+  userId: '',
 
   category: null,
   genres: [],

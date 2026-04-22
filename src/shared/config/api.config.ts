@@ -77,7 +77,11 @@ export const API_URL = {
   reviews: (url = '') => API_URL.root(`/reviews${url}`),
   getReviews: () => API_URL.reviews('/'),
   createReview: (bookId = '') => API_URL.books(`/${bookId}/reviews`),
+  updateReview: (reviewId = '') => API_URL.reviews(`/${reviewId}`),
   getReview: (reviewId = '') => API_URL.reviews(`/${reviewId}`),
+  getUserReviews: (userId = '') => API_URL.reviews(`/user/${userId}`),
+  deleteReview: (reviewId = '') => API_URL.reviews(`/${reviewId}`),
+  restoreReview: (reviewId = '') => API_URL.reviews(`/${reviewId}/restore`),
 
   reservations: (url = '') => API_URL.root(`/reservations${url}`),
   getReservations: () => API_URL.reservations('/'),
@@ -103,6 +107,7 @@ export const API_URL = {
   adminPublishers: () => API_URL.admin('/publishers'),
   adminCategories: () => API_URL.admin('/categories'),
   adminGenres: () => API_URL.admin('/genres'),
+  adminReviews: () => API_URL.admin('/reviews'),
 
   uploadImage: () => API_URL.root('/upload-image'),
 }

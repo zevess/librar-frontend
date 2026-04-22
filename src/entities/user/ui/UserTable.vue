@@ -50,13 +50,13 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
       </template>
     </Column>
     <Column field="email" header="Почта"></Column>
-    <Column field="isVerified" header="Подтвержден">
+    <Column field="isVerified" header="Подтвержден" style="width: 5%">
       <template #body="{ data }">
         <span v-if="data.isVerified" class="pi pi-verified"></span>
         <span v-if="!data.isVerified" class="pi pi-times-circle"></span>
       </template>
     </Column>
-    <Column field="isDeleted" header="Статус">
+    <Column field="isDeleted" header="Статус" style="width: 5%">
       <template #body="{ data }">
         <Tag v-if="data.isDeleted" value="Удален" severity="danger" />
         <Tag v-if="!data.isDeleted" value="Активен" severity="success" />
@@ -78,23 +78,22 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
             placeholder="роль"
           />
           <span v-if="data.isDeleted">{{ IUserRole[data.role as keyof typeof IUserRole] }}</span>
-          <DeleteButton
-            v-if="!data.isDeleted"
-            is-icon
-            v-on:delete="
-              () => {
-                deleteUser(String(data.id))
-                onRowEditClose(data)
-              }
-            "
-            confirm-header="Удалить пользователя"
-          />
         </div>
       </template>
     </Column>
-    <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center">
+    <Column style="width: 5%">
       <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
-        <TableEditorButton v-if="!data.isDeleted" icon="check" @click="editorSaveCallback" />
+        <DeleteButton
+          v-if="!data.isDeleted"
+          is-icon
+          v-on:delete="
+            () => {
+              deleteUser(String(data.id))
+              onRowEditClose(data)
+            }
+          "
+          confirm-header="Удалить издателя"
+        />
         <RestoreButton
           v-if="data.isDeleted"
           is-icon
@@ -104,8 +103,14 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
               onRowEditClose(data)
             }
           "
-          confirm-header="Восстановить пользователя"
+          confirm-message="Вы уверены? Издатель будет восстановлен со всеми данными"
+          confirm-header="Восстановить издателя"
         />
+      </template>
+    </Column>
+    <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center">
+      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+        <TableEditorButton v-if="!data.isDeleted" icon="check" @click="editorSaveCallback" />
         <TableEditorButton icon="times" @click="editorCancelCallback" />
       </template>
     </Column>

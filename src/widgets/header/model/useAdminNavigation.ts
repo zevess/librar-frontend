@@ -34,6 +34,11 @@ export const useAdminHeaderNavigation = (): IHeaderNavItem[] => {
       icon: 'table',
     },
     {
+      title: 'Отзывы',
+      url: PUBLIC_URL.adminReviews(),
+      icon: 'comments',
+    },
+    {
       title: 'Пользователи',
       url: PUBLIC_URL.adminUsers(),
       icon: 'users',

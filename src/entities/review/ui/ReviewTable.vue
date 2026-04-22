@@ -1,57 +1,70 @@
 <script setup lang="ts">
-import { Column, DataTable, Tag } from 'primevue'
-import type { IBook } from '../model/book.types'
+import {
+  Column,
+  DataTable,
+  Tag,
+  type DataTableRowClickEvent,
+  type DataTableRowEditSaveEvent,
+} from 'primevue'
 import { StoredImage } from '@/shared/ui/stored-image'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
-import { useDeleteBook } from '../api/useDeleteBook'
-import { useRestoreBook } from '../api/useRestoreBook'
+
 import { ref } from 'vue'
 import { useRowActions } from '@/shared/lib'
 import { RestoreButton } from '@/features/restore-button'
 import { DeleteButton } from '@/features/delete-button'
 import { SettingButton } from '@/shared/ui/setting-button'
 import { TableEditorButton } from '@/shared/ui/table-editor-button'
+import type { IReview } from '../model/review.types'
+import { useDeleteReview } from '../api/useDeleteReview'
+import { useRestoreReview } from '../api/useRestoreReview'
+import { useUpdateReview } from '../api/useUpdateReview'
+import { Textarea } from '@/shared/ui/textarea'
 
 defineProps<{
-  books: IBook[]
+  reviews: IReview[]
 }>()
-const editingRows = ref<IBook[]>([])
-const { deleteBook } = useDeleteBook()
-const { restoreBook } = useRestoreBook()
+
+const editingRows = ref<IReview[]>([])
+const { deleteReview } = useDeleteReview()
+const { restoreReview } = useRestoreReview()
+const { updateReview } = useUpdateReview()
+
 const { onRowEditClose } = useRowActions(editingRows)
+const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
+  const row = event.newData
+  updateReview({ data: row, reviewId: row.id })
+}
 </script>
 <template>
-  <DataTable v-model:editingRows="editingRows" editMode="row" dataKey="id" :value="books">
+  <DataTable
+    @row-edit-save="onRowEditSave"
+    v-model:editingRows="editingRows"
+    editMode="row"
+    dataKey="id"
+    :value="reviews"
+  >
     <Column field="id" header="ID" style="width: 5%"> </Column>
-    <Column field="title" header="Название">
-      <template #body="{ data }">
-        <RouterLink class="hover:underline" :to="PUBLIC_URL.book(`${data.slug}-${data.id}`)">{{
-          data.title
-        }}</RouterLink>
+    <Column field="text" header="Текст">
+      <template #editor="{ data, field }">
+        <Textarea v-model="data[field]"> </Textarea>
       </template>
     </Column>
-    <Column field="image" header="Обложка">
+    <Column field="book" header="Книга">
       <template #body="{ data }">
-        <StoredImage v-if="data.image" :url="`${data.image}`" class="max-w-24 rounded" />
+        <RouterLink
+          class="hover:underline"
+          :to="PUBLIC_URL.book(`${data.book.slug}-${data.book.id}`)"
+          >{{ data.book.title }}</RouterLink
+        >
       </template>
     </Column>
-    <Column field="author.name" header="Автор"></Column>
-    <Column field="category.name" header="Категория"></Column>
-    <Column field="publisher.name" header="Издательство"></Column>
+    <Column field="user.email" header="Пользователь"></Column>
     <Column field="isDeleted" header="Статус">
       <template #body="{ data }">
         <Tag v-if="data.isDeleted" value="Удален" severity="danger" />
         <Tag v-if="!data.isDeleted" value="Доступна" severity="success" />
-      </template>
-    </Column>
-    <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
-        <SettingButton
-          v-if="!data.isDeleted"
-          icon-size="base"
-          :to="PUBLIC_URL.adminBookEdit(`${data.slug}-${data.id}`)"
-        />
       </template>
     </Column>
     <Column style="width: 5%">
@@ -61,28 +74,29 @@ const { onRowEditClose } = useRowActions(editingRows)
           is-icon
           v-on:delete="
             () => {
-              deleteBook(String(data.id))
+              deleteReview(String(data.id))
               onRowEditClose(data)
             }
           "
-          confirm-header="Удалить автора"
+          confirm-header="Удалить отзыв"
         />
         <RestoreButton
           v-if="data.isDeleted"
           is-icon
           v-on:restore="
             () => {
-              restoreBook(String(data.id))
+              restoreReview(String(data.id))
               onRowEditClose(data)
             }
           "
-          confirm-message="Вы уверены? Книга будет восстановлена со всеми данными"
-          confirm-header="Восстановить книгу"
+          confirm-message="Вы уверены? Отзыв будет восстановлен "
+          confirm-header="Восстановить отзыв"
         />
       </template>
     </Column>
     <Column :rowEditor="true" style="width: 5%; min-width: 8rem" bodyStyle="text-align:center">
       <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+        <TableEditorButton icon="check" @click="editorSaveCallback" />
         <TableEditorButton icon="times" @click="editorCancelCallback" />
       </template>
     </Column>

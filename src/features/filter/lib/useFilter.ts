@@ -68,6 +68,13 @@ export const useFilter = () => {
     },
   })
 
+  const userId = computed({
+    get: () => (route.query.userId ? String(route.query.userId) : null),
+    set: (value: string) => {
+      params.value.userId = value
+    },
+  })
+
   const category = computed({
     get: () => (route.query.category ? Number(route.query.category) : null),
     set: (value: number) => {
@@ -105,6 +112,7 @@ export const useFilter = () => {
     publishers: publishers.value,
     status: status.value,
     email: email.value,
+    userId: userId.value,
     role: role.value,
     page: page.value,
   }))
@@ -118,6 +126,7 @@ export const useFilter = () => {
     publishers,
     status,
     email,
+    userId,
     role,
     page,
     params,

@@ -37,8 +37,12 @@ export const PUBLIC_URL = {
   adminAuthors: (url = '') => PUBLIC_URL.admin(`/authors${url}`),
   adminAuthorCreate: () => PUBLIC_URL.adminAuthors(`/create`),
   adminAuthorEdit: (authorSlug = '') => PUBLIC_URL.adminAuthors(`/${authorSlug}/edit`),
+
   adminCategories: (url = '') => PUBLIC_URL.admin(`/categories${url}`),
   adminCategoryCreate: () => PUBLIC_URL.adminCategories('/create'),
+
   adminGenres: (url = '') => PUBLIC_URL.admin(`/genres${url}`),
   adminGenreCreate: () => PUBLIC_URL.adminGenres(`/create`),
+
+  adminReviews: (url = '') => PUBLIC_URL.admin(`/reviews${url}`),
 }
