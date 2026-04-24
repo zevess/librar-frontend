@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Select } from 'primevue'
-import { ref } from 'vue'
 defineProps<{
   placeholder?: string
   optionLabel?: string

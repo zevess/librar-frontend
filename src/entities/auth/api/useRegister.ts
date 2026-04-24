@@ -1,17 +1,15 @@
 import { useMutation } from '@tanstack/vue-query'
-import type { ILogin, IRegister } from '../model/auth.types'
+import type { IRegister } from '../model/auth.types'
 import { authService } from '../model/auth.service'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/entities/user'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 export const useRegister = () => {
   const { setUser, setToken, initFromCookies } = useUserStore()
   const router = useRouter()
-
   const errorMessage = ref()
-
   const {
     mutate: register,
     isPending,
@@ -28,7 +26,6 @@ export const useRegister = () => {
       initFromCookies()
       router.push('/')
     },
-
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.error(error.response?.data.message)

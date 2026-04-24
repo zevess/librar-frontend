@@ -1,11 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { authorService } from '../model/author.service'
-import type { IAuthorForm } from '../model/author.types'
 import { useRouter } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
 import axios from 'axios'
 import { ref } from 'vue'
-import { useToast } from 'primevue'
 import { useToastStore } from '@/shared/lib'
 
 export const useDeleteAuthor = () => {

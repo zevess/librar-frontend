@@ -4,6 +4,7 @@ import type { IReview } from '../model/review.types'
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
+import { convertedDate } from '@/shared/lib'
 
 const props = defineProps<{
   review: IReview
@@ -33,7 +34,7 @@ const rating = ref(props.review.rating)
         >
       </div>
 
-      <span>{{ new Date(review.created_at).toLocaleDateString('ru-RU') }}</span>
+      <span>{{ convertedDate(review.createdAt) }}</span>
     </div>
     <PrimeRating font-size="16px" v-model="rating" readonly />
     <p class="text-black">{{ review.text }}</p>

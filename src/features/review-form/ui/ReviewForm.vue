@@ -3,7 +3,7 @@ import { useCreateReview } from '@/entities/review'
 import { ActionButton } from '@/shared/ui/action-button'
 import { PrimeRating } from '@/shared/ui/rating'
 import { Textarea } from '@/shared/ui/textarea'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps<{
   bookId: number

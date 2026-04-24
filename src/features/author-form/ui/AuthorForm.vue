@@ -3,7 +3,6 @@ import { ActionButton } from '@/shared/ui/action-button'
 import { Input } from '@/shared/ui/input'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-
 import {
   authorSchema,
   useCreateAuthor,
@@ -13,7 +12,6 @@ import {
   type IAuthor,
 } from '@/entities/author'
 import { useAuthorFormInitialValues } from '../lib/useAuthorFormInitialValues'
-import { useConfirm, useToast } from 'primevue'
 import { DeleteButton } from '@/features/delete-button'
 import { Textarea } from '@/shared/ui/textarea'
 
@@ -23,10 +21,10 @@ const props = defineProps<{
 }>()
 
 const initialValues = useAuthorFormInitialValues(props.author)
-const { createAuthor, isAuthorCreating, errorMessage } = useCreateAuthor()
+const { createAuthor, isAuthorCreating } = useCreateAuthor()
 const { updateAuthor, isAuthorUpdating } = useUpdateAuthor(String(props.author?.id))
 const { deleteAuthor } = useDeleteAuthor()
-const { handleSubmit, errors, defineField, meta, resetForm, values } = useForm<AuthorSchema>({
+const { handleSubmit, errors, defineField, meta } = useForm<AuthorSchema>({
   validationSchema: toTypedSchema(authorSchema),
   initialValues: initialValues,
 })

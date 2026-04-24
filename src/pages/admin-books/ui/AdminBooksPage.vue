@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { BookList, BookTable, useGetAdminBooks, useGetBooks } from '@/entities/book'
-import { BookFilter, useBookParams } from '@/features/book-filter'
-import { ApplyButton, useFilter } from '@/features/filter'
+import { BookTable, useGetAdminBooks } from '@/entities/book'
+import { BookFilter } from '@/features/book-filter'
+import { useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { ActionButton } from '@/shared/ui/action-button'
@@ -9,7 +9,7 @@ import { LinkButton } from '@/shared/ui/link-button'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
-import { ConfirmDialog, Paginator } from 'primevue'
+import { ConfirmDialog } from 'primevue'
 
 const { q, id, publishers, genres, category, params, applyFilter, clearFilter } = useFilter()
 

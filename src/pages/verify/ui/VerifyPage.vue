@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useVerify } from '@/entities/auth'
-import { ResetPasswordForm } from '@/features/reset-password-form'
 import { PageTitle } from '@/shared/ui/page-title'
-import { Toast } from 'primevue'
-import { onMounted, watch } from 'vue'
+import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()

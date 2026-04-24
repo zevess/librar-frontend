@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { LoginForm } from '@/features/login-form'
 import { RegisterForm } from '@/features/register-form'
-import { ActionButton } from '@/shared/ui/action-button'
-import { Input } from '@/shared/ui/input'
 import { PageTitle } from '@/shared/ui/page-title'
-import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 const isRegister = ref<boolean>(false)
 </script>

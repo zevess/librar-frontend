@@ -5,7 +5,6 @@ import axios from 'axios'
 import { ref } from 'vue'
 import type { ICategoryForm } from '../model/category.types'
 import { categoryService } from '../model/category.service'
-import { useToast } from 'primevue'
 import { useToastStore } from '@/shared/lib'
 
 export const useCreateCategory = () => {
@@ -17,7 +16,7 @@ export const useCreateCategory = () => {
     mutationKey: ['create category'],
     mutationFn: (data: ICategoryForm) => categoryService.createCategory(data),
     onSuccess() {
-      toast.success('Статус', 'Категория успешно создана')
+      toast.success('Успех', 'Категория успешно создана')
       queryClient.invalidateQueries({
         queryKey: ['get categories'],
       })

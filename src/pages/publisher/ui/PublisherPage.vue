@@ -5,7 +5,7 @@ import { useGetPublisher } from '@/entities/publisher'
 import { Message } from '@/shared/ui/message'
 import PublisherHeader from './PublisherHeader.vue'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
-import { computed, watch, watchEffect } from 'vue'
+import { watchEffect } from 'vue'
 
 const { slug } = useGetParams()
 const { publisher, isFetched, isFetching } = useGetPublisher(slug)
@@ -22,6 +22,6 @@ watchEffect(() => {
   <div v-if="publisher?.success" class="flex flex-col gap-4 w-full">
     <PublisherHeader :publisher="publisher.data" />
     <p>{{ publisher?.data.description }}</p>
-    <BookList :items="publisher?.data.books.data ?? []" variant="default" />
+    <BookList :items="publisher?.data.books ?? []" variant="default" />
   </div>
 </template>

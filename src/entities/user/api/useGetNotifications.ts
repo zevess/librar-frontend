@@ -15,5 +15,5 @@ export const useGetNotifications = () => {
     refetchOnWindowFocus: false,
   })
 
-  return { notifications, isFetched, isFetching, isSuccess }
+  return { notifications, isFetched, isFetching, isSuccess, isError, error }
 }

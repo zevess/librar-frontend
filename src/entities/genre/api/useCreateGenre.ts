@@ -16,11 +16,11 @@ export const useCreateGenre = () => {
     mutationKey: ['create genre'],
     mutationFn: (data: IGenreForm) => genreService.createGenre(data),
     onSuccess() {
+      toast.success('Успех', 'Жанр успешно создан')
       queryClient.invalidateQueries({
         queryKey: ['get genres'],
       })
       router.push(PUBLIC_URL.adminGenres())
-      toast.success('Успех', 'Жанр успешно создан')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

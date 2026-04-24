@@ -4,9 +4,8 @@ import { AuthorForm } from '@/features/author-form'
 import { useGetParams } from '@/shared/lib'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
-import { ConfirmDialog, Toast } from 'primevue'
-import { computed, watch, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
+import { ConfirmDialog } from 'primevue'
+import { watchEffect } from 'vue'
 
 const { slug } = useGetParams()
 const { author } = useGetAuthor(slug)

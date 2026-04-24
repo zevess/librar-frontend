@@ -119,10 +119,6 @@ watch(isAuthorDisabled, () => {
     author.value = null
   }
 })
-
-watch(author, () => console.log(author.value))
-
-console.log(author.value)
 </script>
 
 <template>
@@ -212,7 +208,7 @@ console.log(author.value)
       <ActionButton
         :disabled="!meta.valid || isPending || isUpdating || isFileUploading"
         type="submit"
-        class="md:max-w-1/3 w-full"
+        class="md:max-w-1/3 p-4"
         :title="props.mode === 'create' ? 'Создать книгу' : 'Изменить книгу'"
       />
     </div>

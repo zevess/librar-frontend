@@ -10,10 +10,10 @@ export const useRestoreAuthor = () => {
     mutationKey: ['restore author'],
     mutationFn: (authorId: string) => authorService.restoreAuthor(authorId),
     onSuccess() {
+      toast.success('Успех', 'Автор успешно восстановлен')
       queryClient.invalidateQueries({
         queryKey: ['get admin authors'],
       })
-      toast.success('Успех', 'Автор успешно восстановлен')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

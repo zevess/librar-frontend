@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/vue-query'
-import { computed, type ComputedRef, type Ref } from 'vue'
+import { type ComputedRef } from 'vue'
 import { reviewService } from '../model/review.service'
 import type { IReviewParams } from '../model/review.types'
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useGetUsers, useProfile, UserTable } from '@/entities/user'
-import { ApplyButton, ClearButton, useFilter } from '@/features/filter'
+import { useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
-import { UserFilter, useUserParams } from '@/features/user-filter'
+import { UserFilter } from '@/features/user-filter'
 import { ActionButton } from '@/shared/ui/action-button'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'

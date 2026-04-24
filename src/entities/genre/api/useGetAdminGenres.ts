@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/vue-query'
-import { computed, type ComputedRef, type Ref } from 'vue'
+import { type ComputedRef } from 'vue'
 import type { IGenresParams } from '../model/genre.types'
 import { genreService } from '../model/genre.service'
 

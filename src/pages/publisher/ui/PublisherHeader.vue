@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { IAuthor } from '@/entities/author'
 import type { IPublisher } from '@/entities/publisher'
 import { PUBLIC_URL } from '@/shared/config'
 import { useGetParams } from '@/shared/lib'
 import { PageSubtitle } from '@/shared/ui/page-subtitle'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SettingButton } from '@/shared/ui/setting-button'
-import { RouterLink } from 'vue-router'
+
 defineProps<{
   publisher: IPublisher
 }>()

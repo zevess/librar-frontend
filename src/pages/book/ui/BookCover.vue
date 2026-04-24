@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import type { IBook } from '@/entities/book'
-import { useCreateReservation } from '@/entities/reservation'
 import { ReserveButton } from '@/features/reserve-button'
 import { SubscribeButton } from '@/features/subscribe-button'
-import { ActionButton } from '@/shared/ui/action-button'
 import { PrimeRating } from '@/shared/ui/rating'
 import { StoredImage } from '@/shared/ui/stored-image'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps<{
   book: IBook

@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import type { IBook } from '@/entities/book'
-import { useProfile } from '@/entities/user'
 import { PUBLIC_URL } from '@/shared/config'
 import { useGetParams } from '@/shared/lib'
 import { PageSubtitle } from '@/shared/ui/page-subtitle'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SettingButton } from '@/shared/ui/setting-button'
-import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
 defineProps<{

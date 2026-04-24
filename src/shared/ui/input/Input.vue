@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { IconButton } from '../icon-button'
 defineProps<{
   placeholder?: string
   withLabel?: boolean
@@ -10,7 +9,6 @@ const model = defineModel()
 </script>
 
 <template>
-  <!-- <label class="text-gray-500" v-if="withLabel" :for="String(model)">{{ label }}</label> -->
   <input
     :type="type"
     v-model="model"

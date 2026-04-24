@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useGetCategories, useGetCategoriesByQuery, type ICategory } from '@/entities/category'
+import { useGetCategories, type ICategory } from '@/entities/category'
 import {
   AutoComplete,
   type AutoCompleteCompleteEvent,
   type AutoCompleteOptionSelectEvent,
 } from 'primevue'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 const { categories } = useGetCategories()
 const selectedCategory = defineModel<ICategory | string | null>('selectedCategory')

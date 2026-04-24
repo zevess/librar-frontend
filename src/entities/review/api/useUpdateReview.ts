@@ -14,10 +14,10 @@ export const useUpdateReview = () => {
     mutationFn: ({ data, reviewId }: { data: IReviewForm; reviewId: string }) =>
       reviewService.updateReview(data, reviewId),
     onSuccess() {
+      toast.success('Статус', 'Отзыв успешно обновлен')
       queryClient.invalidateQueries({
         queryKey: ['get admin reviews'],
       })
-      toast.success('Статус', 'Отзыв успешно обновлен')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

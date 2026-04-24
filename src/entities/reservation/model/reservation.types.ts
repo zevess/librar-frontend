@@ -34,18 +34,3 @@ export const statusArray = Object.entries(IReservationStatus).map(([value, label
   value,
   label,
 }))
-
-// export const reservationStatus = [
-//   {
-//     status: 'reserved',
-//     name: IReservationStatus.RESERVED,
-//   },
-//   {
-//     status: 'issued',
-//     name: IReservationStatus.AVAILABLE,
-//   },
-//   {
-//     status: 'completed',
-//     name: IReservationStatus.COMPLETED,
-//   },
-// ]

@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/vue-query'
-import type { IReservationParams } from '../model/reservation.types'
 import { reservationService } from '../model/reservation.service'
-import type { ComputedRef, Ref } from 'vue'
+import type { ComputedRef } from 'vue'
 
 export const useGetUserReservations = (
   userId: ComputedRef<number | undefined>,

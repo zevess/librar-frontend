@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { PageSubtitle } from '@/shared/ui/page-subtitle'
 import { PageTitle } from '@/shared/ui/page-title'
-import { useLogout, useProfile, useUserStore } from '@/entities/user'
+import { useProfile } from '@/entities/user'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
-import {
-  ProfileReservationsTable,
-  useGetUserReservations,
-  type IReservation,
-} from '@/entities/reservation'
-import { computed, watch } from 'vue'
+import { ProfileReservationsTable, useGetUserReservations } from '@/entities/reservation'
+import { computed } from 'vue'
 import { LogoutButton } from '@/features/logout-button'
 import { Message } from '@/shared/ui/message'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'

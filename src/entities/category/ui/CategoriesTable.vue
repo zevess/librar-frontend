@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-
+import { ref } from 'vue'
 import { Column, DataTable, Tag, type DataTableRowEditSaveEvent } from 'primevue'
-import { categoryData, type ICategory } from '../model/category.types'
+import { type ICategory } from '../model/category.types'
 import { Input } from '@/shared/ui/input'
 import { useUpdateCategory } from '../api/useUpdateCategory'
 import { useDeleteCategory } from '../api/useDeleteCategory'
@@ -49,7 +48,7 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
       </template>
     </Column>
     <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ data }">
         <DeleteButton
           v-if="!data.isDeleted"
           is-icon
@@ -76,7 +75,7 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
       </template>
     </Column>
     <Column :rowEditor="true" style="width: 5%; min-width: 8rem" bodyStyle="text-align:center">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ editorCancelCallback, editorSaveCallback }">
         <TableEditorButton icon="check" @click="editorSaveCallback" />
         <TableEditorButton icon="times" @click="editorCancelCallback" />
       </template>

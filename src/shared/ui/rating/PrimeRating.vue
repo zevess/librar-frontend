@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Rating } from 'primevue'
-import { ref } from 'vue'
 defineProps<{
   fontSize: string
 }>()

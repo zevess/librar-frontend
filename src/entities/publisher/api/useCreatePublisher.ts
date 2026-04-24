@@ -15,8 +15,8 @@ export const useCreatePublisher = () => {
     mutationKey: ['create publisher'],
     mutationFn: (data: IPublisherForm) => publisherService.createPublisher(data),
     onSuccess(data) {
-      router.push(PUBLIC_URL.publisher(`${data.data.data.slug}-${data.data.data.id}`))
       toast.success('Успех', 'Издатель успешно добавлен')
+      router.push(PUBLIC_URL.publisher(`${data.data.data.slug}-${data.data.data.id}`))
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

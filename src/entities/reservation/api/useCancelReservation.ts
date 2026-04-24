@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { reservationService } from '../model/reservation.service'
-import { useToast } from 'primevue'
 import axios from 'axios'
 import { useToastStore } from '@/shared/lib'
 
@@ -10,8 +9,8 @@ export const useCancelReservation = () => {
   const { mutate: cancel, isPending } = useMutation({
     mutationKey: ['cancel reservation'],
     mutationFn: (reservationId: string) => reservationService.cancelReservation(reservationId),
-    onSuccess(data) {
-      toast.success('Успех', String(data.data.message))
+    onSuccess() {
+      toast.success('Успех', 'Бронь отменена')
       queryClient.invalidateQueries({
         queryKey: ['get reservations'],
       })

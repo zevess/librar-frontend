@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { roleArray } from '@/entities/user'
 import { Input } from '@/shared/ui/input'
-import { PrimeSelect } from '@/shared/ui/select'
 const reviewIdFilter = defineModel<string | null>('reviewIdFilter')
-// const userIdFilter = defineModel<string | null>('userIdFilter')
 const emailFilter = defineModel<string | null>('emailFilter')
 const queryFilter = defineModel<string | null>('queryFilter')
 const bookIdFilter = defineModel<string | null>('bookIdFilter')
@@ -15,10 +12,6 @@ const bookIdFilter = defineModel<string | null>('bookIdFilter')
       <label class="text-sm font-medium text-gray-700">id отзыва:</label>
       <Input v-model="reviewIdFilter" placeholder="найти..." class="w-full" />
     </div>
-    <!-- <div class="flex flex-col gap-1">
-      <label class="text-sm font-medium text-gray-700">id пользователя:</label>
-      <Input v-model="userIdFilter" placeholder="найти..." class="w-full" />
-    </div> -->
 
     <div class="flex flex-col gap-1">
       <label class="text-sm font-medium text-gray-700">email пользователя:</label>

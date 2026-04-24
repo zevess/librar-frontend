@@ -1,20 +1,12 @@
 <script setup lang="ts">
-import {
-  Column,
-  DataTable,
-  Tag,
-  type DataTableRowClickEvent,
-  type DataTableRowEditSaveEvent,
-} from 'primevue'
-import { StoredImage } from '@/shared/ui/stored-image'
-import { RouterLink, useRouter } from 'vue-router'
-import { PUBLIC_URL } from '@/shared/config'
+import { Column, DataTable, Tag, type DataTableRowEditSaveEvent } from 'primevue'
 
+import { RouterLink } from 'vue-router'
+import { PUBLIC_URL } from '@/shared/config'
 import { ref } from 'vue'
 import { useRowActions } from '@/shared/lib'
 import { RestoreButton } from '@/features/restore-button'
 import { DeleteButton } from '@/features/delete-button'
-import { SettingButton } from '@/shared/ui/setting-button'
 import { TableEditorButton } from '@/shared/ui/table-editor-button'
 import type { IReview } from '../model/review.types'
 import { useDeleteReview } from '../api/useDeleteReview'
@@ -68,7 +60,7 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
       </template>
     </Column>
     <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ data }">
         <DeleteButton
           v-if="!data.isDeleted"
           is-icon
@@ -95,7 +87,7 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
       </template>
     </Column>
     <Column :rowEditor="true" style="width: 5%; min-width: 8rem" bodyStyle="text-align:center">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ editorCancelCallback, editorSaveCallback }">
         <TableEditorButton icon="check" @click="editorSaveCallback" />
         <TableEditorButton icon="times" @click="editorCancelCallback" />
       </template>

@@ -9,7 +9,7 @@ export interface IGenreForm {
   name: string
 }
 
-export interface IGenresParasm {
+export interface IGenres {
   genres: number[] | null
 }
 
@@ -18,22 +18,3 @@ export interface IGenresParams {
   id?: string | null
   page?: number
 }
-
-export const genreData = [
-  {
-    name: 'Фантастика',
-    slug: 'fantastika',
-  },
-  {
-    name: 'Приключения',
-    slug: 'priklyucheniya',
-  },
-  {
-    name: 'Ужасы',
-    slug: 'yzhasi',
-  },
-  {
-    name: 'Драма',
-    slug: 'drama',
-  },
-]

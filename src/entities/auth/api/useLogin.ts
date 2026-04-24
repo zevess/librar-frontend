@@ -1,17 +1,15 @@
 import { useMutation } from '@tanstack/vue-query'
 import type { ILogin } from '../model/auth.types'
 import { authService } from '../model/auth.service'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/entities/user'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 export const useLogin = () => {
   const { setUser, setToken, initFromCookies } = useUserStore()
   const router = useRouter()
-
   const errorMessage = ref()
-
   const {
     mutate: login,
     isPending,
@@ -28,7 +26,6 @@ export const useLogin = () => {
       initFromCookies()
       router.push('/')
     },
-
     onError(error) {
       if (axios.isAxiosError(error)) {
         console.error(error.response?.data.message)

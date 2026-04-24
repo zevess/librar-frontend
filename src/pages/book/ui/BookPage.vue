@@ -2,7 +2,7 @@
 import { useGetBook } from '@/entities/book'
 import { ReviewCard, useGetBookReviews } from '@/entities/review'
 import { useGetParams, usePreviousRoute } from '@/shared/lib'
-import { computed, onMounted, provide, ref, watch, watchEffect } from 'vue'
+import { onMounted, watchEffect } from 'vue'
 import BookCharacteristics from './BookCharacteristics.vue'
 import BookHeader from './BookHeader.vue'
 import BookCover from './BookCover.vue'
@@ -10,7 +10,7 @@ import { Message } from '@/shared/ui/message'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
 import { ReviewForm } from '@/features/review-form'
 import { useUserStore } from '@/entities/user'
-import { ConfirmDialog, Toast } from 'primevue'
+import { ConfirmDialog } from 'primevue'
 import { SkeletonCard } from '@/shared/ui/skeleton-card'
 
 const { slug, id } = useGetParams()

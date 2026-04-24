@@ -6,9 +6,7 @@ export interface IAuthor {
   slug: string
   description?: string
   isDeleted: boolean
-  books: {
-    data: IBook[]
-  }
+  books: IBook[]
 }
 
 export interface IAuthorForm {

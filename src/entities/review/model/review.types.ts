@@ -7,7 +7,7 @@ export interface IReview {
   rating: number
   user: IUser
   book: IBook
-  created_at: Date
+  createdAt: Date
   isDeleted: boolean
 }
 

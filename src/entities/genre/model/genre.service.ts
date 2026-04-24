@@ -1,6 +1,6 @@
 import { api, apiPrivate, type IPaginatedResponse, type IResponse } from '@/shared/api'
 import { API_URL } from '@/shared/config'
-import type { IGenre, IGenreForm, IGenresParams, IGenresParasm } from './genre.types'
+import type { IGenre, IGenreForm, IGenresParams, IGenres } from './genre.types'
 
 class GenreService {
   async getGenres() {
@@ -36,7 +36,7 @@ class GenreService {
     return response
   }
 
-  async attachGenresToBook(bookId: string, params: IGenresParasm) {
+  async attachGenresToBook(bookId: string, params: IGenres) {
     const response = await apiPrivate({
       url: API_URL.attachGenre(bookId),
       method: 'POST',
@@ -44,7 +44,7 @@ class GenreService {
     })
     return response
   }
-  async detachGenresFromBook(bookId: string, params: IGenresParasm) {
+  async detachGenresFromBook(bookId: string, params: IGenres) {
     const response = await apiPrivate({
       url: API_URL.detachGenre(bookId),
       method: 'DELETE',

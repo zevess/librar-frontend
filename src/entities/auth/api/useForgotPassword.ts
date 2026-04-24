@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/vue-query'
 import { authService } from '../model/auth.service'
-import { useToast } from 'primevue'
 import axios from 'axios'
 import { ref } from 'vue'
 import { useToastStore } from '@/shared/lib'

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { BookCard } from '@/entities/book/ui/book-card'
 import { Carousel } from 'primevue'
 defineProps({
   values: Array,
@@ -8,9 +7,7 @@ defineProps({
 
 <template>
   <Carousel :value="values" :numVisible="5" :numScroll="3">
-    <template #item="slotProps">
-      <BookCard :book="slotProps.data" />
-    </template>
+    <template #item="slotProps"> </template>
     <slot></slot>
   </Carousel>
 </template>

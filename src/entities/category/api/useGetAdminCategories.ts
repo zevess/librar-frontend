@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/vue-query'
-
-import { computed, type ComputedRef, type Ref } from 'vue'
+import { type ComputedRef } from 'vue'
 import type { ICategoriesParams } from '../model/category.types'
 import { categoryService } from '../model/category.service'
 

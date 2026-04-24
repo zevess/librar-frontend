@@ -1,18 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { reservationService } from '../model/reservation.service'
-import { useToast } from 'primevue'
 import axios from 'axios'
 import { useToastStore } from '@/shared/lib'
 
 export const useIssueReservation = () => {
   const toast = useToastStore()
   const queryClient = useQueryClient()
-  // const { params } = useParams()
   const { mutate: issue, isPending } = useMutation({
     mutationKey: ['issue reservation'],
     mutationFn: (reservationId: string) => reservationService.issueReservation(reservationId),
-    onSuccess(data) {
-      toast.success('Успех', String(data.data.message))
+    onSuccess() {
+      toast.success('Успех', 'Книга успешно выдана')
       queryClient.invalidateQueries({
         queryKey: ['get reservations'],
       })

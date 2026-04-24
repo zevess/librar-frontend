@@ -11,7 +11,7 @@ const props = defineProps<{
 }>()
 
 const { createGenre, isGenreCreating } = useCreateGenre()
-const { handleSubmit, errors, defineField, meta, resetForm, values } = useForm<GenreSchema>({
+const { handleSubmit, errors, defineField, meta } = useForm<GenreSchema>({
   validationSchema: toTypedSchema(genreSchema),
   initialValues: {
     name: props.genre ? props.genre.name : '',

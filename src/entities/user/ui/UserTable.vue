@@ -82,7 +82,7 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
       </template>
     </Column>
     <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ data }">
         <DeleteButton
           v-if="!data.isDeleted"
           is-icon

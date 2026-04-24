@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-
 import { Column, DataTable, Tag } from 'primevue'
 import { IReservationStatus, type IReservation } from '../model/reservation.types'
 import { StoredImage } from '@/shared/ui/stored-image'
-import { ActionButton } from '@/shared/ui/action-button'
-import { getSeverity } from '@/shared/lib'
-import { useProfile } from '@/entities/user'
+import { convertedDate, getSeverity } from '@/shared/lib'
 import { RouterLink } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
 import { CancelReservationButton } from '@/features/cancel-reservation-button'
@@ -41,19 +37,17 @@ defineProps<{
       </Column>
       <Column field="expiresAt" header="Истекает в">
         <template #body="{ data }">
-          {{ data.expiresAt !== null ? new Date(data.expiresAt).toLocaleDateString('ru-RU') : '-' }}
+          {{ data.expiresAt !== null ? convertedDate(data.expiresAt) : '-' }}
         </template>
       </Column>
       <Column field="issuedAt" header="Выдано">
         <template #body="{ data }">
-          {{ data.issuedAt !== null ? new Date(data.issuedAt).toLocaleDateString('ru-RU') : '-' }}
+          {{ data.issuedAt !== null ? convertedDate(data.issuedAt) : '-' }}
         </template>
       </Column>
       <Column field="acceptedAt" header="Принято">
         <template #body="{ data }">
-          {{
-            data.acceptedAt !== null ? new Date(data.acceptedAt).toLocaleDateString('ru-RU') : '-'
-          }}
+          {{ data.acceptedAt !== null ? convertedDate(data.acceptedAt) : '-' }}
         </template>
       </Column>
       <Column field="status" header="Статус">

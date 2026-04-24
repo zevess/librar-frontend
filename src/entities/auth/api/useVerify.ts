@@ -1,8 +1,7 @@
-import { useMutation, useQuery } from '@tanstack/vue-query'
+import { useMutation } from '@tanstack/vue-query'
 import { authService } from '../model/auth.service'
 import type { IVerify } from '../model/auth.types'
 import { ref } from 'vue'
-import { useToast } from 'primevue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
@@ -21,7 +20,7 @@ export const useVerify = () => {
   } = useMutation({
     mutationKey: ['verify email'],
     mutationFn: (params: IVerify) => authService.verify(params),
-    onSuccess(data) {
+    onSuccess() {
       toast.success('Успех', 'Аккаунт подтвержден')
     },
     onError(error) {
@@ -36,5 +35,5 @@ export const useVerify = () => {
     },
   })
 
-  return { verify, isPending, isSuccess }
+  return { verify, isPending, isSuccess, error, isError }
 }

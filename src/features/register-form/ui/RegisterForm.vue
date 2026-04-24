@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  type LoginSchema,
-  loginSchema,
-  registerSchema,
-  type RegisterSchema,
-  useLogin,
-  useRegister,
-} from '@/entities/auth'
+import { registerSchema, type RegisterSchema, useRegister } from '@/entities/auth'
 import { ActionButton } from '@/shared/ui/action-button'
 import { Input } from '@/shared/ui/input'
 import { toTypedSchema } from '@vee-validate/zod'

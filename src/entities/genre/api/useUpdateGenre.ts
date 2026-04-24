@@ -14,10 +14,10 @@ export const useUpdateGenre = () => {
     mutationFn: ({ data, genreId }: { data: IGenreForm; genreId: string }) =>
       genreService.updateGenre(data, genreId),
     onSuccess() {
+      toast.success('Успех', 'Жанр успешно обновлен')
       queryClient.invalidateQueries({
         queryKey: ['get admin genres'],
       })
-      toast.success('Успех', 'Жанр успешно обновлен')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

@@ -5,7 +5,6 @@ import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import axios from 'axios'
 import { PUBLIC_URL } from '@/shared/config'
-import { useToast } from 'primevue'
 import { useToastStore } from '@/shared/lib'
 
 export const useCreateBook = () => {
@@ -20,8 +19,8 @@ export const useCreateBook = () => {
     mutationKey: ['create book'],
     mutationFn: (data: IBookForm) => bookService.createBook(data),
     onSuccess(data) {
+      toast.success('Успех', 'Книга успешно создана')
       router.push(PUBLIC_URL.book(`${data.data.data.slug}-${data.data.data.id}`))
-      toast.success('Ошибка', 'Книга успешно создана')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

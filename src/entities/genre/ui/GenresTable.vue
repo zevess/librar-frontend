@@ -1,15 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
-
-import {
-  Column,
-  DataTable,
-  Tag,
-  useConfirm,
-  type DataTableRowClickEvent,
-  type DataTableRowEditSaveEvent,
-} from 'primevue'
-
+import { ref } from 'vue'
+import { Column, DataTable, Tag, type DataTableRowEditSaveEvent } from 'primevue'
 import { Input } from '@/shared/ui/input'
 import type { IGenre } from '../model/genre.types'
 import { useDeleteGenre } from '../api/useDeleteGenre'
@@ -57,7 +48,7 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
       </template>
     </Column>
     <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ data }">
         <DeleteButton
           v-if="!data.isDeleted"
           is-icon
@@ -84,7 +75,7 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
       </template>
     </Column>
     <Column :rowEditor="true" style="width: 5%; min-width: 8rem" bodyStyle="text-align:center">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ editorCancelCallback, editorSaveCallback }">
         <TableEditorButton icon="check" @click="editorSaveCallback" />
         <TableEditorButton icon="times" @click="editorCancelCallback" />
       </template>

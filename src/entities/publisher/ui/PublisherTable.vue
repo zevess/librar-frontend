@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Column, DataTable, Tag, type DataTableRowClickEvent } from 'primevue'
-import { useRouter } from 'vue-router'
+import { Column, DataTable, Tag } from 'primevue'
+import { RouterLink } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
 import type { IPublisher } from '../model/publisher.types'
 import { ref } from 'vue'
@@ -19,18 +19,19 @@ defineProps<{
 const { deletePublisher } = useDeletePublisher()
 const { restorePublisher } = useRestorePublisher()
 
-const router = useRouter()
 const editingRows = ref<IPublisher[]>([])
 const { onRowEditClose } = useRowActions(editingRows)
-
-const onRowClick = (event: DataTableRowClickEvent) => {
-  router.push(PUBLIC_URL.publisher(`${event.data.slug}-${event.data.id}`))
-}
 </script>
 <template>
   <DataTable v-model:editingRows="editingRows" editMode="row" :value="publishers" dataKey="id">
-    <Column field="id" header="ID" style="width: 20%"> </Column>
-    <Column field="name" header="Название"></Column>
+    <Column field="id" header="ID" style="width: 5%"></Column>
+    <Column field="name" header="Название">
+      <template #body="{ data }">
+        <RouterLink class="hover:underline" :to="PUBLIC_URL.publisher(`${data.slug}-${data.id}`)">{{
+          data.name
+        }}</RouterLink>
+      </template>
+    </Column>
     <Column field="description" header="Описание"></Column>
     <Column field="isDeleted" header="Статус">
       <template #body="{ data }">
@@ -39,7 +40,7 @@ const onRowClick = (event: DataTableRowClickEvent) => {
       </template>
     </Column>
     <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ data }">
         <SettingButton
           v-if="!data.isDeleted"
           icon-size="base"
@@ -48,7 +49,7 @@ const onRowClick = (event: DataTableRowClickEvent) => {
       </template>
     </Column>
     <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ data }">
         <DeleteButton
           v-if="!data.isDeleted"
           is-icon
@@ -75,7 +76,7 @@ const onRowClick = (event: DataTableRowClickEvent) => {
       </template>
     </Column>
     <Column :rowEditor="true" style="width: 5%; min-width: 8rem" bodyStyle="text-align:center">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ editorCancelCallback }">
         <TableEditorButton icon="times" @click="editorCancelCallback" />
       </template>
     </Column>

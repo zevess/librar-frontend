@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-
 import { useToastStore } from '@/shared/lib'
 import axios from 'axios'
 import { publisherService } from '../model/publisher.service'
@@ -11,10 +10,10 @@ export const useRestorePublisher = () => {
     mutationKey: ['restore publisher'],
     mutationFn: (publisherId: string) => publisherService.restorePublisher(publisherId),
     onSuccess() {
+      toast.success('Успех', 'Издатель успешно восстановлен')
       queryClient.invalidateQueries({
         queryKey: ['get admin publishers'],
       })
-      toast.success('Успех', 'Издатель успешно восстановлен')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

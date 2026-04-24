@@ -2,7 +2,7 @@
 import { BookStatus } from '@/entities/book'
 import { useGetCategories } from '@/entities/category'
 import { useGetGenres } from '@/entities/genre'
-import { useGetAllPublishers, useGetPublishers } from '@/entities/publisher'
+import { useGetAllPublishers } from '@/entities/publisher'
 import { PrimeAccordion } from '@/shared/ui/accordion'
 import { PrimeCheckbox } from '@/shared/ui/checkbox'
 import { PrimeRadioButton } from '@/shared/ui/radio-button'

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ForgotPasswordForm } from '@/features/forgot-password-form'
 import { PageTitle } from '@/shared/ui/page-title'
-import { Toast } from 'primevue'
 </script>
 
 <template>

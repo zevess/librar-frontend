@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-
-import { PUBLIC_URL } from '@/shared/config/url.config'
 import type { IBook } from '../model/book.types'
 import { BookCard } from '..'
-import { Toast } from 'primevue'
 
 const props = defineProps<{
   items: IBook[]

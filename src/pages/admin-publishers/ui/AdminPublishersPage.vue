@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { PublisherTable, useGetAdminPublishers, useGetPublishers } from '@/entities/publisher'
-import { ApplyButton, ClearButton, useFilter } from '@/features/filter'
+import { PublisherTable, useGetAdminPublishers } from '@/entities/publisher'
+import { useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
-import { PublisherFilter, usePublisherParams } from '@/features/publisher-filter'
+import { PublisherFilter } from '@/features/publisher-filter'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { ActionButton } from '@/shared/ui/action-button'
 import { LinkButton } from '@/shared/ui/link-button'

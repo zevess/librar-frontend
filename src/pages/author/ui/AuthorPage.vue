@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { BookList, BookCard, BookListSkeleton } from '@/entities/book'
+import { BookList } from '@/entities/book'
 import { useGetParams } from '@/shared/lib'
 import { useGetAuthor } from '@/entities/author'
 import { Message } from '@/shared/ui/message'
 import AuthorHeader from './AuthorHeader.vue'
 import { PageSkeleton } from '@/shared/ui/page-skeleton'
-import { computed, watch, watchEffect } from 'vue'
+import { watchEffect } from 'vue'
 const { slug } = useGetParams()
 const { author, isFetching, isFetched } = useGetAuthor(slug)
 watchEffect(() => {
@@ -20,6 +20,6 @@ watchEffect(() => {
   <div v-if="author?.success" class="flex flex-col gap-4 w-full">
     <AuthorHeader :author="author.data" />
     <p>{{ author?.data.description }}</p>
-    <BookList :items="author?.data.books.data" v-if="author.data.books" variant="default" />
+    <BookList :items="author?.data.books" v-if="author.data.books" variant="default" />
   </div>
 </template>

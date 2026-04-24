@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import { bookService } from '../model/book.service'
-import type { IBook, IBooksParams } from '../model/book.types'
-import { computed, type ComputedRef, type Ref } from 'vue'
+import type { IBooksParams } from '../model/book.types'
+import { type ComputedRef } from 'vue'
 
 export const useGetAdminBooks = (params?: ComputedRef<IBooksParams>, enabled?: boolean) => {
   const {

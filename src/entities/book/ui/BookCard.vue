@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ActionButton } from '@/shared/ui/action-button'
 import { RouterLink } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config/url.config'
-import { bookData, type IBook } from '../model/book.types'
+import { type IBook } from '../model/book.types'
 import { StoredImage } from '@/shared/ui/stored-image'
 import { computed, ref } from 'vue'
 import { ReserveButton } from '@/features/reserve-button'

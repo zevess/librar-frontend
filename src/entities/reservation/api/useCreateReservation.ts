@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/vue-query'
 import { reservationService } from '../model/reservation.service'
-import { useToast } from 'primevue'
 import axios from 'axios'
 import { useToastStore } from '@/shared/lib'
 
@@ -14,8 +13,8 @@ export const useCreateReservation = () => {
   } = useMutation({
     mutationKey: ['create reservation'],
     mutationFn: (bookId: string) => reservationService.createReservation(bookId),
-    onSuccess(data) {
-      toast.success('Успех', String(data.data.message))
+    onSuccess() {
+      toast.success('Успех', 'Книга успешно забронирована')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

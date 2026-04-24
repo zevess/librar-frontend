@@ -59,6 +59,9 @@ body {
 .p-autocomplete-input-multiple:focus {
   border-color: #a4c8c6 !important;
 }
+.p-autocomplete-input:disabled {
+  background-color: #e5e7eb !important;
+}
 
 .p-toast {
   width: 100% !important;
@@ -70,7 +73,4 @@ body {
 }
 .custom-row:hover {
   background-color: #f0f0f0;
-}
-
-.book-properties-item {
 }

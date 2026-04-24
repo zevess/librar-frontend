@@ -6,7 +6,6 @@ import { useForm } from 'vee-validate'
 import {
   categorySchema,
   useCreateCategory,
-  useUpdateCategory,
   type CategorySchema,
   type ICategory,
 } from '@/entities/category'
@@ -21,7 +20,7 @@ const props = defineProps<{
 const initialValues = useCategoryFormInitialValues(props.category)
 const { createCategory, isCategoryCreating } = useCreateCategory()
 
-const { handleSubmit, errors, defineField, meta, resetForm, values } = useForm<CategorySchema>({
+const { handleSubmit, errors, defineField, meta } = useForm<CategorySchema>({
   validationSchema: toTypedSchema(categorySchema),
   initialValues: initialValues,
 })

@@ -51,10 +51,6 @@ class AuthService {
         expires: params.expires,
         signature: params.signature,
       },
-      // data: {
-      //   expires: params.expires,
-      //   signature: params.signature,
-      // },
     })
     return data
   }

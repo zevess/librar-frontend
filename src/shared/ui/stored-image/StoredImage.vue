@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { bookData } from '@/entities/book/model/book.types'
 import { BASE_SERVER_URL } from '@/shared/config'
 import { computed } from 'vue'
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PUBLIC_URL } from '@/shared/config'
-import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>

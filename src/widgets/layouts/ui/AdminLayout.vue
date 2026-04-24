@@ -12,7 +12,7 @@ const footerItems = useFooterNavigation()
 </script>
 
 <template>
-  <div class="mx-auto max-w-360">
+  <div class="mx-auto max-w-360 flex flex-col min-h-screen">
     <Header :items="headerItems" variant="admin">
       <div class="flex items-center gap-2 min-w-fit">
         <RouterLink to="/">
@@ -24,7 +24,7 @@ const footerItems = useFooterNavigation()
     <Container>
       <slot></slot>
     </Container>
-    <Footer :items="footerItems" class="flex md:hidden">
+    <Footer :items="footerItems" class="flex md:hidden mt-auto">
       <MenuDrawer :items="headerItems" />
     </Footer>
   </div>

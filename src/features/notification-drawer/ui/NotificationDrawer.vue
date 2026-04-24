@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { useGetNotifications, useProfile, useReadNotifications } from '@/entities/user'
-import { PUBLIC_URL } from '@/shared/config'
-import { convertedDate } from '@/shared/lib'
 import { Drawer } from 'primevue'
 import { computed, ref } from 'vue'
-import { RouterLink } from 'vue-router'
 import NotificationTrigger from './NotificationTrigger.vue'
 import NotificationItem from './NotificationItem.vue'
 

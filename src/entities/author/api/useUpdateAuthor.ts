@@ -5,7 +5,6 @@ import { useRouter } from 'vue-router'
 import { PUBLIC_URL } from '@/shared/config'
 import axios from 'axios'
 import { ref } from 'vue'
-import { useToast } from 'primevue'
 import { useToastStore } from '@/shared/lib'
 
 export const useUpdateAuthor = (authorId: string) => {

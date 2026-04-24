@@ -1,4 +1,4 @@
-import { api, apiPrivate, type IPaginatedResponse, type IResponse } from '@/shared/api'
+import { apiPrivate, type IPaginatedResponse, type IResponse } from '@/shared/api'
 import { API_URL } from '@/shared/config'
 import {
   type IReview,

@@ -1,8 +1,5 @@
 import { useQuery } from '@tanstack/vue-query'
 import { userService } from '../model/user.service'
-import { useUserStore } from '../model/user.store'
-import axios from 'axios'
-import { effectScope, watch } from 'vue'
 
 export const useProfile = () => {
   const {
@@ -18,5 +15,5 @@ export const useProfile = () => {
     refetchOnWindowFocus: false,
   })
 
-  return { profile, isFetched, isFetching, isSuccess }
+  return { profile, isFetched, isFetching, isSuccess, isError, error }
 }

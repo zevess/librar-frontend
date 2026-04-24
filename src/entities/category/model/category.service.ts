@@ -1,4 +1,4 @@
-import { api, apiPrivate, type IPaginatedResponse, type IResponse } from '@/shared/api'
+import { api, apiPrivate, type IResponse } from '@/shared/api'
 import { API_URL } from '@/shared/config'
 import { type ICategoriesParams, type ICategory, type ICategoryForm } from './category.types'
 

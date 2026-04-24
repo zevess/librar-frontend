@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/vue-query'
+import { useMutation } from '@tanstack/vue-query'
 import { bookService } from '../model/book.service'
 
 export const useGetBooksByQuery = () => {

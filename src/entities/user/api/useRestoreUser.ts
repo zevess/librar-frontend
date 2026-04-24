@@ -10,10 +10,10 @@ export const useRestoreUser = () => {
     mutationKey: ['restore user'],
     mutationFn: (userId: string) => userService.restoreUser(userId),
     onSuccess() {
+      toast.success('Успех', 'Пользователь успешно восстановлен')
       queryClient.invalidateQueries({
         queryKey: ['get users'],
       })
-      toast.success('Успех', 'Пользователь успешно восстановлен')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

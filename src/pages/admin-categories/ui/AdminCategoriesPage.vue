@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CategoriesTable, useGetAdminCategories, useGetCategories } from '@/entities/category'
+import { CategoriesTable, useGetAdminCategories } from '@/entities/category'
 import { CategoryFilter } from '@/features/category-filter'
 import { useFilter } from '@/features/filter'
 import { PUBLIC_URL } from '@/shared/config/url.config'

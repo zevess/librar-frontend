@@ -46,7 +46,7 @@ const { onRowEditClose } = useRowActions(editingRows)
       </template>
     </Column>
     <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ data }">
         <SettingButton
           v-if="!data.isDeleted"
           icon-size="base"
@@ -55,7 +55,7 @@ const { onRowEditClose } = useRowActions(editingRows)
       </template>
     </Column>
     <Column style="width: 5%">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ data }">
         <DeleteButton
           v-if="!data.isDeleted"
           is-icon
@@ -82,7 +82,7 @@ const { onRowEditClose } = useRowActions(editingRows)
       </template>
     </Column>
     <Column :rowEditor="true" style="width: 5%; min-width: 8rem" bodyStyle="text-align:center">
-      <template #editor="{ data, editorCancelCallback, editorSaveCallback }">
+      <template #editor="{ editorCancelCallback }">
         <TableEditorButton icon="times" @click="editorCancelCallback" />
       </template>
     </Column>

@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { GenresTable, useGetAdminGenres, useGetGenres } from '@/entities/genre'
+import { GenresTable, useGetAdminGenres } from '@/entities/genre'
 import { useFilter } from '@/features/filter'
 import { GenreFilter } from '@/features/genre-filter'
-import { Pagination } from '@/features/pagination'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { ActionButton } from '@/shared/ui/action-button'
 import { LinkButton } from '@/shared/ui/link-button'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
-import { ConfirmDialog, Toast } from 'primevue'
+import { ConfirmDialog } from 'primevue'
 import { Message } from '@/shared/ui/message'
 
 const { q, id, params, applyFilter, clearFilter } = useFilter()

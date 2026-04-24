@@ -1,6 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-
-import { useToast } from 'primevue'
 import { useToastStore } from '@/shared/lib'
 import axios from 'axios'
 import { reviewService } from '../model/review.service'
@@ -11,7 +9,7 @@ export const useDeleteReview = () => {
   const { mutate: deleteReview } = useMutation({
     mutationKey: ['delete review'],
     mutationFn: (reviewId: string) => reviewService.deleteReview(reviewId),
-    onSuccess(data) {
+    onSuccess() {
       toast.success('Статус', 'Отзыв успешно удален')
       queryClient.invalidateQueries({
         queryKey: ['get admin reviews'],

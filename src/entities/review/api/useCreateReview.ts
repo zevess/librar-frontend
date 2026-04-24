@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { reviewService } from '../model/review.service'
 import type { IReviewForm } from '../model/review.types'
-import { useToast } from 'primevue'
 import axios from 'axios'
 import { useToastStore } from '@/shared/lib'
 
@@ -12,10 +11,10 @@ export const useCreateReview = (bookId: string) => {
     mutationKey: ['create review'],
     mutationFn: (data: IReviewForm) => reviewService.createReview(bookId, data),
     onSuccess() {
+      toast.success('Успех', 'Отзыв успешно создан')
       queryClient.invalidateQueries({
         queryKey: ['get book reviews', bookId],
       })
-      toast.success('Успех', 'Отзыв успешно создан')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

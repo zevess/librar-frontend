@@ -1,6 +1,5 @@
-import { api, apiPrivate, type IResponse } from '@/shared/api'
+import { apiPrivate, type IResponse } from '@/shared/api'
 import { API_URL } from '@/shared/config'
-import type { IUserSubscriptions } from './subscription.types'
 import type { IBook } from '@/entities/book'
 
 class SubscriptionService {

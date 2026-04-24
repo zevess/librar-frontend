@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { AuthorTable, useGetAdminAuthors, useGetAuthor, useGetAuthors } from '@/entities/author'
-import { AuthorFilter, useAuthorParams } from '@/features/author-filter'
-import { ApplyButton, ClearButton, useFilter } from '@/features/filter'
+import { AuthorTable, useGetAdminAuthors } from '@/entities/author'
+import { AuthorFilter } from '@/features/author-filter'
+import { useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { ActionButton } from '@/shared/ui/action-button'
@@ -10,8 +10,6 @@ import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { ConfirmDialog } from 'primevue'
-import { watch } from 'vue'
-import { RouterLink, useRoute, useRouter } from 'vue-router'
 
 const { id, q, params, applyFilter, clearFilter } = useFilter()
 const { authors, isFetched, isFetching } = useGetAdminAuthors(params)

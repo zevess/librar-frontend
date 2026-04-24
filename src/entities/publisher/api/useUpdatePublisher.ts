@@ -15,8 +15,8 @@ export const useUpdatePublisher = (publisherId: string) => {
     mutationKey: ['update publisher'],
     mutationFn: (data: IPublisherForm) => publisherService.updatePublisher(data, publisherId),
     onSuccess(data) {
-      router.push(PUBLIC_URL.publisher(`${data.data.data.slug}-${data.data.data.id}`))
       toast.success('Успех', 'Издатель успешно обновлен')
+      router.push(PUBLIC_URL.publisher(`${data.data.data.slug}-${data.data.data.id}`))
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

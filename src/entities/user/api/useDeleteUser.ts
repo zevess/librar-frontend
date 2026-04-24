@@ -10,10 +10,10 @@ export const useDeleteUser = () => {
     mutationKey: ['delete user'],
     mutationFn: (userId: string) => userService.deleteUser(userId),
     onSuccess() {
+      toast.success('Успех', 'Пользователь успешно удален')
       queryClient.invalidateQueries({
         queryKey: ['get users'],
       })
-      toast.success('Успех', 'Пользователь успешно удален')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

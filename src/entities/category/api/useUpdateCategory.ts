@@ -1,6 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import { useRouter } from 'vue-router'
-import { PUBLIC_URL } from '@/shared/config'
 import axios from 'axios'
 import { ref } from 'vue'
 import type { ICategoryForm } from '../model/category.types'
@@ -8,7 +6,6 @@ import { categoryService } from '../model/category.service'
 import { useToastStore } from '@/shared/lib'
 
 export const useUpdateCategory = () => {
-  const router = useRouter()
   const errorMessage = ref()
   const queryClient = useQueryClient()
   const toast = useToastStore()
@@ -17,10 +14,10 @@ export const useUpdateCategory = () => {
     mutationFn: ({ data, categoryId }: { data: ICategoryForm; categoryId: string }) =>
       categoryService.updateCategory(data, categoryId),
     onSuccess() {
+      toast.success('Успех', 'Категория успешно обновлена')
       queryClient.invalidateQueries({
         queryKey: ['get admin categories'],
       })
-      toast.success('Статус', 'Категория успешно обновлена')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

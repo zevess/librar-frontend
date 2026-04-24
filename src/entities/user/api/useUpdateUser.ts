@@ -17,10 +17,10 @@ export const useUpdateUser = () => {
     mutationFn: ({ data, userId }: { data: IUserForm; userId: string }) =>
       userService.updateUser(data, userId),
     onSuccess() {
+      toast.success('Успех', 'Пользователь успешно изменён')
       queryClient.invalidateQueries({
         queryKey: ['get users'],
       })
-      toast.success('Успех', 'Пользователь успешно изменён')
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { useGetGenres, type IGenre } from '@/entities/genre'
-import {
-  AutoComplete,
-  type AutoCompleteCompleteEvent,
-  type AutoCompleteOptionSelectEvent,
-} from 'primevue'
-import { computed, ref } from 'vue'
+import { AutoComplete, type AutoCompleteCompleteEvent } from 'primevue'
+import { ref } from 'vue'
 
 const { genres } = useGetGenres()
 const selectedGenres = defineModel<IGenre[]>('selectedGenres')

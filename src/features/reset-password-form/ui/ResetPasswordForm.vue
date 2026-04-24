@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  forgotPasswordSchema,
-  type ForgotPasswordSchema,
-  resetPasswordSchema,
-  type ResetPasswordSchema,
-  useForgotPassword,
-  useResetPassword,
-} from '@/entities/auth'
+import { resetPasswordSchema, type ResetPasswordSchema, useResetPassword } from '@/entities/auth'
 import { ActionButton } from '@/shared/ui/action-button'
 import { Input } from '@/shared/ui/input'
 import { toTypedSchema } from '@vee-validate/zod'
