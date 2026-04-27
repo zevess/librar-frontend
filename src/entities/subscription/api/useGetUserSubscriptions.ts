@@ -7,12 +7,23 @@ export const useGetUserSubscriptions = (userId: ComputedRef<number | undefined>)
     data: subscriptions,
     isFetching: isSubscriptionsFetching,
     isFetched: isSubscriptionsFetched,
+    error: subscriptionsError,
+    isError: isSubscriptionsError,
+    isPending: isSubscriptionsPending,
   } = useQuery({
     queryKey: ['get user subscriptions', userId],
     queryFn: () => subscriptionService.getUserSubscriptions(String(userId.value)),
     refetchOnWindowFocus: false,
     refetchOnMount: true,
     enabled: () => !!userId.value,
+    retry: false,
   })
-  return { subscriptions, isSubscriptionsFetched, isSubscriptionsFetching }
+  return {
+    subscriptions,
+    isSubscriptionsFetched,
+    isSubscriptionsFetching,
+    subscriptionsError,
+    isSubscriptionsError,
+    isSubscriptionsPending,
+  }
 }

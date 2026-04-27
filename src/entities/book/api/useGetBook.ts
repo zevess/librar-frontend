@@ -5,9 +5,10 @@ import type { ComputedRef } from 'vue'
 export const useGetBook = (slug: ComputedRef<string | string[] | undefined>) => {
   const {
     data: book,
-    isFetching,
-    isFetched,
-    isSuccess,
+    isFetching: isBookFetching,
+    isFetched: isBookFetched,
+    isPending: isBookPending,
+    isError: isBookError,
     refetch,
   } = useQuery({
     queryKey: ['get book', slug],
@@ -15,5 +16,5 @@ export const useGetBook = (slug: ComputedRef<string | string[] | undefined>) => 
     refetchOnWindowFocus: false,
     refetchOnMount: true,
   })
-  return { book, isFetching, isFetched, isSuccess, refetch }
+  return { book, isBookError, isBookFetched, isBookFetching, isBookPending, refetch }
 }

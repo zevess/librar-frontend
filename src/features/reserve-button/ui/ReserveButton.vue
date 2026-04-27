@@ -16,7 +16,7 @@ const isAvailable = ref(props.isAvailable)
 const { isAuthentificated } = useUserStore()
 const router = useRouter()
 
-const { reserve, isSuccess } = useCreateReservation()
+const { reserve } = useCreateReservation()
 
 const reserveBook = () => {
   if (!isAuthentificated) {

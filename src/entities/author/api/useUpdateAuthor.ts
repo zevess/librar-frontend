@@ -11,7 +11,12 @@ export const useUpdateAuthor = (authorId: string) => {
   const router = useRouter()
   const errorMessage = ref()
   const toast = useToastStore()
-  const { mutate: updateAuthor, isPending: isAuthorUpdating } = useMutation({
+  const {
+    mutate: updateAuthor,
+    isPending: isAuthorUpdating,
+    isError: isAuthorError,
+    isSuccess: isAuthorUpdated,
+  } = useMutation({
     mutationKey: ['update author'],
     mutationFn: (data: IAuthorForm) => authorService.updateAuthor(data, authorId),
     onSuccess(data) {
@@ -26,5 +31,5 @@ export const useUpdateAuthor = (authorId: string) => {
       }
     },
   })
-  return { updateAuthor, isAuthorUpdating, errorMessage }
+  return { updateAuthor, isAuthorUpdating, errorMessage, isAuthorError, isAuthorUpdated }
 }

@@ -1,1 +1,1 @@
-export { default as SendVerificationButton } from './SendVerificationButton.vue'
+export { default as SendVerificationButton } from './ui/SendVerificationButton.vue'

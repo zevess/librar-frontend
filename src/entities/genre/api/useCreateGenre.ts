@@ -12,7 +12,12 @@ export const useCreateGenre = () => {
   const errorMessage = ref()
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: createGenre, isPending: isGenreCreating } = useMutation({
+  const {
+    mutate: createGenre,
+    isPending: isGenreCreating,
+    isError: isGenreError,
+    isSuccess: isGenreCreated,
+  } = useMutation({
     mutationKey: ['create genre'],
     mutationFn: (data: IGenreForm) => genreService.createGenre(data),
     onSuccess() {
@@ -30,5 +35,5 @@ export const useCreateGenre = () => {
       }
     },
   })
-  return { createGenre, isGenreCreating, errorMessage }
+  return { createGenre, isGenreCreating, errorMessage, isGenreCreated, isGenreError }
 }

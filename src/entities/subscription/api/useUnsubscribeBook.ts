@@ -8,7 +8,8 @@ export const useUnsubscribeBook = () => {
   const {
     mutate: unsubscribe,
     isPending: isUnsubscribing,
-    isSuccess,
+    isSuccess: isUnsubscribed,
+    isError: isUnsubscribeError,
   } = useMutation({
     mutationKey: ['unsubscribe book'],
     mutationFn: (bookId: string) => subscriptionService.unsubscribeBook(bookId),
@@ -23,5 +24,5 @@ export const useUnsubscribeBook = () => {
     },
   })
 
-  return { unsubscribe, isUnsubscribing, isSuccess }
+  return { unsubscribe, isUnsubscribing, isUnsubscribed, isUnsubscribeError }
 }

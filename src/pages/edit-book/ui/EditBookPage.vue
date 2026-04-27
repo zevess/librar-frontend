@@ -8,7 +8,7 @@ import { ConfirmDialog } from 'primevue'
 import { watchEffect } from 'vue'
 
 const { slug } = useGetParams()
-const { book, isFetched } = useGetBook(slug)
+const { book, isBookFetched } = useGetBook(slug)
 watchEffect(() => {
   const title = book.value?.data?.title
   document.title = title ? 'Изменить ' + title : 'Загрузка...'
@@ -19,5 +19,5 @@ watchEffect(() => {
   <PageTitle title="изменить книгу" />
   <ConfirmDialog></ConfirmDialog>
   <BookForm mode="edit" v-if="book?.data" :book="book.data"></BookForm>
-  <Message v-if="!book?.success && isFetched">Книга не найдена</Message>
+  <Message v-if="!book?.success && isBookFetched">Книга не найдена</Message>
 </template>

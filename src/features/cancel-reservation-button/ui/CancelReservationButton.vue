@@ -4,9 +4,10 @@ import { ActionButton } from '@/shared/ui/action-button'
 
 const props = defineProps<{
   reservationId: number
+  variant: 'profile' | 'admin'
 }>()
 
-const { cancel, isPending } = useCancelReservation()
+const { cancel, isCanceling } = useCancelReservation(props.variant)
 
 const cancelReservation = () => {
   cancel(String(props.reservationId))
@@ -14,5 +15,5 @@ const cancelReservation = () => {
 </script>
 
 <template>
-  <ActionButton :disabled="isPending" @click="cancelReservation" title="Отменить" />
+  <ActionButton :disabled="isCanceling" @click="cancelReservation" title="Отменить" />
 </template>

@@ -5,11 +5,12 @@ export const useGetCategoriesByQuery = () => {
   const {
     mutate: findCategory,
     data: categories,
-    isPending,
-    isSuccess,
+    isPending: isCategoriesPending,
+    isSuccess: isCategoriesSucces,
+    isError: isCategoriesError,
   } = useMutation({
     mutationKey: ['get categories by query'],
     mutationFn: (query: string) => categoryService.getCategoriesByQuery(query),
   })
-  return { findCategory, categories, isPending, isSuccess }
+  return { findCategory, categories, isCategoriesError, isCategoriesPending, isCategoriesSucces }
 }

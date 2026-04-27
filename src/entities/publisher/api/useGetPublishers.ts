@@ -5,13 +5,21 @@ import type { IPublisherParams } from '../model/publisher.types'
 export const useGetPublishers = (params?: IPublisherParams) => {
   const {
     data: publishers,
-    isFetching,
-    isFetched,
+    isFetching: isPublishersFetching,
+    isFetched: isPublishersFetched,
+    isPending: isPublishersPending,
+    isError: isPublishersError,
   } = useQuery({
     queryKey: ['get publishers', params],
     queryFn: () => publisherService.getPublishers(params),
     refetchOnWindowFocus: false,
     refetchOnMount: true,
   })
-  return { publishers, isFetching, isFetched }
+  return {
+    publishers,
+    isPublishersFetching,
+    isPublishersFetched,
+    isPublishersPending,
+    isPublishersError,
+  }
 }

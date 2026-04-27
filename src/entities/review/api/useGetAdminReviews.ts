@@ -6,8 +6,10 @@ import type { IReviewParams } from '../model/review.types'
 export const useGetAdminReviews = (params?: ComputedRef<IReviewParams>, enabled?: boolean) => {
   const {
     data: reviews,
-    isFetching,
-    isFetched,
+    isFetching: isReviewsFetching,
+    isFetched: isReviewsFetched,
+    isPending: isReviewsPending,
+    isError: isReviewsError,
     refetch,
   } = useQuery({
     queryKey: ['get admin reviews', params],
@@ -16,5 +18,5 @@ export const useGetAdminReviews = (params?: ComputedRef<IReviewParams>, enabled?
     refetchOnMount: false,
     enabled: enabled,
   })
-  return { reviews, isFetching, isFetched, refetch }
+  return { reviews, refetch, isReviewsFetching, isReviewsFetched, isReviewsPending, isReviewsError }
 }

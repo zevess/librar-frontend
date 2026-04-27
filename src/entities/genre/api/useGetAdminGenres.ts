@@ -6,8 +6,10 @@ import { genreService } from '../model/genre.service'
 export const useGetAdminGenres = (params?: ComputedRef<IGenresParams>, enabled?: boolean) => {
   const {
     data: genres,
-    isFetching,
-    isFetched,
+    isFetching: isGenresFetching,
+    isFetched: isGenresFetched,
+    isPending: isGenresPending,
+    isError: isGenresError,
     refetch,
   } = useQuery({
     queryKey: ['get admin genres', params],
@@ -16,5 +18,5 @@ export const useGetAdminGenres = (params?: ComputedRef<IGenresParams>, enabled?:
     refetchOnMount: false,
     enabled: enabled,
   })
-  return { genres, isFetching, isFetched, refetch }
+  return { genres, isGenresFetching, refetch, isGenresFetched, isGenresPending, isGenresError }
 }

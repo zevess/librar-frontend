@@ -10,8 +10,8 @@ export const useUpdateUser = () => {
   const {
     mutate: updateUser,
     data,
-    isPending,
-    isSuccess,
+    isPending: isUserUpdating,
+    isSuccess: isUserUpdated,
   } = useMutation({
     mutationKey: ['update user'],
     mutationFn: ({ data, userId }: { data: IUserForm; userId: string }) =>
@@ -29,5 +29,5 @@ export const useUpdateUser = () => {
       }
     },
   })
-  return { updateUser, data, isPending, isSuccess }
+  return { updateUser, data, isUserUpdated, isUserUpdating }
 }

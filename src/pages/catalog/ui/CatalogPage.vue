@@ -10,7 +10,7 @@ import { useCatalogFilter } from '../lib/useCatalogFilter'
 
 const { params, category, publishers, q, genres, status } = useCatalogFilter()
 
-const { books, isFetching } = useGetBooks(params)
+const { books, isBooksPending } = useGetBooks(params)
 </script>
 
 <template>
@@ -46,8 +46,8 @@ const { books, isFetching } = useGetBooks(params)
       </div>
 
       <Message v-if="books?.data.length === 0"> Ничего не найдено. Попробуйте позже </Message>
-      <BookList v-if="!isFetching && books?.data" variant="catalog" :items="books?.data" />
-      <BookListSkeleton variant="catalog" v-if="isFetching" />
+      <BookList v-if="!isBooksPending && books?.data" variant="catalog" :items="books?.data" />
+      <BookListSkeleton variant="catalog" v-if="isBooksPending" />
     </div>
 
     <Pagination v-if="books?.links || books?.meta" :meta="books?.meta" :links="books?.links" />

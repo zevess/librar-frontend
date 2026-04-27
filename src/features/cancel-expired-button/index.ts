@@ -1,1 +1,1 @@
-export { default as CancelExpiredButton } from './CancelExpiredButton.vue'
+export { default as CancelExpiredButton } from './ui/CancelExpiredButton.vue'

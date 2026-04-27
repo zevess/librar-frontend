@@ -64,6 +64,7 @@ defineProps<{
               v-if="slotprops.data.status === 'reserved'"
             />
             <CancelReservationButton
+              variant="admin"
               :reservation-id="slotprops.data.id"
               v-if="slotprops.data.status === 'reserved'"
             />

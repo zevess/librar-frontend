@@ -6,14 +6,16 @@ export const useGetUserReviews = (userId: ComputedRef<number | undefined>) => {
   const {
     data: reviews,
     isFetching: isReviewsFetching,
-    isSuccess,
     isFetched: isReviewsFetched,
+    isPending: isReviewsPending,
+    isError: isReviewsError,
   } = useQuery({
     queryKey: ['get user reviews', userId],
     queryFn: () => reviewService.getUserReviews(String(userId.value)),
     refetchOnWindowFocus: false,
     refetchOnMount: true,
     enabled: () => !!userId.value,
+    retry: false,
   })
-  return { reviews, isReviewsFetching, isSuccess, isReviewsFetched }
+  return { reviews, isReviewsFetching, isReviewsPending, isReviewsFetched, isReviewsError }
 }

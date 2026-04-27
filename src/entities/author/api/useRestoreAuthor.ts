@@ -6,7 +6,12 @@ import { authorService } from '../model/author.service'
 export const useRestoreAuthor = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: restoreAuthor } = useMutation({
+  const {
+    mutate: restoreAuthor,
+    isPending: isAuthorRestoring,
+    isSuccess: isAuthorRestored,
+    isError: isAuthorError,
+  } = useMutation({
     mutationKey: ['restore author'],
     mutationFn: (authorId: string) => authorService.restoreAuthor(authorId),
     onSuccess() {
@@ -22,5 +27,5 @@ export const useRestoreAuthor = () => {
       }
     },
   })
-  return { restoreAuthor }
+  return { restoreAuthor, isAuthorRestoring, isAuthorError, isAuthorRestored }
 }

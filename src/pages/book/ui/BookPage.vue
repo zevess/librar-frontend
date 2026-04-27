@@ -15,8 +15,8 @@ import { SkeletonCard } from '@/shared/ui/skeleton-card'
 
 const { slug, id } = useGetParams()
 const { previousRoute } = usePreviousRoute()
-const { book, isFetching, isSuccess, isFetched, refetch } = useGetBook(slug)
-const { reviews, isReviewsFetched, isReviewsFetching } = useGetBookReviews(id)
+const { book, isBookFetched, refetch, isBookPending } = useGetBook(slug)
+const { reviews, isReviewsFetched, isReviewPending, isReviewsError } = useGetBookReviews(id)
 const { isAuthentificated } = useUserStore()
 
 onMounted(async () => {
@@ -30,9 +30,9 @@ watchEffect(() => {
 </script>
 
 <template>
-  <PageSkeleton variant="book" v-if="isFetching" />
+  <PageSkeleton variant="book" v-if="isBookPending" />
   <ConfirmDialog />
-  <Message v-if="!book?.success && isFetched"> Книга на найдена </Message>
+  <Message v-if="!book?.success && isBookFetched"> Книга на найдена </Message>
   <div v-if="book?.data" class="flex flex-col gap-4 w-full">
     <BookHeader :book="book?.data" />
 
@@ -40,7 +40,7 @@ watchEffect(() => {
       <BookCover
         :average="reviews?.average"
         :book="book?.data"
-        :reviews-count="Number(reviews?.data.length)"
+        :reviews-count="reviews?.data.length"
       />
 
       <div class="flex flex-col gap-4 w-full md:max-w-2/3">
@@ -52,16 +52,16 @@ watchEffect(() => {
 
         <div class="mt-24 flex flex-col gap-4">
           <h2 class="text-xl font-semibold">ОТЗЫВЫ</h2>
-          <div v-if="isReviewsFetched">
-            <h3 class="text-xl" v-if="reviews?.data.length === 0">Отзывов нет</h3>
+          <div>
             <ReviewForm
               :book-id="book.data.id"
               v-if="!reviews?.hasUserReviewed && isAuthentificated"
             />
+            <Message v-if="reviews?.data.length === 0 || isReviewsError">Отзывов нет</Message>
             <div class="flex flex-col gap-4">
-              <SkeletonCard v-for="n in 4" :key="n" v-if="isReviewsFetching" />
+              <SkeletonCard v-for="n in 4" :key="n" v-if="isReviewPending" />
               <ReviewCard
-                v-if="reviews?.data"
+                v-if="reviews?.data && isReviewsFetched"
                 v-for="review in reviews?.data"
                 :key="review.id"
                 :review="review"

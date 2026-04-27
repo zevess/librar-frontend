@@ -6,7 +6,12 @@ import { reviewService } from '../model/review.service'
 export const useRestoreReview = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: restoreReview } = useMutation({
+  const {
+    mutate: restoreReview,
+    isError: isReviewError,
+    isPending: isRestoringReview,
+    isSuccess: isReviewRestored,
+  } = useMutation({
     mutationKey: ['restore review'],
     mutationFn: (reviewId: string) => reviewService.restoreReview(reviewId),
     onSuccess() {
@@ -23,5 +28,5 @@ export const useRestoreReview = () => {
     },
   })
 
-  return { restoreReview }
+  return { restoreReview, isRestoringReview, isReviewError, isReviewRestored }
 }

@@ -12,7 +12,7 @@ import { Message } from '@/shared/ui/message'
 
 const { q, id, params, applyFilter, clearFilter } = useFilter()
 
-const { categories, isFetching } = useGetAdminCategories(params)
+const { categories, isCategoriesPending } = useGetAdminCategories(params)
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const { categories, isFetching } = useGetAdminCategories(params)
       </div>
       <LinkButton :to="PUBLIC_URL.adminCategoryCreate()" text="Добавить категорию" />
     </div>
-    <SkeletonTable :cols="2" v-if="isFetching && !categories" />
+    <SkeletonTable :cols="2" v-if="isCategoriesPending && !categories" />
 
     <CategoriesTable v-if="categories" :categories="categories?.data" />
     <Message v-if="categories?.data.length === 0"

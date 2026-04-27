@@ -8,7 +8,12 @@ import { useToastStore } from '@/shared/lib'
 export const useAttachGenres = (bookId: string) => {
   const errorMessage = ref()
   const toast = useToastStore()
-  const { mutate: attachGenre, isPending: isGenreAttaching } = useMutation({
+  const {
+    mutate: attachGenre,
+    isPending: isGenreAttaching,
+    isSuccess: isGenreAttached,
+    isError: isGenreAttachingError,
+  } = useMutation({
     mutationKey: ['attach genre'],
     mutationFn: (genres: IGenres) => genreService.attachGenresToBook(bookId, genres),
     onError(error) {
@@ -19,5 +24,5 @@ export const useAttachGenres = (bookId: string) => {
       }
     },
   })
-  return { attachGenre, isGenreAttaching, errorMessage }
+  return { attachGenre, isGenreAttaching, errorMessage, isGenreAttached, isGenreAttachingError }
 }

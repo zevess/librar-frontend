@@ -12,7 +12,7 @@ const props = defineProps<{
 const text = ref<string>('')
 const rating = ref()
 
-const { createReview } = useCreateReview(String(props.bookId))
+const { createReview, isReviewCreating } = useCreateReview(String(props.bookId))
 
 const onClick = () => {
   const data = {
@@ -29,7 +29,7 @@ const onClick = () => {
     <span class="text-red-500" v-if="rating === null">Ошибка! Укажите оценку</span>
     <Textarea v-model="text" placeholder="введите ваш отзыв..."> </Textarea>
     <ActionButton
-      :disabled="rating === null || rating === undefined || text?.length < 10"
+      :disabled="rating === null || rating === undefined || text?.length < 10 || isReviewCreating"
       class="w-fit p-3 ml-auto"
       title="Отправить отзыв"
       @click="onClick"

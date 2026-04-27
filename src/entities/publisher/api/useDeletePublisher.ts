@@ -9,7 +9,12 @@ export const useDeletePublisher = () => {
   const router = useRouter()
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: deletePublisher } = useMutation({
+  const {
+    mutate: deletePublisher,
+    isPending: isPublisherDeleting,
+    isSuccess: isPublisherDeleted,
+    isError: isPublisherError,
+  } = useMutation({
     mutationKey: ['delete publisher'],
     mutationFn: (publisherId: string) => publisherService.deletePublisher(publisherId),
     onSuccess() {
@@ -26,5 +31,5 @@ export const useDeletePublisher = () => {
       }
     },
   })
-  return { deletePublisher }
+  return { deletePublisher, isPublisherDeleted, isPublisherDeleting, isPublisherError }
 }

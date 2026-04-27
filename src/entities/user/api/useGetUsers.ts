@@ -6,8 +6,10 @@ import type { ComputedRef } from 'vue'
 export const useGetUsers = (params?: ComputedRef<IUserParams>, enabled?: boolean) => {
   const {
     data: users,
-    isFetching,
-    isFetched,
+    isFetching: isUsersFetching,
+    isPending: isUsersPending,
+    isFetched: isUsersFetched,
+    isError: isUsersError,
     refetch,
   } = useQuery({
     queryKey: ['get users', params],
@@ -16,5 +18,5 @@ export const useGetUsers = (params?: ComputedRef<IUserParams>, enabled?: boolean
     refetchOnMount: false,
     enabled: enabled,
   })
-  return { users, isFetching, isFetched, refetch }
+  return { users, refetch, isUsersError, isUsersFetched, isUsersPending, isUsersFetching }
 }

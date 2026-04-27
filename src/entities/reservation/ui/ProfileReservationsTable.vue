@@ -58,6 +58,7 @@ defineProps<{
               :severity="getSeverity(slotprops.data.status)"
             />
             <CancelReservationButton
+              variant="profile"
               :reservation-id="slotprops.data.id"
               v-if="slotprops.data.status === 'reserved'"
             />

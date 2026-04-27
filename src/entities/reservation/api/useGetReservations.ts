@@ -8,6 +8,8 @@ export const useGetReservations = (params?: ComputedRef<IReservationParams>, ena
     data: reservations,
     isFetching: isReservationsFetching,
     isFetched: isReservationsFetched,
+    isPending: isReservationsPending,
+    isError: isReservationsError,
     refetch,
   } = useQuery({
     queryKey: ['get reservations', params],
@@ -17,5 +19,12 @@ export const useGetReservations = (params?: ComputedRef<IReservationParams>, ena
     enabled: enabled,
   })
 
-  return { reservations, isReservationsFetching, isReservationsFetched, refetch }
+  return {
+    reservations,
+    isReservationsFetching,
+    isReservationsFetched,
+    refetch,
+    isReservationsPending,
+    isReservationsError,
+  }
 }

@@ -1,1 +1,1 @@
-export { default as AcceptReservationButton } from './AcceptReservationButton.vue'
+export { default as AcceptReservationButton } from './ui/AcceptReservationButton.vue'

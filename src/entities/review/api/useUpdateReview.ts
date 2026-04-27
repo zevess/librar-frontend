@@ -9,7 +9,12 @@ export const useUpdateReview = () => {
   const errorMessage = ref()
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: updateReview, isPending: isReviewUpdating } = useMutation({
+  const {
+    mutate: updateReview,
+    isPending: isReviewUpdating,
+    isSuccess: isReviewUpdated,
+    isError: isReviewError,
+  } = useMutation({
     mutationKey: ['update review'],
     mutationFn: ({ data, reviewId }: { data: IReviewForm; reviewId: string }) =>
       reviewService.updateReview(data, reviewId),
@@ -27,5 +32,5 @@ export const useUpdateReview = () => {
       }
     },
   })
-  return { updateReview, isReviewUpdating, errorMessage }
+  return { updateReview, isReviewUpdating, errorMessage, isReviewUpdated, isReviewError }
 }

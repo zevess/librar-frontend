@@ -8,8 +8,9 @@ export const useCreateReservation = () => {
   const {
     mutate: reserve,
     data,
-    isPending,
-    isSuccess,
+    isPending: isReserving,
+    isSuccess: isReserved,
+    isError: isReserveError,
   } = useMutation({
     mutationKey: ['create reservation'],
     mutationFn: (bookId: string) => reservationService.createReservation(bookId),
@@ -23,5 +24,5 @@ export const useCreateReservation = () => {
       }
     },
   })
-  return { reserve, isPending, isSuccess, data }
+  return { reserve, data, isReserveError, isReserved, isReserving }
 }

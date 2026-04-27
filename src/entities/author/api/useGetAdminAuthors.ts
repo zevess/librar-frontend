@@ -6,13 +6,15 @@ import type { ComputedRef } from 'vue'
 export const useGetAdminAuthors = (params?: ComputedRef<IAuthorParams>) => {
   const {
     data: authors,
-    isFetching,
-    isFetched,
+    isFetching: isAuthorsFetching,
+    isFetched: isAuthorsFetched,
+    isPending: isAuthorsPending,
+    isError: isAuthorsError,
   } = useQuery({
     queryKey: ['get admin authors', params],
     queryFn: () => authorService.getAdminAuthors(params?.value),
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   })
-  return { authors, isFetching, isFetched }
+  return { authors, isAuthorsPending, isAuthorsFetched, isAuthorsFetching, isAuthorsError }
 }

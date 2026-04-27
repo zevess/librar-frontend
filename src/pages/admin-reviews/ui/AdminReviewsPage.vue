@@ -10,7 +10,7 @@ import { ReviewTable, useGetAdminReviews } from '@/entities/review'
 import { ReviewFilter } from '@/features/review-filter'
 
 const { q, id, bookId, email, params, applyFilter, clearFilter } = useFilter()
-const { reviews, isFetching } = useGetAdminReviews(params)
+const { reviews, isReviewsPending } = useGetAdminReviews(params)
 </script>
 
 <template>
@@ -29,7 +29,7 @@ const { reviews, isFetching } = useGetAdminReviews(params)
         <ActionButton class="p-4" @click="applyFilter">Применить</ActionButton>
       </div>
     </div>
-    <SkeletonTable :cols="2" v-if="isFetching && !reviews" />
+    <SkeletonTable :cols="2" v-if="isReviewsPending && !reviews" />
     <ReviewTable v-if="reviews?.data" :reviews="reviews.data" />
     <Message v-if="reviews?.data.length === 0"
       >Ничего не найдено. Попробуйте позже или измените запрос</Message

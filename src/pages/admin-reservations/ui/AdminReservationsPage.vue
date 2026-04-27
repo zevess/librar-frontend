@@ -11,7 +11,7 @@ import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { ConfirmDialog } from 'primevue'
 
 const { params, bookId, id, email, status, applyFilter, clearFilter } = useFilter()
-const { reservations, isReservationsFetching, isReservationsFetched } = useGetReservations(params)
+const { reservations, isReservationsPending, isReservationsFetched } = useGetReservations(params)
 </script>
 
 <template>
@@ -31,7 +31,7 @@ const { reservations, isReservationsFetching, isReservationsFetched } = useGetRe
       </div>
       <CancelExpiredButton class="p-4" />
     </div>
-    <SkeletonTable v-if="isReservationsFetching && !reservations" />
+    <SkeletonTable v-if="isReservationsPending && !reservations" />
 
     <ReservationsTable v-if="reservations" :reservations="reservations?.data" />
     <Message v-if="reservations?.data.length === 0"

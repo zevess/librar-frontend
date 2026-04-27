@@ -15,16 +15,21 @@ import { SendVerificationButton } from '@/features/send-verification-button'
 import { ReviewCard, useGetUserReviews } from '@/entities/review'
 import { SkeletonCard } from '@/shared/ui/skeleton-card'
 
-const { profile, isFetching, isFetched } = useProfile()
+const { profile, isProfilePending, isProfileFetched } = useProfile()
 
 const userId = computed(() => profile.value?.data.id)
 
-const { subscriptions, isSubscriptionsFetched, isSubscriptionsFetching } =
-  useGetUserSubscriptions(userId)
+const {
+  subscriptions,
+  isSubscriptionsFetched,
+  isSubscriptionsPending,
+  subscriptionsError,
+  isSubscriptionsError,
+} = useGetUserSubscriptions(userId)
 
-const { reviews, isReviewsFetched, isReviewsFetching } = useGetUserReviews(userId)
+const { reviews, isReviewsFetched, isReviewsPending, isReviewsError } = useGetUserReviews(userId)
 
-const { reservations, isReservationsFetching, isReservationsFetched } =
+const { reservations, isReservationsPending, isReservationsFetched, isReservationsError } =
   useGetUserReservations(userId)
 
 const activeReservations = computed(() =>
@@ -33,8 +38,8 @@ const activeReservations = computed(() =>
 </script>
 
 <template>
-  <PageSkeleton v-if="isFetching && !profile" variant="profile" />
-  <div v-if="isFetched" class="flex flex-col gap-4 w-full">
+  <PageSkeleton v-if="isProfilePending && !profile" variant="profile" />
+  <div v-if="isProfileFetched" class="flex flex-col gap-4 w-full">
     <div class="flex flex-col md:flex-row justify-center md:justify-between">
       <div class="flex flex-col text-center">
         <PageTitle
@@ -64,13 +69,16 @@ const activeReservations = computed(() =>
         <TabPanel value="0">
           <div class="flex flex-col gap-4 mt-8">
             <span class="text-xl uppercase font-semibold">Отслеживаемое:</span>
-            <BookListSkeleton v-if="isSubscriptionsFetching" variant="default" />
+            <BookListSkeleton v-if="isSubscriptionsPending" variant="default" />
             <BookList
               variant="default"
               v-if="subscriptions?.data && isSubscriptionsFetched"
               :items="subscriptions?.data"
             />
-            <Message v-if="subscriptions?.data.length === 0 && isSubscriptionsFetched"
+            <Message
+              v-if="
+                (subscriptions?.data.length === 0 && isSubscriptionsFetched) || isSubscriptionsError
+              "
               >Отслеживаемое не найдены</Message
             >
           </div>
@@ -78,12 +86,15 @@ const activeReservations = computed(() =>
         <TabPanel value="1">
           <div class="flex flex-col gap-4 mt-8">
             <span class="text-xl uppercase font-semibold">Активные брони:</span>
-            <SkeletonTable v-if="isReservationsFetching && !reservations" />
+            <SkeletonTable v-if="isReservationsPending && !reservations" />
             <ProfileReservationsTable
               v-if="activeReservations && activeReservations?.length > 0 && isReservationsFetched"
               :reservations="activeReservations"
             />
-            <Message v-if="activeReservations?.length === 0 && isReservationsFetched"
+            <Message
+              v-if="
+                (activeReservations?.length === 0 && isReservationsFetched) || isReservationsError
+              "
               >Брони не найдены</Message
             >
           </div>
@@ -91,12 +102,15 @@ const activeReservations = computed(() =>
         <TabPanel value="2">
           <div class="flex flex-col gap-4 mt-8">
             <span class="text-xl uppercase font-semibold">Все брони:</span>
-            <SkeletonTable v-if="isReservationsFetching && !reservations" />
+            <SkeletonTable v-if="isReservationsPending && !reservations" />
             <ProfileReservationsTable
               v-if="reservations && reservations?.data.length > 0 && isReservationsFetched"
               :reservations="reservations.data"
             />
-            <Message v-if="reservations?.data.length === 0 && isReservationsFetched"
+            <Message
+              v-if="
+                (reservations?.data.length === 0 && isReservationsFetched) || isReservationsError
+              "
               >Брони не найдены</Message
             >
           </div>
@@ -104,14 +118,14 @@ const activeReservations = computed(() =>
         <TabPanel value="3">
           <div class="flex flex-col gap-4 mt-8">
             <span class="text-xl uppercase font-semibold">Отзывы:</span>
-            <SkeletonCard v-if="isReservationsFetching && !reviews" />
+            <SkeletonCard v-if="isReviewsPending && !reviews" />
             <ReviewCard
               variant="user"
               :key="review.id"
               :review="review"
               v-for="review in reviews?.data"
             />
-            <Message v-if="reviews?.data.length === 0 && isReviewsFetched"
+            <Message v-if="(reviews?.data.length === 0 && isReviewsFetched) || isReviewsError"
               >Отзывы не найдены</Message
             >
           </div>

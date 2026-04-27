@@ -5,11 +5,12 @@ export const useGetBooksByQuery = () => {
   const {
     mutate: findBook,
     data: books,
-    isPending,
-    isSuccess,
+    isSuccess: isBooksSuccess,
+    isPending: isBooksPending,
+    isError: isBooksError,
   } = useMutation({
     mutationKey: ['get books by query'],
     mutationFn: (query: string) => bookService.getBooksByQuery(query),
   })
-  return { findBook, books, isPending, isSuccess }
+  return { findBook, books, isBooksError, isBooksSuccess, isBooksPending }
 }

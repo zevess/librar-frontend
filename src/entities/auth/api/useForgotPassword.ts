@@ -10,10 +10,10 @@ export const useForgotPassword = () => {
   const {
     mutate: sendResetLink,
     data,
-    isError,
+    isError: isSendingError,
     error,
-    isPending,
-    isSuccess,
+    isPending: isLinkSending,
+    isSuccess: isLinkSent,
   } = useMutation({
     mutationKey: ['forgot password'],
     mutationFn: (email: string) => authService.forgotPassword(email),
@@ -29,5 +29,5 @@ export const useForgotPassword = () => {
     },
   })
 
-  return { sendResetLink, isError, error, errorMessage, isPending, data, isSuccess }
+  return { sendResetLink, isLinkSending, error, errorMessage, data, isLinkSent, isSendingError }
 }

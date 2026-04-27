@@ -12,7 +12,7 @@ import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { ConfirmDialog } from 'primevue'
 
 const { q, id, params, applyFilter, clearFilter } = useFilter()
-const { publishers, isFetching } = useGetAdminPublishers(params)
+const { publishers, isPublishersPending } = useGetAdminPublishers(params)
 </script>
 
 <template>
@@ -28,7 +28,7 @@ const { publishers, isFetching } = useGetAdminPublishers(params)
 
       <LinkButton :to="PUBLIC_URL.adminPublisherCreate()" text="Добавить издательство" />
     </div>
-    <SkeletonTable :cols="3" v-if="isFetching && !publishers" />
+    <SkeletonTable :cols="3" v-if="isPublishersPending && !publishers" />
 
     <PublisherTable v-if="publishers" :publishers="publishers.data" />
     <Message v-if="publishers?.data.length === 0"

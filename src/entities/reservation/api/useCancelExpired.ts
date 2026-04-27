@@ -6,7 +6,12 @@ import { useToastStore } from '@/shared/lib'
 export const useCancelExpired = () => {
   const toast = useToastStore()
   const queryClient = useQueryClient()
-  const { mutate: cancelExpired, isPending } = useMutation({
+  const {
+    mutate: cancelExpired,
+    isPending: isCancelingExpired,
+    isSuccess: isExpiredCanceled,
+    isError: isCancelExpiredError,
+  } = useMutation({
     mutationKey: ['cancel expired'],
     mutationFn: () => reservationService.cancelExpired(),
     onSuccess() {
@@ -22,5 +27,5 @@ export const useCancelExpired = () => {
       }
     },
   })
-  return { cancelExpired, isPending }
+  return { cancelExpired, isCancelExpiredError, isCancelingExpired, isExpiredCanceled }
 }

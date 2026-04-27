@@ -6,7 +6,12 @@ import { reviewService } from '../model/review.service'
 export const useDeleteReview = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: deleteReview } = useMutation({
+  const {
+    mutate: deleteReview,
+    isPending: isReviewDeleting,
+    isError: isReviewError,
+    isSuccess: isReviewDeleted,
+  } = useMutation({
     mutationKey: ['delete review'],
     mutationFn: (reviewId: string) => reviewService.deleteReview(reviewId),
     onSuccess() {
@@ -23,5 +28,5 @@ export const useDeleteReview = () => {
     },
   })
 
-  return { deleteReview }
+  return { deleteReview, isReviewDeleted, isReviewDeleting, isReviewError }
 }

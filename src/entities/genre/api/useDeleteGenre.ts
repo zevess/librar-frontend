@@ -6,7 +6,12 @@ import axios from 'axios'
 export const useDeleteGenre = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: deleteGenre } = useMutation({
+  const {
+    mutate: deleteGenre,
+    isError: isGenreError,
+    isSuccess: isGenreDeleted,
+    isPending: isGenreDeleting,
+  } = useMutation({
     mutationKey: ['delete genre'],
     mutationFn: (genreId: string) => genreService.deleteGenre(genreId),
     onSuccess() {
@@ -23,5 +28,5 @@ export const useDeleteGenre = () => {
     },
   })
 
-  return { deleteGenre }
+  return { deleteGenre, isGenreDeleted, isGenreDeleting, isGenreError }
 }

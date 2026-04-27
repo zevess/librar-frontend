@@ -11,7 +11,12 @@ export const useCreateAuthor = () => {
   const router = useRouter()
   const errorMessage = ref()
   const toast = useToastStore()
-  const { mutate: createAuthor, isPending: isAuthorCreating } = useMutation({
+  const {
+    mutate: createAuthor,
+    isPending: isAuthorCreating,
+    isSuccess: isAuthorCreated,
+    isError: isAuthorError,
+  } = useMutation({
     mutationKey: ['create author'],
     mutationFn: (data: IAuthorForm) => authorService.createAuthor(data),
     onSuccess(data) {
@@ -26,5 +31,5 @@ export const useCreateAuthor = () => {
       }
     },
   })
-  return { createAuthor, isAuthorCreating, errorMessage }
+  return { createAuthor, isAuthorCreating, errorMessage, isAuthorCreated, isAuthorError }
 }

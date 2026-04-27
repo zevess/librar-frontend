@@ -8,7 +8,7 @@ import { computed, ref } from 'vue'
 
 const props = defineProps<{
   book: IBook
-  reviewsCount: number
+  reviewsCount?: number
   average?: number
 }>()
 const rating = computed(() => props.average)

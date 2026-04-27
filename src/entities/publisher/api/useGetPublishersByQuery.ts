@@ -5,11 +5,12 @@ export const useGetPublishersByQuery = () => {
   const {
     mutate: findPublisher,
     data: publishers,
-    isPending,
-    isSuccess,
+    isPending: isPublisherPending,
+    isSuccess: isPublisherSuccess,
+    isError: isPublisherError,
   } = useMutation({
     mutationKey: ['get publishers by query'],
     mutationFn: (query: string) => publisherService.getPublishersByQuery(query),
   })
-  return { findPublisher, publishers, isPending, isSuccess }
+  return { findPublisher, publishers, isPublisherPending, isPublisherError, isPublisherSuccess }
 }

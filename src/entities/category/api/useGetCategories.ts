@@ -4,13 +4,21 @@ import { categoryService } from '../model/category.service'
 export const useGetCategories = () => {
   const {
     data: categories,
-    isFetched,
-    isFetching,
+    isFetching: isCategoriesFetching,
+    isFetched: isCategoriesFetched,
+    isPending: isCategoriesPending,
+    isError: isCategoriesError,
   } = useQuery({
     queryKey: ['get categories'],
     queryFn: () => categoryService.getCategories(),
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   })
-  return { categories, isFetched, isFetching }
+  return {
+    categories,
+    isCategoriesError,
+    isCategoriesFetched,
+    isCategoriesFetching,
+    isCategoriesPending,
+  }
 }

@@ -1,1 +1,1 @@
-export { default as ReserveButton } from './ReserveButton.vue'
+export { default as ReserveButton } from './ui/ReserveButton.vue'

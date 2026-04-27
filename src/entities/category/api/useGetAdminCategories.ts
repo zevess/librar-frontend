@@ -9,8 +9,10 @@ export const useGetAdminCategories = (
 ) => {
   const {
     data: categories,
-    isFetching,
-    isFetched,
+    isFetching: isCategoriesFetching,
+    isFetched: isCategoriesFetched,
+    isPending: isCategoriesPending,
+    isError: isCategoriesError,
     refetch,
   } = useQuery({
     queryKey: ['get admin categories', params],
@@ -19,5 +21,12 @@ export const useGetAdminCategories = (
     refetchOnMount: false,
     enabled: enabled,
   })
-  return { categories, isFetching, isFetched, refetch }
+  return {
+    categories,
+    isCategoriesError,
+    isCategoriesFetched,
+    isCategoriesFetching,
+    isCategoriesPending,
+    refetch,
+  }
 }

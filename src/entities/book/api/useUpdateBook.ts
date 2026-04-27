@@ -13,8 +13,9 @@ export const useUpdateBook = (bookId: string) => {
   const toast = useToastStore()
   const {
     mutate: updateBook,
-    isPending: isUpdating,
-    isSuccess,
+    isPending: isBookUpdating,
+    isSuccess: isBookUpdated,
+    isError: isBookError,
   } = useMutation({
     mutationKey: ['update book'],
     mutationFn: (data: IBookForm) => bookService.updateBook(data, bookId),
@@ -31,5 +32,5 @@ export const useUpdateBook = (bookId: string) => {
     },
   })
 
-  return { updateBook, isUpdating, isSuccess, errorMessage }
+  return { updateBook, isBookError, isBookUpdated, isBookUpdating, errorMessage }
 }

@@ -11,7 +11,7 @@ export const PUBLIC_URL = {
 
   profile: () => PUBLIC_URL.root(`/me`),
 
-  catalog: () => PUBLIC_URL.root(`/catalog`),
+  catalog: (url = '') => PUBLIC_URL.root(`/catalog${url}`),
   books: (url = '') => PUBLIC_URL.root(`/book${url}`),
   book: (bookSlug = '', bookId = '') => PUBLIC_URL.root(`/book/${bookSlug}${bookId}`),
 

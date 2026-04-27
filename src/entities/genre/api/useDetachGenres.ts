@@ -8,7 +8,12 @@ import { useToastStore } from '@/shared/lib'
 export const useDetachGenres = (bookId: string) => {
   const errorMessage = ref()
   const toast = useToastStore()
-  const { mutate: detachGenre, isPending: isGenreDetaching } = useMutation({
+  const {
+    mutate: detachGenre,
+    isPending: isGenreDetaching,
+    isSuccess: isGenreDetached,
+    isError: isGenreDetachingError,
+  } = useMutation({
     mutationKey: ['detach genre'],
     mutationFn: (genres: IGenres) => genreService.detachGenresFromBook(bookId, genres),
     onError(error) {
@@ -19,5 +24,5 @@ export const useDetachGenres = (bookId: string) => {
       }
     },
   })
-  return { detachGenre, isGenreDetaching, errorMessage }
+  return { detachGenre, isGenreDetaching, errorMessage, isGenreDetached, isGenreDetachingError }
 }

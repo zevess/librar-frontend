@@ -12,7 +12,7 @@ import { ConfirmDialog } from 'primevue'
 const { profile } = useProfile()
 const isAdmin = profile.value?.data.role === 'admin'
 const { id, email, q, params, role, clearFilter, applyFilter } = useFilter()
-const { users, isFetching } = useGetUsers(params, isAdmin)
+const { users, isUsersPending } = useGetUsers(params, isAdmin)
 </script>
 
 <template>
@@ -31,7 +31,7 @@ const { users, isFetching } = useGetUsers(params, isAdmin)
         <ActionButton class="p-4" @click="clearFilter">Сбросить</ActionButton>
         <ActionButton class="p-4" @click="applyFilter">Применить</ActionButton>
       </div>
-      <SkeletonTable v-if="isFetching && !users" />
+      <SkeletonTable v-if="isUsersPending && !users" />
       <UserTable v-if="users?.data" :users="users?.data" />
       <Message v-if="users?.data.length === 0"
         >Ничего не найдено. Попробуйте позже или измените запрос</Message

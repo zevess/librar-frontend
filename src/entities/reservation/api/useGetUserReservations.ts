@@ -10,6 +10,8 @@ export const useGetUserReservations = (
     data: reservations,
     isFetching: isReservationsFetching,
     isFetched: isReservationsFetched,
+    isError: isReservationsError,
+    isPending: isReservationsPending,
     refetch,
   } = useQuery({
     queryKey: ['get user reservations', userId],
@@ -17,7 +19,15 @@ export const useGetUserReservations = (
     refetchOnWindowFocus: false,
     refetchOnMount: true,
     enabled: () => !!userId.value,
+    retry: false,
   })
 
-  return { reservations, isReservationsFetching, isReservationsFetched, refetch }
+  return {
+    reservations,
+    isReservationsFetching,
+    isReservationsFetched,
+    refetch,
+    isReservationsError,
+    isReservationsPending,
+  }
 }

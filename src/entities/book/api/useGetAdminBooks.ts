@@ -6,8 +6,10 @@ import { type ComputedRef } from 'vue'
 export const useGetAdminBooks = (params?: ComputedRef<IBooksParams>, enabled?: boolean) => {
   const {
     data: books,
-    isFetching,
-    isFetched,
+    isFetching: isBooksFetching,
+    isFetched: isBooksFetched,
+    isPending: isBooksPending,
+    isError: isBooksError,
     refetch,
   } = useQuery({
     queryKey: ['get admin books', params],
@@ -16,5 +18,5 @@ export const useGetAdminBooks = (params?: ComputedRef<IBooksParams>, enabled?: b
     refetchOnMount: false,
     enabled: enabled,
   })
-  return { books, isFetching, isFetched, refetch }
+  return { books, isBooksFetching, isBooksFetched, isBooksError, isBooksPending, refetch }
 }

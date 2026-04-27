@@ -22,7 +22,7 @@ const imageUrl = computed(() => {
     />
     <div
       v-if="url === null"
-      class="bg-gray-300 h-full flex items-center justify-center text-center text-sm p-4"
+      class="bg-gray-300 h-full flex items-center justify-center text-center text-sm p-4 aspect-14/20"
     >
       Изображение не найдено
     </div>

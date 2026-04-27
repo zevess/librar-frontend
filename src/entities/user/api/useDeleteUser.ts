@@ -6,7 +6,12 @@ import axios from 'axios'
 export const useDeleteUser = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: deleteUser } = useMutation({
+  const {
+    mutate: deleteUser,
+    isError: isDeleteError,
+    isPending: isUserDeleting,
+    isSuccess: isUserDeleted,
+  } = useMutation({
     mutationKey: ['delete user'],
     mutationFn: (userId: string) => userService.deleteUser(userId),
     onSuccess() {
@@ -22,5 +27,5 @@ export const useDeleteUser = () => {
       }
     },
   })
-  return { deleteUser }
+  return { deleteUser, isDeleteError, isUserDeleted, isUserDeleting }
 }

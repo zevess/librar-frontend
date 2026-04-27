@@ -17,7 +17,7 @@ const { isAuthentificated } = useUserStore()
 const router = useRouter()
 
 const { subscribe } = useSubscribeBook()
-const { unsubscribe, isSuccess } = useUnsubscribeBook()
+const { unsubscribe } = useUnsubscribeBook()
 
 const handleSubscriptionAction = () => {
   if (!isAuthentificated) {

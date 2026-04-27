@@ -1,1 +1,1 @@
-export { default as LogoutButton } from './LogoutButton.vue'
+export { default as LogoutButton } from './ui/LogoutButton.vue'

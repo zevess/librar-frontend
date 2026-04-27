@@ -1,1 +1,1 @@
-export { default as CancelReservationButton } from './CancelReservationButton.vue'
+export { default as CancelReservationButton } from './ui/CancelReservationButton.vue'

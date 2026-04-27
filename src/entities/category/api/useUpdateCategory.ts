@@ -9,7 +9,12 @@ export const useUpdateCategory = () => {
   const errorMessage = ref()
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: updateCategory, isPending: isCategoryUpdating } = useMutation({
+  const {
+    mutate: updateCategory,
+    isPending: isCategoryUpdating,
+    isSuccess: isCategoryUpdated,
+    isError: isCategoryError,
+  } = useMutation({
     mutationKey: ['update category'],
     mutationFn: ({ data, categoryId }: { data: ICategoryForm; categoryId: string }) =>
       categoryService.updateCategory(data, categoryId),
@@ -27,5 +32,5 @@ export const useUpdateCategory = () => {
       }
     },
   })
-  return { updateCategory, isCategoryUpdating, errorMessage }
+  return { updateCategory, isCategoryUpdating, errorMessage, isCategoryUpdated, isCategoryError }
 }

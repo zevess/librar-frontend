@@ -19,7 +19,7 @@ body {
 
 .page-enter-active,
 .page-leave-active {
-  transition: 400ms ease all;
+  transition: 250ms ease all;
 }
 
 .page-enter-from,

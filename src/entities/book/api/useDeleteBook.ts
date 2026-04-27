@@ -9,7 +9,12 @@ export const useDeleteBook = () => {
   const router = useRouter()
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: deleteBook } = useMutation({
+  const {
+    mutate: deleteBook,
+    isSuccess: isBookDeleted,
+    isError: isBookError,
+    isPending: isBookDeleting,
+  } = useMutation({
     mutationKey: ['delete book'],
     mutationFn: (bookId: string) => bookService.deleteBook(bookId),
     onSuccess() {
@@ -26,5 +31,5 @@ export const useDeleteBook = () => {
       }
     },
   })
-  return { deleteBook }
+  return { deleteBook, isBookDeleting, isBookDeleted, isBookError }
 }

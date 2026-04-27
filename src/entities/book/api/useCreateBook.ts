@@ -13,8 +13,9 @@ export const useCreateBook = () => {
   const toast = useToastStore()
   const {
     mutate: createBook,
-    isPending,
-    isSuccess,
+    isPending: isBookCreating,
+    isSuccess: isBookCreated,
+    isError: isBookError,
   } = useMutation({
     mutationKey: ['create book'],
     mutationFn: (data: IBookForm) => bookService.createBook(data),
@@ -31,5 +32,5 @@ export const useCreateBook = () => {
     },
   })
 
-  return { createBook, isPending, isSuccess, errorMessage }
+  return { createBook, isBookCreating, isBookCreated, isBookError, errorMessage }
 }

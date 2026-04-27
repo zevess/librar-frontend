@@ -11,7 +11,12 @@ export const useUpdatePublisher = (publisherId: string) => {
   const router = useRouter()
   const errorMessage = ref()
   const toast = useToastStore()
-  const { mutate: updatePublisher, isPending: isPublisherUpdating } = useMutation({
+  const {
+    mutate: updatePublisher,
+    isPending: isPublisherUpdating,
+    isSuccess: isPublisherSuccess,
+    isError: isPublisherError,
+  } = useMutation({
     mutationKey: ['update publisher'],
     mutationFn: (data: IPublisherForm) => publisherService.updatePublisher(data, publisherId),
     onSuccess(data) {
@@ -26,5 +31,11 @@ export const useUpdatePublisher = (publisherId: string) => {
       }
     },
   })
-  return { updatePublisher, isPublisherUpdating, errorMessage }
+  return {
+    updatePublisher,
+    isPublisherUpdating,
+    errorMessage,
+    isPublisherError,
+    isPublisherSuccess,
+  }
 }

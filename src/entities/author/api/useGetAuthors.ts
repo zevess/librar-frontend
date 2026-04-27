@@ -5,13 +5,15 @@ import type { IAuthorParams } from '../model/author.types'
 export const useGetAuthors = (params?: IAuthorParams) => {
   const {
     data: authors,
-    isFetching,
-    isFetched,
+    isFetching: isAuthorsFetching,
+    isFetched: isAuthorsFetched,
+    isPending: isAuthorsPending,
+    isError: isAuthorsError,
   } = useQuery({
     queryKey: ['get authors', params],
     queryFn: () => authorService.getAuthors(params),
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   })
-  return { authors, isFetching, isFetched }
+  return { authors, isAuthorsPending, isAuthorsFetched, isAuthorsFetching, isAuthorsError }
 }

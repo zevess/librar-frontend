@@ -6,7 +6,12 @@ import { publisherService } from '../model/publisher.service'
 export const useRestorePublisher = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: restorePublisher } = useMutation({
+  const {
+    mutate: restorePublisher,
+    isPending: isPublisherRestoring,
+    isSuccess: isPublisherRestored,
+    isError: isPublisherError,
+  } = useMutation({
     mutationKey: ['restore publisher'],
     mutationFn: (publisherId: string) => publisherService.restorePublisher(publisherId),
     onSuccess() {
@@ -22,5 +27,5 @@ export const useRestorePublisher = () => {
       }
     },
   })
-  return { restorePublisher }
+  return { restorePublisher, isPublisherError, isPublisherRestored, isPublisherRestoring }
 }

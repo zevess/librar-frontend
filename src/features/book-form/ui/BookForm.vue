@@ -34,8 +34,8 @@ const props = defineProps<{
 }>()
 
 const { upload, isFileUploading } = useFileUpload()
-const { createBook, isPending, errorMessage } = useCreateBook()
-const { updateBook, isUpdating } = useUpdateBook(String(props.book?.id))
+const { createBook, isBookCreating, errorMessage } = useCreateBook()
+const { updateBook, isBookUpdating } = useUpdateBook(String(props.book?.id))
 const { deleteBook } = useDeleteBook()
 const { genresAction } = useGenresAction(String(props.book?.id))
 
@@ -206,7 +206,7 @@ watch(isAuthorDisabled, () => {
     </div>
     <div class="w-full flex flex-col items-center">
       <ActionButton
-        :disabled="!meta.valid || isPending || isUpdating || isFileUploading"
+        :disabled="!meta.valid || isBookCreating || isBookUpdating || isFileUploading"
         type="submit"
         class="md:max-w-1/3 p-4"
         :title="props.mode === 'create' ? 'Создать книгу' : 'Изменить книгу'"

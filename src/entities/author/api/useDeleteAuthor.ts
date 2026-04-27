@@ -11,7 +11,12 @@ export const useDeleteAuthor = () => {
   const errorMessage = ref()
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: deleteAuthor, isPending: isAuthorDeleting } = useMutation({
+  const {
+    mutate: deleteAuthor,
+    isPending: isAuthorDeleting,
+    isSuccess: isAuthorDeleted,
+    isError: isAuthorError,
+  } = useMutation({
     mutationKey: ['delete author'],
     mutationFn: (authorId: string) => authorService.deleteAuthor(authorId),
     onSuccess() {
@@ -29,5 +34,5 @@ export const useDeleteAuthor = () => {
       }
     },
   })
-  return { deleteAuthor, isAuthorDeleting, errorMessage }
+  return { deleteAuthor, isAuthorDeleting, errorMessage, isAuthorDeleted, isAuthorError }
 }

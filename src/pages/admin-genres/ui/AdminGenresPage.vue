@@ -11,7 +11,7 @@ import { ConfirmDialog } from 'primevue'
 import { Message } from '@/shared/ui/message'
 
 const { q, id, params, applyFilter, clearFilter } = useFilter()
-const { genres, isFetching } = useGetAdminGenres(params)
+const { genres, isGenresPending } = useGetAdminGenres(params)
 </script>
 
 <template>
@@ -26,7 +26,7 @@ const { genres, isFetching } = useGetAdminGenres(params)
       </div>
       <LinkButton :to="PUBLIC_URL.adminGenreCreate()" text="Добавить жанр" />
     </div>
-    <SkeletonTable :cols="2" v-if="isFetching && !genres" />
+    <SkeletonTable :cols="2" v-if="isGenresPending && !genres" />
     <GenresTable v-if="genres?.data" :genres="genres.data" />
     <Message v-if="genres?.data.length === 0"
       >Ничего не найдено. Попробуйте позже или измените запрос</Message

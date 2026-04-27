@@ -6,7 +6,12 @@ import { categoryService } from '../model/category.service'
 export const useRestoreCategory = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: restoreCategory } = useMutation({
+  const {
+    mutate: restoreCategory,
+    isPending: isCategoryRestoring,
+    isSuccess: isCategoryRestored,
+    isError: isCategoryError,
+  } = useMutation({
     mutationKey: ['restore category'],
     mutationFn: (categoryId: string) => categoryService.restoreCategory(categoryId),
     onSuccess() {
@@ -22,5 +27,5 @@ export const useRestoreCategory = () => {
       }
     },
   })
-  return { restoreCategory }
+  return { restoreCategory, isCategoryError, isCategoryRestored, isCategoryRestoring }
 }

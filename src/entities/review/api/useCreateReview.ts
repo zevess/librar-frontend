@@ -7,7 +7,12 @@ import { useToastStore } from '@/shared/lib'
 export const useCreateReview = (bookId: string) => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: createReview, isPending: isReviewCreating } = useMutation({
+  const {
+    mutate: createReview,
+    isPending: isReviewCreating,
+    isSuccess: isReviewCreated,
+    isError: isReviewError,
+  } = useMutation({
     mutationKey: ['create review'],
     mutationFn: (data: IReviewForm) => reviewService.createReview(bookId, data),
     onSuccess() {
@@ -23,5 +28,5 @@ export const useCreateReview = (bookId: string) => {
       }
     },
   })
-  return { createReview, isReviewCreating }
+  return { createReview, isReviewCreating, isReviewError, isReviewCreated }
 }

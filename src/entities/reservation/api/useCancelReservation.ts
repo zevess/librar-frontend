@@ -3,16 +3,21 @@ import { reservationService } from '../model/reservation.service'
 import axios from 'axios'
 import { useToastStore } from '@/shared/lib'
 
-export const useCancelReservation = () => {
+export const useCancelReservation = (variant: 'profile' | 'admin') => {
   const toast = useToastStore()
   const queryClient = useQueryClient()
-  const { mutate: cancel, isPending } = useMutation({
+  const {
+    mutate: cancel,
+    isPending: isCanceling,
+    isSuccess: isCanceled,
+    isError: isCancelError,
+  } = useMutation({
     mutationKey: ['cancel reservation'],
     mutationFn: (reservationId: string) => reservationService.cancelReservation(reservationId),
     onSuccess() {
       toast.success('Успех', 'Бронь отменена')
       queryClient.invalidateQueries({
-        queryKey: ['get reservations'],
+        queryKey: variant == 'admin' ? ['get reservations'] : ['get user reservations'],
       })
     },
     onError(error) {
@@ -22,5 +27,5 @@ export const useCancelReservation = () => {
       }
     },
   })
-  return { cancel, isPending }
+  return { cancel, isCancelError, isCanceling, isCanceled }
 }

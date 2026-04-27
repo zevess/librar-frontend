@@ -6,7 +6,12 @@ import { useToastStore } from '@/shared/lib'
 export const useRestoreBook = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: restoreBook } = useMutation({
+  const {
+    mutate: restoreBook,
+    isPending: isBookRestoring,
+    isSuccess: isBookRestored,
+    isError: isBookError,
+  } = useMutation({
     mutationKey: ['restore book'],
     mutationFn: (bookId: string) => bookService.restoreBook(bookId),
     onSuccess() {
@@ -22,5 +27,5 @@ export const useRestoreBook = () => {
       }
     },
   })
-  return { restoreBook }
+  return { restoreBook, isBookError, isBookRestored, isBookRestoring }
 }

@@ -6,7 +6,12 @@ import { useToastStore } from '@/shared/lib'
 export const useAcceptReservation = () => {
   const toast = useToastStore()
   const queryClient = useQueryClient()
-  const { mutate: accept, isPending } = useMutation({
+  const {
+    mutate: accept,
+    isPending: isAccepting,
+    isSuccess: isAccepted,
+    isError: isAcceptError,
+  } = useMutation({
     mutationKey: ['accept reservation'],
     mutationFn: (reservationId: string) => reservationService.acceptReservation(reservationId),
     onSuccess() {
@@ -22,5 +27,5 @@ export const useAcceptReservation = () => {
       }
     },
   })
-  return { accept, isPending }
+  return { accept, isAcceptError, isAccepted, isAccepting }
 }

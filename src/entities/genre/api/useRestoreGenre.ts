@@ -6,7 +6,12 @@ import { genreService } from '../model/genre.service'
 export const useRestoreGenre = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: restoreGenre } = useMutation({
+  const {
+    mutate: restoreGenre,
+    isError: isGenreError,
+    isSuccess: isGenreRestored,
+    isPending: isGenreRestoring,
+  } = useMutation({
     mutationKey: ['restore genre'],
     mutationFn: (genreId: string) => genreService.restoreGenre(genreId),
     onSuccess() {
@@ -22,5 +27,5 @@ export const useRestoreGenre = () => {
       }
     },
   })
-  return { restoreGenre }
+  return { restoreGenre, isGenreRestoring, isGenreRestored, isGenreError }
 }

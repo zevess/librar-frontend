@@ -5,7 +5,8 @@ import { Input } from '@/shared/ui/input'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 
-const { sendResetLink, isError, errorMessage, isPending, data, isSuccess } = useForgotPassword()
+const { sendResetLink, isSendingError, errorMessage, isLinkSending, data, isLinkSent } =
+  useForgotPassword()
 const { handleSubmit, errors, defineField, meta, resetForm } = useForm<ForgotPasswordSchema>({
   validationSchema: toTypedSchema(forgotPasswordSchema),
 })
@@ -22,13 +23,13 @@ const onSubmit = handleSubmit(() => {
       <Input v-model="email" v-bind="emailAttrs" placeholder="email" />
       <span v-if="errors.email" class="text-red-500">{{ errors.email }}</span>
     </div>
-    <span v-if="isSuccess">{{ data?.data.message }}</span>
-    <span v-if="isError && !meta.dirty" class="text-red-500">{{ errorMessage }}</span>
+    <span v-if="isLinkSent">{{ data?.data.message }}</span>
+    <span v-if="isSendingError && !meta.dirty" class="text-red-500">{{ errorMessage }}</span>
 
     <ActionButton
-      :title="isPending ? 'Идет отправка' : 'Сбросить пароль'"
+      :title="isLinkSending ? 'Идет отправка' : 'Сбросить пароль'"
       type="submit"
-      :disabled="!meta.valid || isPending"
+      :disabled="!meta.valid || isLinkSending"
     />
   </form>
 </template>

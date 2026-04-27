@@ -6,7 +6,7 @@ const props = defineProps<{
   reservationId: number
 }>()
 
-const { accept, isPending } = useAcceptReservation()
+const { accept, isAccepting } = useAcceptReservation()
 
 const acceptReservation = () => {
   accept(String(props.reservationId))
@@ -14,5 +14,5 @@ const acceptReservation = () => {
 </script>
 
 <template>
-  <ActionButton :disabled="isPending" @click="acceptReservation" title="Принять" />
+  <ActionButton :disabled="isAccepting" @click="acceptReservation" title="Принять" />
 </template>

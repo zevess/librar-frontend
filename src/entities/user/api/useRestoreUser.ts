@@ -6,7 +6,12 @@ import axios from 'axios'
 export const useRestoreUser = () => {
   const queryClient = useQueryClient()
   const toast = useToastStore()
-  const { mutate: restoreUser } = useMutation({
+  const {
+    mutate: restoreUser,
+    isPending: isUserRestoring,
+    isError: isUserError,
+    isSuccess: isUserRestored,
+  } = useMutation({
     mutationKey: ['restore user'],
     mutationFn: (userId: string) => userService.restoreUser(userId),
     onSuccess() {
@@ -22,5 +27,5 @@ export const useRestoreUser = () => {
       }
     },
   })
-  return { restoreUser }
+  return { restoreUser, isUserError, isUserRestored, isUserRestoring }
 }

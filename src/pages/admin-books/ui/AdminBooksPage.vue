@@ -13,7 +13,7 @@ import { ConfirmDialog } from 'primevue'
 
 const { q, id, publishers, genres, category, params, applyFilter, clearFilter } = useFilter()
 
-const { books, isFetched, isFetching } = useGetAdminBooks(params)
+const { books, isBooksPending } = useGetAdminBooks(params)
 </script>
 
 <template>
@@ -35,7 +35,7 @@ const { books, isFetched, isFetching } = useGetAdminBooks(params)
 
       <LinkButton :to="PUBLIC_URL.adminBookCreate()" text="Добавить книгу" />
     </div>
-    <SkeletonTable :cols="6" v-if="isFetching && !books" />
+    <SkeletonTable :cols="6" v-if="isBooksPending && !books" />
 
     <BookTable v-if="books?.data" :books="books?.data" />
     <Message v-if="books?.data.length === 0"

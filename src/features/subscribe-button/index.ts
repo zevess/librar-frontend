@@ -1,1 +1,1 @@
-export { default as SubscribeButton } from './SubscribeButton.vue'
+export { default as SubscribeButton } from './ui/SubscribeButton.vue'

@@ -8,7 +8,7 @@ import { PageSkeleton } from '@/shared/ui/page-skeleton'
 import { watchEffect } from 'vue'
 
 const { slug } = useGetParams()
-const { publisher, isFetched, isFetching } = useGetPublisher(slug)
+const { publisher, isPublisherFetched, isPublisherPending } = useGetPublisher(slug)
 watchEffect(() => {
   const title = publisher.value?.data?.name
   document.title = title ?? 'Загрузка...'
@@ -16,8 +16,8 @@ watchEffect(() => {
 </script>
 
 <template>
-  <PageSkeleton variant="publisher" v-if="isFetching && !publisher?.data" />
-  <Message v-if="!publisher?.success && isFetched"> Издательство на найдено </Message>
+  <PageSkeleton variant="publisher" v-if="isPublisherPending && !publisher?.data" />
+  <Message v-if="!publisher?.success && isPublisherFetched"> Издательство на найдено </Message>
 
   <div v-if="publisher?.success" class="flex flex-col gap-4 w-full">
     <PublisherHeader :publisher="publisher.data" />

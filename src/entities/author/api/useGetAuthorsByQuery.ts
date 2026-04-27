@@ -5,11 +5,11 @@ export const useGetAuthorsByQuery = () => {
   const {
     mutate: findAuthor,
     data: authors,
-    isPending,
-    isSuccess,
+    isPending: isAuthorsPending,
+    isSuccess: isAuthorsSuccess,
   } = useMutation({
     mutationKey: ['get authors by query'],
     mutationFn: (query: string) => authorService.getAuthorsByQuery(query),
   })
-  return { findAuthor, authors, isPending, isSuccess }
+  return { findAuthor, authors, isAuthorsPending, isAuthorsSuccess }
 }
