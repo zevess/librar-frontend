@@ -8,7 +8,13 @@ import type {
   IVerify,
 } from './auth.types'
 import { API_URL } from '@/shared/config/api.config'
-import { saveAccessToken } from './auth.token'
+import {
+  getRefreshToken,
+  removeAccessToken,
+  removeRefreshToken,
+  saveAccessToken,
+  saveRefreshToken,
+} from './auth.token'
 
 class AuthService {
   async login(data: ILogin) {
@@ -17,8 +23,11 @@ class AuthService {
       method: 'POST',
       data,
     })
-    if (response.data.token) {
-      saveAccessToken(response.data.token)
+    if (response.data.access_token) {
+      saveAccessToken(response.data.access_token)
+    }
+    if (response.data.refresh_token) {
+      saveRefreshToken(response.data.refresh_token)
     }
     return response
   }
@@ -31,6 +40,24 @@ class AuthService {
     })
     if (response.data.token) {
       saveAccessToken(response.data.token)
+    }
+    return response
+  }
+
+  async refresh() {
+    const refreshToken = getRefreshToken()
+    const response = await api<IAuthResponse>({
+      url: API_URL.auth('/refresh'),
+      method: 'POST',
+      data: {
+        refreshToken,
+      },
+    })
+    if (response.data.access_token) {
+      saveAccessToken(response.data.access_token)
+    }
+    if (response.data.refresh_token) {
+      saveRefreshToken(response.data.refresh_token)
     }
     return response
   }

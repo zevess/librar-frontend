@@ -1,4 +1,11 @@
-export { removeAccessToken, saveAccessToken, getAccessToken } from './model/auth.token'
+export {
+  removeAccessToken,
+  saveAccessToken,
+  getAccessToken,
+  getRefreshToken,
+  saveRefreshToken,
+  removeRefreshToken,
+} from './model/auth.token'
 export { useLogin } from './api/useLogin'
 export { useRegister } from './api/useRegister'
 export { useForgotPassword } from './api/useForgotPassword'

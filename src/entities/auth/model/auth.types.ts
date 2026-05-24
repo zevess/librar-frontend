@@ -15,6 +15,8 @@ export interface IRegister {
 export interface IAuthResponse {
   user: IUser
   token: string
+  access_token: string
+  refresh_token: string
 }
 
 export interface IResetLinkSentResponse {

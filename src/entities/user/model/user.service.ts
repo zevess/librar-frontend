@@ -1,7 +1,7 @@
 import { apiPrivate } from '@/shared/api/api.interceptor'
 import { API_URL } from '@/shared/config/api.config'
 import type { IUser, IUserForm, IUserNotifications, IUserParams } from './user.types'
-import { removeAccessToken } from '@/entities/auth'
+import { removeAccessToken, removeRefreshToken } from '@/entities/auth'
 import type { IPaginatedResponse, IResponse } from '@/shared/api'
 
 class UserService {
@@ -19,6 +19,7 @@ class UserService {
       method: 'POST',
     })
     removeAccessToken()
+    removeRefreshToken()
     return response
   }
 

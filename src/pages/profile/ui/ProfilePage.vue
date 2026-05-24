@@ -14,6 +14,8 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primevue'
 import { SendVerificationButton } from '@/features/send-verification-button'
 import { ReviewCard, useGetUserReviews } from '@/entities/review'
 import { SkeletonCard } from '@/shared/ui/skeleton-card'
+import { LinkButton } from '@/shared/ui/link-button'
+import { PUBLIC_URL } from '@/shared/config'
 
 const { profile, isProfilePending, isProfileFetched } = useProfile()
 
@@ -53,6 +55,11 @@ const activeReservations = computed(() =>
             <span v-if="profile?.data.isVerified" class="pi pi-verified"></span>
           </div>
           <SendVerificationButton v-if="!profile?.data.isVerified" />
+          <LinkButton
+            v-if="profile?.data.role === 'admin'"
+            :to="PUBLIC_URL.admin()"
+            text="Перейти к панели админа"
+          />
         </div>
       </div>
 
