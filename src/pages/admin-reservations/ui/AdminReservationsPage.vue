@@ -4,7 +4,9 @@ import { CancelExpiredButton } from '@/features/cancel-expired-button'
 import { useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { ReservationFilter } from '@/features/reservation-filter'
+import { ReservationsExportButton } from '@/features/reservations-export-button'
 import { ActionButton } from '@/shared/ui/action-button'
+import { Divider } from '@/shared/ui/divider'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
@@ -26,11 +28,13 @@ const { reservations, isReservationsPending, isReservationsFetched } = useGetRes
     />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
       <div class="flex justify-between gap-4">
-        <ActionButton class="p-4" @click="clearFilter">Сбросить</ActionButton>
+        <ActionButton variant="red" class="p-4" @click="clearFilter">Сбросить</ActionButton>
         <ActionButton class="p-4" @click="applyFilter">Применить</ActionButton>
       </div>
       <CancelExpiredButton class="p-4" />
     </div>
+    <Divider />
+    <ReservationsExportButton class="mr-auto" />
     <SkeletonTable v-if="isReservationsPending && !reservations" />
 
     <ReservationsTable v-if="reservations" :reservations="reservations?.data" />

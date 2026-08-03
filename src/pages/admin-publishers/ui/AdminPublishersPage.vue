@@ -3,8 +3,10 @@ import { PublisherTable, useGetAdminPublishers } from '@/entities/publisher'
 import { useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { PublisherFilter } from '@/features/publisher-filter'
+import { PublishersImportButton } from '@/features/publishers-import-button'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { ActionButton } from '@/shared/ui/action-button'
+import { Divider } from '@/shared/ui/divider'
 import { LinkButton } from '@/shared/ui/link-button'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
@@ -28,6 +30,8 @@ const { publishers, isPublishersPending } = useGetAdminPublishers(params)
 
       <LinkButton :to="PUBLIC_URL.adminPublisherCreate()" text="Добавить издательство" />
     </div>
+    <Divider />
+    <PublishersImportButton class="mr-auto" />
     <SkeletonTable :cols="3" v-if="isPublishersPending && !publishers" />
 
     <PublisherTable v-if="publishers" :publishers="publishers.data" />

@@ -23,6 +23,11 @@ export interface IReservationParams {
   page?: number
 }
 
+export interface IReservationExportParams {
+  start_date?: string | null | Date
+  end_date?: string | null | Date
+}
+
 export enum IReservationStatus {
   reserved = 'Забронировано',
   issued = 'Выдано',

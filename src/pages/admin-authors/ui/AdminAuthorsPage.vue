@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { AuthorTable, useGetAdminAuthors } from '@/entities/author'
 import { AuthorFilter } from '@/features/author-filter'
+import { AuthorsImportButton } from '@/features/authors-import-button'
 import { useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { ActionButton } from '@/shared/ui/action-button'
+import { Divider } from '@/shared/ui/divider'
 import { LinkButton } from '@/shared/ui/link-button'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
@@ -27,6 +29,8 @@ const { authors, isAuthorsPending } = useGetAdminAuthors(params)
       </div>
       <LinkButton :to="PUBLIC_URL.adminAuthorCreate()" text="Добавить автора" />
     </div>
+    <Divider />
+    <AuthorsImportButton class="mr-auto" />
     <SkeletonTable :cols="3" v-if="isAuthorsPending && !authors" />
 
     <AuthorTable v-if="authors" :authors="authors?.data" />

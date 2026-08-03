@@ -78,6 +78,19 @@ class PublisherService {
     })
     return response
   }
+  async importPublishers(file: File) {
+    const formData = new FormData()
+    formData.append('file', file)
+    const response = await apiPrivate({
+      url: API_URL.importPublishers(),
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      method: 'POST',
+      data: formData,
+    })
+    return response
+  }
 }
 
 export const publisherService = new PublisherService()

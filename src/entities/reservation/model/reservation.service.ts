@@ -1,5 +1,10 @@
 import { apiPrivate, type IPaginatedResponse } from '@/shared/api'
-import type { IReservationResponse, IReservation, IReservationParams } from './reservation.types'
+import type {
+  IReservationResponse,
+  IReservation,
+  IReservationParams,
+  IReservationExportParams,
+} from './reservation.types'
 import { API_URL } from '@/shared/config'
 
 class ReservationService {
@@ -66,6 +71,31 @@ class ReservationService {
       method: 'PUT',
     })
     return response
+  }
+  async exportReservations(params?: IReservationExportParams) {
+    const response = await apiPrivate({
+      url: API_URL.exportReservations(),
+      method: 'GET',
+      params,
+      responseType: 'blob',
+    })
+
+    const contentDisposition = response.headers['content-disposition']
+    let filename = `reservations_${params?.start_date}_${params?.end_date}.xlsx`
+
+    if (contentDisposition) {
+      const filenameMatch = contentDisposition.match(
+        /filename\*?=(?:UTF-8'')?["']?([^"';\n]+)["']?/i,
+      )
+      if (filenameMatch && filenameMatch[1]) {
+        filename = decodeURIComponent(filenameMatch[1].trim())
+      }
+    }
+
+    return {
+      blob: response.data,
+      filename,
+    }
   }
 }
 

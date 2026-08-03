@@ -5,7 +5,12 @@ export { useCancelReservation } from './api/useCancelReservation'
 export { useIssueReservation } from './api/useIssueReservation'
 export { useAcceptReservation } from './api/useAcceptReservation'
 export { useCancelExpired } from './api/useCancelExpired'
-export type { IReservationParams, IReservation } from './model/reservation.types'
+export { useExportReservations } from './api/useExportReservations.ts'
+export type {
+  IReservationParams,
+  IReservation,
+  IReservationExportParams,
+} from './model/reservation.types'
 export { IReservationStatus } from './model/reservation.types'
 export { statusArray } from './model/reservation.types'
 export { default as ReservationsTable } from './ui/ReservationsTable.vue'

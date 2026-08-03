@@ -4,7 +4,7 @@ import { FileUpload, type FileUploadSelectEvent } from 'primevue'
 
 const src = defineModel<string | null>('src')
 const image = defineModel<File | null>('image')
-function onFileSelect(event: FileUploadSelectEvent) {
+const onFileSelect = (event: FileUploadSelectEvent) => {
   const file = event.files[0]
   if (file) {
     image.value = file
@@ -18,7 +18,7 @@ function onFileSelect(event: FileUploadSelectEvent) {
   reader.readAsDataURL(file)
 }
 
-function clearImage() {
+const clearImage = () => {
   src.value = null
   image.value = null
 }

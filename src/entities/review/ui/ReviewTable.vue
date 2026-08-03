@@ -52,7 +52,7 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
         >
       </template>
     </Column>
-    <Column field="user.email" header="Пользователь"></Column>
+    <Column field="user.name" header="Пользователь"></Column>
     <Column field="isDeleted" header="Статус">
       <template #body="{ data }">
         <Tag v-if="data.isDeleted" value="Удален" severity="danger" />

@@ -7,6 +7,7 @@ const { cancelExpired, isCancelingExpired } = useCancelExpired()
 
 <template>
   <ActionButton
+    variant="red"
     :disabled="isCancelingExpired"
     @click="cancelExpired"
     title="Отменить просроченные"

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { BookTable, useGetAdminBooks } from '@/entities/book'
 import { BookFilter } from '@/features/book-filter'
+import { BooksImportButton } from '@/features/books-import-button'
 import { useFilter } from '@/features/filter'
 import { Pagination } from '@/features/pagination'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { ActionButton } from '@/shared/ui/action-button'
+import { Divider } from '@/shared/ui/divider'
 import { LinkButton } from '@/shared/ui/link-button'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
@@ -29,12 +31,14 @@ const { books, isBooksPending } = useGetAdminBooks(params)
     />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
       <div class="flex justify-between gap-4">
-        <ActionButton class="p-4" @click="clearFilter">Сбросить</ActionButton>
+        <ActionButton variant="red" class="p-4" @click="clearFilter">Сбросить</ActionButton>
         <ActionButton class="p-4" @click="applyFilter">Применить</ActionButton>
       </div>
 
       <LinkButton :to="PUBLIC_URL.adminBookCreate()" text="Добавить книгу" />
     </div>
+    <Divider />
+    <BooksImportButton class="mr-auto" />
     <SkeletonTable :cols="6" v-if="isBooksPending && !books" />
 
     <BookTable v-if="books?.data" :books="books?.data" />

@@ -76,5 +76,18 @@ class BookService {
     })
     return response
   }
+  async importBooks(file: File) {
+    const formData = new FormData()
+    formData.append('file', file)
+    const response = await apiPrivate({
+      url: API_URL.importBooks(),
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      method: 'POST',
+      data: formData,
+    })
+    return response
+  }
 }
 export const bookService = new BookService()
