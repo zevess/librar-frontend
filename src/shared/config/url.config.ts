@@ -22,7 +22,7 @@ export const PUBLIC_URL = {
   publisher: (publisherSlug = '') => PUBLIC_URL.root(`/publisher/${publisherSlug}`),
 
   admin: (url = '') => PUBLIC_URL.root(`/admin${url}`),
-  adminUsers: () => PUBLIC_URL.admin(`/users`),
+  adminUsers: (url = '') => PUBLIC_URL.admin(`/users${url}`),
 
   adminBooks: (url = '') => PUBLIC_URL.admin(`/books${url}`),
   adminBookCreate: () => PUBLIC_URL.adminBooks(`/create`),

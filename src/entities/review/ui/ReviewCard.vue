@@ -36,7 +36,7 @@ const rating = ref(props.review.rating)
 
       <span>{{ convertedDate(review.createdAt) }}</span>
     </div>
-    <PrimeRating font-size="16px" v-model="rating" readonly />
+    <PrimeRating class="pointer-events-none" font-size="16px" v-model="rating" readonly />
     <p class="text-black">{{ review.text }}</p>
   </div>
 </template>

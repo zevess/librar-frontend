@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useGetBook } from '@/entities/book'
+import { BackButton } from '@/features/back-button'
 import { BookForm } from '@/features/book-form'
 import { useGetParams } from '@/shared/lib'
 import { Message } from '@/shared/ui/message'
@@ -16,6 +17,7 @@ watchEffect(() => {
 </script>
 
 <template>
+  <BackButton />
   <PageTitle title="изменить книгу" />
   <ConfirmDialog></ConfirmDialog>
   <BookForm mode="edit" v-if="book?.data" :book="book.data"></BookForm>

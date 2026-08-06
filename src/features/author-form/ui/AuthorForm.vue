@@ -14,6 +14,7 @@ import {
 import { useAuthorFormInitialValues } from '../lib/useAuthorFormInitialValues'
 import { DeleteButton } from '@/features/delete-button'
 import { Textarea } from '@/shared/ui/textarea'
+import { SaveButton } from '@/features/save-button'
 
 const props = defineProps<{
   mode: 'create' | 'edit'
@@ -49,13 +50,12 @@ const onSubmit = handleSubmit(async (formValues) => {
         <span v-if="errors.description" class="text-red-500">{{ errors.description }}</span>
       </div>
     </div>
-
     <div class="w-full flex justify-center">
-      <ActionButton
+      <SaveButton
+        :mode="props.mode"
+        create-title="Добавить автора"
+        edit-title="Сохранить"
         :disabled="!meta.valid || isAuthorCreating || isAuthorUpdating"
-        type="submit"
-        class="md:max-w-1/3 w-full"
-        :title="props.mode === 'create' ? 'Добавить автора' : 'Изменить автора'"
       />
     </div>
   </form>

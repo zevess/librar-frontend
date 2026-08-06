@@ -2,10 +2,12 @@
 import { useGetCategories, type ICategory } from '@/entities/category'
 import {
   AutoComplete,
+  InputGroup,
+  InputGroupAddon,
   type AutoCompleteCompleteEvent,
   type AutoCompleteOptionSelectEvent,
 } from 'primevue'
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const { categories } = useGetCategories()
 const selectedCategory = defineModel<ICategory | string | null>('selectedCategory')
@@ -27,22 +29,37 @@ const search = (event: AutoCompleteCompleteEvent) => {
 const onSelect = (event: AutoCompleteOptionSelectEvent) => {
   category.value = event.value.id
 }
+
+const isSelected = computed(() => {
+  return typeof selectedCategory.value === 'object' && selectedCategory.value !== null
+})
+
+watch(selectedCategory, (newValue) => {
+  if (!newValue || typeof newValue === 'string') {
+    category.value = null
+  }
+})
 </script>
 
 <template>
-  <AutoComplete
-    :suggestions="filteredCategories"
-    v-model="selectedCategory"
-    @option-select="onSelect"
-    @complete="search"
-    placeholder="категория"
-    option-label="name"
-    forceSelection
-    show-clear
-    dropdown
-  >
-    <template #empty>
-      <div class="p-3 text-gray-500">Категория не найдена</div>
-    </template>
-  </AutoComplete>
+  <InputGroup>
+    <InputGroupAddon v-if="isSelected">
+      <i class="pi pi-check"></i>
+    </InputGroupAddon>
+    <AutoComplete
+      :suggestions="filteredCategories"
+      v-model="selectedCategory"
+      @option-select="onSelect"
+      @complete="search"
+      placeholder="категория"
+      option-label="name"
+      forceSelection
+      show-clear
+      dropdown
+    >
+      <template #empty>
+        <div class="p-3 text-gray-500">Категория не найдена</div>
+      </template>
+    </AutoComplete>
+  </InputGroup>
 </template>

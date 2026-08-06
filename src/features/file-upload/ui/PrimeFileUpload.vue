@@ -35,6 +35,7 @@ const clearImage = () => {
       chooseLabel="Выбрать"
       class="p-button-outlined"
       style="border-color: #d1ebe9; border-radius: 6px; border-width: 2px; color: #a4c8c6"
+      v-if="!src"
     />
     <span v-if="!image && !src">Изображение не выбрано</span>
     <div v-if="src" class="relative">

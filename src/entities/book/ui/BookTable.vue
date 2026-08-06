@@ -42,7 +42,8 @@ const { onRowEditClose } = useRowActions(editingRows)
     <Column field="isDeleted" header="Статус">
       <template #body="{ data }">
         <Tag v-if="data.isDeleted" value="Удален" severity="danger" />
-        <Tag v-if="!data.isDeleted" value="Доступна" severity="success" />
+        <Tag v-if="!data.isDeleted && data.isActive" value="Доступна" severity="success" />
+        <Tag v-if="!data.isActive && !data.isDeleted" value="Недоступна" severity="warn" />
       </template>
     </Column>
     <Column style="width: 5%">
@@ -65,7 +66,7 @@ const { onRowEditClose } = useRowActions(editingRows)
               onRowEditClose(data)
             }
           "
-          confirm-header="Удалить автора"
+          confirm-header="Удалить книгу"
         />
         <RestoreButton
           v-if="data.isDeleted"

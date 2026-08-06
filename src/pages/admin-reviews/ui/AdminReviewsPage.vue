@@ -25,7 +25,7 @@ const { reviews, isReviewsPending } = useGetAdminReviews(params)
     />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
       <div class="flex justify-between gap-4">
-        <ActionButton class="p-4" @click="clearFilter">Сбросить</ActionButton>
+        <ActionButton variant="red" class="p-4" @click="clearFilter">Сбросить</ActionButton>
         <ActionButton class="p-4" @click="applyFilter">Применить</ActionButton>
       </div>
     </div>

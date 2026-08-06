@@ -92,7 +92,7 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
               onRowEditClose(data)
             }
           "
-          confirm-header="Удалить издателя"
+          confirm-header="Удалить пользователя"
         />
         <RestoreButton
           v-if="data.isDeleted"
@@ -103,8 +103,8 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
               onRowEditClose(data)
             }
           "
-          confirm-message="Вы уверены? Издатель будет восстановлен со всеми данными"
-          confirm-header="Восстановить издателя"
+          confirm-message="Вы уверены? Пользователь будет восстановлен со всеми данными"
+          confirm-header="Восстановить пользователя"
         />
       </template>
     </Column>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useGetAuthor } from '@/entities/author'
 import { AuthorForm } from '@/features/author-form'
+import { BackButton } from '@/features/back-button'
 import { useGetParams } from '@/shared/lib'
 import { Message } from '@/shared/ui/message'
 import { PageTitle } from '@/shared/ui/page-title'
@@ -16,6 +17,7 @@ watchEffect(() => {
 </script>
 
 <template>
+  <BackButton />
   <PageTitle title="изменить автора" />
   <ConfirmDialog></ConfirmDialog>
   <AuthorForm mode="edit" v-if="author?.data" :author="author?.data" />

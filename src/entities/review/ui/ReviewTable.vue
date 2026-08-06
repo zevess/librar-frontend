@@ -52,7 +52,13 @@ const onRowEditSave = (event: DataTableRowEditSaveEvent) => {
         >
       </template>
     </Column>
-    <Column field="user.name" header="Пользователь"></Column>
+    <Column field="user.name" header="Пользователь">
+      <template #body="{ data }">
+        <RouterLink class="hover:underline" :to="PUBLIC_URL.adminUsers(`?q=${data.user.name}`)">{{
+          data.user.name
+        }}</RouterLink>
+      </template></Column
+    >
     <Column field="isDeleted" header="Статус">
       <template #body="{ data }">
         <Tag v-if="data.isDeleted" value="Удален" severity="danger" />

@@ -44,7 +44,7 @@ const genres = computed(() => {
       <div v-if="book.genres" class="flex flex-wrap gap-2 items-start">
         <span v-for="genre in genres" class="bg-[#d1ebe9] p-1 px-2">{{ genre.name }}</span>
       </div>
-      <span v-if="!book.genres" class="text-gray-500 items-start">не указано</span>
+      <span v-if="book.genres.data.length === 0" class="text-gray-500 items-start">не указано</span>
     </li>
   </ul>
 </template>

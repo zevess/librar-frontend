@@ -62,6 +62,9 @@ body {
 .p-autocomplete-input:disabled {
   background-color: #e5e7eb !important;
 }
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
+  background-color: #a4c8c6 !important;
+}
 
 .p-toast {
   width: 100% !important;

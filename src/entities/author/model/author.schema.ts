@@ -5,7 +5,7 @@ export const authorSchema = z.object({
     .string('Некорректный формат')
     .min(1, 'Имя не должно быть пустым')
     .nonempty('Имя не должно быть пустым'),
-  description: z.string('Некорректный формат'),
+  description: z.string('Некорректный формат').nullable(),
 })
 
 export type AuthorSchema = z.infer<typeof authorSchema>

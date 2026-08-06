@@ -56,11 +56,11 @@ const onSubmit = handleSubmit(async (formValues) => {
     </div>
 
     <div class="w-full flex justify-center">
-      <ActionButton
+      <SaveButton
+        :mode="props.mode"
+        create-title="Добавить издательство"
+        edit-title="Сохранить"
         :disabled="!meta.valid || isPublisherCreating || isPublisherUpdating"
-        type="submit"
-        class="md:max-w-1/3 w-full"
-        :title="props.mode === 'create' ? 'Добавить издательство' : 'Изменить издательство'"
       />
     </div>
   </form>

@@ -11,7 +11,7 @@ export interface IAuthor {
 
 export interface IAuthorForm {
   name: string
-  description?: string
+  description?: string | null
 }
 
 export interface IAuthorParams {

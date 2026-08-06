@@ -17,6 +17,7 @@ export interface IBook {
   }
   isAvailable: boolean
   isSubscribed: boolean
+  isActive: boolean
 }
 
 export interface IBookResponse {
@@ -45,6 +46,7 @@ export interface IBookForm {
   category_id: number
   publisher_id: number
   image?: string | null
+  is_active?: boolean
 }
 
 export enum BookStatus {

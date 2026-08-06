@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useGetPublisher } from '@/entities/publisher'
+import { BackButton } from '@/features/back-button'
 import { PublisherForm } from '@/features/publisher-form'
 import { useGetParams } from '@/shared/lib'
 import { Message } from '@/shared/ui/message'
@@ -16,6 +17,7 @@ watchEffect(() => {
 </script>
 
 <template>
+  <BackButton />
   <PageTitle title="изменить издательство" />
   <ConfirmDialog></ConfirmDialog>
   <PublisherForm v-if="publisher?.success" :publisher="publisher?.data" mode="edit" />

@@ -27,9 +27,11 @@ const { users, isUsersPending } = useGetUsers(params, isAdmin)
         v-model:query-filter="q"
         v-model:role-filter="role"
       />
-      <div class="flex justify-between gap-4">
-        <ActionButton class="p-4" @click="clearFilter">Сбросить</ActionButton>
-        <ActionButton class="p-4" @click="applyFilter">Применить</ActionButton>
+      <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
+        <div class="flex justify-between gap-4">
+          <ActionButton variant="red" class="p-4" @click="clearFilter">Сбросить</ActionButton>
+          <ActionButton class="p-4" @click="applyFilter">Применить</ActionButton>
+        </div>
       </div>
       <SkeletonTable v-if="isUsersPending && !users" />
       <UserTable v-if="users?.data" :users="users?.data" />

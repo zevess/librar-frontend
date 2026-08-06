@@ -7,7 +7,7 @@ import { useUserStore } from '@/entities/user'
 import { ref } from 'vue'
 
 export const useLogin = () => {
-  const { setUser, setToken, initFromCookies } = useUserStore()
+  // const { setUser, setToken, initFromCookies } = useUserStore()
   const router = useRouter()
   const errorMessage = ref()
   const {
@@ -21,9 +21,9 @@ export const useLogin = () => {
     mutationKey: ['login user'],
     mutationFn: (data: ILogin) => authService.login(data),
     onSuccess(data) {
-      setUser(data.data.user)
-      setToken(data.data.token)
-      initFromCookies()
+      // setUser(data.data.user)
+      // setToken(data.data.token)
+      // initFromCookies()
       router.push('/')
     },
     onError(error) {

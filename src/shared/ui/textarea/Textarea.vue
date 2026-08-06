@@ -4,7 +4,7 @@ defineProps<{
   withLabel?: boolean
   label?: string
 }>()
-const model = defineModel<string>()
+const model = defineModel<string | null>()
 </script>
 <template>
   <textarea

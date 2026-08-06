@@ -17,7 +17,15 @@ const { slug } = useGetParams()
   <div class="flex items-center flex-col md:flex-row justify-center md:justify-between">
     <div class="flex flex-col items-center md:items-baseline w-full">
       <div class="flex justify-center md:justify-start items-center w-full">
-        <PageTitle :title="book?.title" class="md:text-left" />
+        <div class="flex items-center gap-2">
+          <PageTitle :title="book?.title" class="md:text-left" />
+          <span
+            v-if="!book.isActive"
+            title="Скрыто"
+            class="pi pi-eye-slash"
+            style="font-size: 1.5rem"
+          ></span>
+        </div>
         <SettingButton class="block md:hidden" :to="PUBLIC_URL.adminBookEdit(String(slug))" />
       </div>
 
