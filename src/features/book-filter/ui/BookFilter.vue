@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { booksStatusArray } from '@/entities/book'
 import { useGetCategories } from '@/entities/category'
 import { useGetGenres, type IGenre } from '@/entities/genre'
 import { useGetAllPublishers, useGetPublishers } from '@/entities/publisher'
@@ -15,6 +16,7 @@ const categoryFilter = defineModel<number | null>('categoryFilter')
 const queryFilter = defineModel<string | null>('queryFilter')
 const genresFilter = defineModel<number[] | null>('genresFilter')
 const publishersFilter = defineModel<number[] | null>('publishersFilter')
+const statusFilter = defineModel<string | null>('statusFilter')
 </script>
 
 <template>
@@ -58,6 +60,17 @@ const publishersFilter = defineModel<number[] | null>('publishersFilter')
           optionLabel="name"
           option-value="id"
           placeholder="жанры"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-gray-700">статус:</label>
+        <PrimeSelect
+          class="w-full"
+          option-label="label"
+          option-value="value"
+          v-model="statusFilter"
+          :options="booksStatusArray"
+          placeholder="статус"
         />
       </div>
     </div>

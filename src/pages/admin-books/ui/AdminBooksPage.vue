@@ -13,7 +13,8 @@ import { PageTitle } from '@/shared/ui/page-title'
 import { SkeletonTable } from '@/shared/ui/skeleton-table'
 import { ConfirmDialog } from 'primevue'
 
-const { q, id, publishers, genres, category, params, applyFilter, clearFilter } = useFilter()
+const { q, id, publishers, genres, category, status, params, applyFilter, clearFilter } =
+  useFilter()
 
 const { books, isBooksPending } = useGetAdminBooks(params)
 </script>
@@ -28,6 +29,7 @@ const { books, isBooksPending } = useGetAdminBooks(params)
       v-model:genres-filter="genres"
       v-model:category-filter="category"
       v-model:publishers-filter="publishers"
+      v-model:status-filter="status"
     />
     <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-between">
       <div class="flex justify-between gap-4">

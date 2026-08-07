@@ -17,7 +17,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <BackButton />
+  <BackButton to="adminAuthors" />
   <PageTitle title="изменить автора" />
   <ConfirmDialog></ConfirmDialog>
   <AuthorForm mode="edit" v-if="author?.data" :author="author?.data" />

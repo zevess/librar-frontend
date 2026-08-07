@@ -53,3 +53,14 @@ export enum BookStatus {
   AVAILABLE = 'available',
   RESERVED = 'reserved',
 }
+
+export enum BooksFilterStatus {
+  active = 'Доступно',
+  inactive = 'Недоступно',
+  deleted = 'Удалено',
+}
+
+export const booksStatusArray = Object.entries(BooksFilterStatus).map(([value, label]) => ({
+  value,
+  label,
+}))

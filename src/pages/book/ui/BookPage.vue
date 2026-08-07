@@ -14,14 +14,14 @@ import { ConfirmDialog } from 'primevue'
 import { SkeletonCard } from '@/shared/ui/skeleton-card'
 
 const { slug, id } = useGetParams()
-const { previousRoute } = usePreviousRoute()
+// const { previousRoute } = usePreviousRoute()
 const { book, isBookFetched, refetch, isBookPending } = useGetBook(slug)
 const { reviews, isReviewsFetched, isReviewPending, isReviewsError } = useGetBookReviews(id)
 const { isAuthentificated } = useUserStore()
 
-onMounted(async () => {
-  if (previousRoute.value?.name === 'books/edit') refetch()
-})
+// onMounted(async () => {
+//   if (previousRoute.value?.name === 'books/edit') refetch()
+// })
 
 watchEffect(() => {
   const title = book.value?.data?.title

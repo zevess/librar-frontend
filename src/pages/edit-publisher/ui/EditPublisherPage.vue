@@ -17,7 +17,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <BackButton />
+  <BackButton to="adminPublishers" />
   <PageTitle title="изменить издательство" />
   <ConfirmDialog></ConfirmDialog>
   <PublisherForm v-if="publisher?.success" :publisher="publisher?.data" mode="edit" />

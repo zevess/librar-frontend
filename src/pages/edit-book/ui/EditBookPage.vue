@@ -17,7 +17,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <BackButton />
+  <BackButton to="adminBooks" />
   <PageTitle title="изменить книгу" />
   <ConfirmDialog></ConfirmDialog>
   <BookForm mode="edit" v-if="book?.data" :book="book.data"></BookForm>

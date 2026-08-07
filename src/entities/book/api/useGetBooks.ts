@@ -15,7 +15,7 @@ export const useGetBooks = (params?: ComputedRef<IBooksParams>, enabled?: boolea
     queryKey: ['get books', params],
     queryFn: () => bookService.getBooks(params?.value),
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
     enabled: enabled,
   })
   return { books, isBooksError, isBooksFetched, isBooksPending, isBooksFetching, refetch }

@@ -15,7 +15,7 @@ export const useGetAdminBooks = (params?: ComputedRef<IBooksParams>, enabled?: b
     queryKey: ['get admin books', params],
     queryFn: () => bookService.getAdminBooks(params?.value),
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
     enabled: enabled,
   })
   return { books, isBooksFetching, isBooksFetched, isBooksError, isBooksPending, refetch }
