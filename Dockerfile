@@ -3,11 +3,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --force
 COPY . .
-ARG VITE_APP_NAME
-ARG VITE_APP_DOMAIN
-ARG VITE_APP_URL
-ARG VITE_API_SERVER_URL
-ARG VITE_SERVER_URL
+ARG VITE_APP_NAME=Librar
+ARG VITE_APP_DOMAIN=localhost
+ARG VITE_APP_URL=localhost:3000
+ARG VITE_API_SERVER_URL=http://localhost:8000/api
+ARG VITE_SERVER_URL=http://localhost:8000
 
 ENV VITE_APP_NAME=${VITE_APP_NAME}
 ENV VITE_APP_DOMAIN=${VITE_APP_DOMAIN}
@@ -18,7 +18,6 @@ ENV VITE_SERVER_URL=${VITE_SERVER_URL}
 RUN npm run build
 
 FROM nginx:alpine
-RUN rm -rf /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80

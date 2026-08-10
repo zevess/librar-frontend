@@ -23,7 +23,7 @@ export const useCreateGenre = () => {
     onSuccess() {
       toast.success('Успех', 'Жанр успешно создан')
       queryClient.invalidateQueries({
-        queryKey: ['get genres'],
+        queryKey: ['get admin genres'],
       })
       router.push(PUBLIC_URL.adminGenres())
     },

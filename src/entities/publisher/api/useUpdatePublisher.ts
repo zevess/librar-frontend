@@ -1,6 +1,4 @@
-import { useMutation } from '@tanstack/vue-query'
-import { useRouter } from 'vue-router'
-import { PUBLIC_URL } from '@/shared/config'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import axios from 'axios'
 import { ref } from 'vue'
 import type { IPublisherForm } from '../model/publisher.types'
@@ -8,9 +6,9 @@ import { publisherService } from '../model/publisher.service'
 import { useToastStore } from '@/shared/lib'
 
 export const useUpdatePublisher = (publisherId: string) => {
-  const router = useRouter()
   const errorMessage = ref()
   const toast = useToastStore()
+  const queryClient = useQueryClient()
   const {
     mutate: updatePublisher,
     isPending: isPublisherUpdating,
@@ -19,9 +17,16 @@ export const useUpdatePublisher = (publisherId: string) => {
   } = useMutation({
     mutationKey: ['update publisher'],
     mutationFn: (data: IPublisherForm) => publisherService.updatePublisher(data, publisherId),
-    onSuccess(data) {
+    onSuccess: async (data) => {
       toast.success('Успех', 'Издатель успешно обновлен')
-      router.push(PUBLIC_URL.publisher(`${data.data.data.slug}-${data.data.data.id}`))
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ['get publisher', `${data.data.data.slug}-${data.data.data.id}`],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ['get admin publishers'],
+        }),
+      ])
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

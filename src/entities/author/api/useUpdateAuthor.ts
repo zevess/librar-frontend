@@ -1,16 +1,14 @@
-import { useMutation } from '@tanstack/vue-query'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { authorService } from '../model/author.service'
 import type { IAuthorForm } from '../model/author.types'
-import { useRouter } from 'vue-router'
-import { PUBLIC_URL } from '@/shared/config'
 import axios from 'axios'
 import { ref } from 'vue'
 import { useToastStore } from '@/shared/lib'
 
 export const useUpdateAuthor = (authorId: string) => {
-  const router = useRouter()
   const errorMessage = ref()
   const toast = useToastStore()
+  const queryClient = useQueryClient()
   const {
     mutate: updateAuthor,
     isPending: isAuthorUpdating,
@@ -19,9 +17,16 @@ export const useUpdateAuthor = (authorId: string) => {
   } = useMutation({
     mutationKey: ['update author'],
     mutationFn: (data: IAuthorForm) => authorService.updateAuthor(data, authorId),
-    onSuccess(data) {
+    onSuccess: async (data) => {
       toast.success('Успех', 'Автор успешно обновлен')
-      router.push(PUBLIC_URL.author(`${data.data.data.slug}-${data.data.data.id}`))
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ['get author', `${data.data.data.slug}-${data.data.data.id}`],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ['get admin authors'],
+        }),
+      ])
     },
     onError(error) {
       if (axios.isAxiosError(error)) {

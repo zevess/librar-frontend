@@ -23,7 +23,7 @@ export const useCreateCategory = () => {
     onSuccess() {
       toast.success('Успех', 'Категория успешно создана')
       queryClient.invalidateQueries({
-        queryKey: ['get categories'],
+        queryKey: ['get admin categories'],
       })
       router.push(PUBLIC_URL.adminCategories())
     },
