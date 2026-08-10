@@ -56,7 +56,7 @@ const activeReservations = computed(() =>
           </div>
           <SendVerificationButton v-if="!profile?.data.isVerified" />
           <LinkButton
-            v-if="profile?.data.role === 'admin'"
+            v-if="profile?.data.role === 'admin' || profile?.data.role === 'librarian'"
             :to="PUBLIC_URL.admin()"
             text="Перейти к панели админа"
           />
